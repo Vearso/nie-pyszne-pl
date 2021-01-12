@@ -1,11 +1,11 @@
 <template>
-  <aside class="np-cart__aside">
+  <aside v-if='this.$store.state.menuOpened !== true' class="np-cart__aside">
     <div class="np-cart__avatar"></div>
-
     <div class="np-cart__arrow__container" @click = toggleCart>
       <img alt="left arrow" class="np-cart__arrow" v-bind:src="leftArrow"/>
     </div>
   </aside>
+  <aside v-else class="np-cart__menu"/>
 </template>
 
 <script lang="ts">
@@ -23,8 +23,8 @@ const Cart = defineComponent({
       console.log(this.$store.state);
     }
   }
-})
-export default Cart
+});
+export default Cart;
 </script>
 
 <style scoped lang="scss">
