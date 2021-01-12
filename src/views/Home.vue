@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home flex justify-between">
     <Header/>
     <Navigation/>
     <Products/>
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Cart from "@/components/Cart/Cart";
+import Cart from "@/components/Cart/Cart.vue";
 @Options({
   components: {
     Cart
