@@ -1,8 +1,13 @@
 import { createStore } from "vuex";
-
 export default createStore({
-  state: {},
-  mutations: {},
+  state: {
+    menuOpened: false,
+  },
+  mutations: {
+    toggleMenu(state) {
+      state.menuOpened = !state.menuOpened;
+    }
+  },
   actions: {},
   modules: {}
 });

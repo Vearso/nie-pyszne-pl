@@ -1,8 +1,8 @@
 <template>
   <div class="product-list-item">
     <div
-      class="product-list-item__picture"
-      v-bind:style="{ backgroundImage: 'url(' + imgUrl + ')' }"
+        class="product-list-item__picture"
+        v-bind:style="{ backgroundImage: 'url(' + imgUrl + ')' }"
     ></div>
     <div class="product-list-item__description">
       <span class="product-list-item__description__title">{{ title }} </span>
