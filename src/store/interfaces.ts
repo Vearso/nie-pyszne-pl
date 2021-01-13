@@ -9,3 +9,12 @@ export interface CartItem {
   price: number;
   imgUrl: string;
 }
+
+export interface CartFormState {
+  fullName: string;
+  mail: string;
+  phone: number;
+  city: string;
+  address: string;
+  postCode: string;
+}

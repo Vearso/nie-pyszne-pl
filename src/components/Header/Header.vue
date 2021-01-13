@@ -1,7 +1,7 @@
 <template>
   <header class="np-header">
     <img class="np-header__image"
-         :src="image"
+         :src=image
          alt="Logo">
 
     <div class="np-header__wrapper">

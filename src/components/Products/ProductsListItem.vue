@@ -10,7 +10,7 @@
       <span class="product-list-item__description__price">${{ price }}</span>
     </div>
     <div class="product-list-item__rating">
-      <img src="../../assets/star.png" /> {{ rate }}
+      <img src="../../assets/star.png" /> {{ rating }}
     </div>
   </div>
 </template>
