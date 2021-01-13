@@ -23,12 +23,14 @@ import {mapGetters,mapMutations} from "vuex";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
 import Summary from "./Summary/Summary.vue";
+import CartList from "./CartList/CartList.vue";
 
 const Cart = defineComponent({
   components: {
     User,
     Steps,
     Summary,
+    CartList,
   },
   data() {
     return {
