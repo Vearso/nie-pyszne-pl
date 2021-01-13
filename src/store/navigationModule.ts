@@ -1,32 +1,40 @@
-import { NavStoreModule, NavState } from "./navigationInterface";
+import { NavStoreModule, NavState, FoodListItem } from "./navigationInterface";
+import { getFoodList } from "../utilities/apiCalls";
 
 const navigationModule: NavStoreModule = {
   state: () => ({
-    isProdListAList: false,
-    foodList: [],
+    isFoodListAList: false,
+    fullFoodList: [],
+    filteredFoodList: [],
+    filterFoodParam: "",
+    foodListOrder: "none",
+    categoryList: [],
     activeFoodCategory: "all",
-    foodListOrder: "none"
   }),
   mutations: {
     toggleListView(state: NavState){
-      state.isProdListAList = !state.isProdListAList
+      state.isFoodListAList = !state.isFoodListAList
+    },
+    setFoodList(state: NavState, list: FoodListItem[]){
+      state.fullFoodList = list;
+      state.filteredFoodList = state.fullFoodList;
     },
     orderFoodList(state: NavState){
-      const foodList = [...state.foodList];
+      const foodList = [...state.filteredFoodList];
       const orderList = () => {
         switch(state.foodListOrder){
           case "alph_asc":
-            foodList.sort((a,b) => {
+            foodList.sort((a:any,b:any) => {
               return a.name - b.name
             });
             break;
           case "alph_desc":
-            foodList.sort((a,b) => {
+            foodList.sort((a:any,b:any) => {
               return b.name - a.name
             });
             break;
           case "price_asc":
-            foodList.sort((a,b) => {
+            foodList.sort((a:FoodListItem,b:FoodListItem) => {
               return a.price - b.price
             });
             break;
@@ -38,13 +46,36 @@ const navigationModule: NavStoreModule = {
         }
       }
       orderList();
-      state.foodList = foodList;
+      state.filteredFoodList = foodList;
+    },
+    filterFoodList(state: NavState, param:string){
+      const parameter = param.trim().toLowerCase();
+
+      const filteredList = [...state.fullFoodList];
+      filteredList.filter(result => {
+        if(
+          result.name.includes(parameter) || result.price.toString() === parameter || result.rating.toString() === parameter
+        ){
+          return result
+        }
+      });
+      state.filteredFoodList = filteredList;
+    },
+    setFoodListFilter(state: NavState, filter: string){
+      state.filterFoodParam = filter;
     },
     setActiveFoodCategory(state: NavState, newCategory: string){
       state.activeFoodCategory = newCategory;
     }
   },
-  actions: {},
+  actions: {
+    async fetchFoodList(context: any){
+      const searchedCategory = context.state.activeFoodCategory;
+      const list: FoodListItem[] = await getFoodList(searchedCategory);
+
+      context.commit('setFoodList', list);
+    }
+  },
   getters: {}
 }
 
