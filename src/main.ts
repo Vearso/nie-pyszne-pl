@@ -1,10 +1,19 @@
 import { createApp } from "vue";
+import { createI18n} from "vue-i18n";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import './index.css';
+import "./index.scss";
+import messages from "./locales/en";
+
+const i18n = createI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages,
+})
 
 createApp(App)
-  .use(store)
-  .use(router)
-  .mount("#app");
+    .use(store)
+    .use(router)
+    .use(i18n)
+    .mount("#app");

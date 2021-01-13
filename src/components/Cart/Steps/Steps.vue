@@ -1,12 +1,21 @@
 <template>
   <div class="np-cart__steps__container">
-    <div v-for="(element,index) in steps" :key="index" class="np-cart__step">
-      <div v-if="stepValue - 1 === index" class="np-cart__step__circle--active"/>
-      <div v-if="stepValue - 1 > index" class="np-cart__step__circle--completed"/>
-      <div v-if="stepValue - 1 < index" class="np-cart__step__circle--waiting"/>
-      <p v-if="stepValue-1 > index" class="text-primary">{{ element }}</p>
-      <p v-if="stepValue-1 < index" class="text-secondary">{{ element }}</p>
-      <p v-if="stepValue-1 === index">{{ element }}</p>
+    <div v-for="(element, index) in $tm('menuSteps',{returnObjects: true})" :key="index" class="np-cart__step">
+      <div
+          v-if="stepValue - 1 === index"
+          class="np-cart__step__circle--active"
+      />
+      <div
+          v-if="stepValue - 1 > index"
+          class="np-cart__step__circle--completed"
+      />
+      <div
+          v-if="stepValue - 1 < index"
+          class="np-cart__step__circle--waiting"
+      />
+      <p v-if="stepValue - 1 > index" class="text-primary">{{ element }}</p>
+      <p v-if="stepValue - 1 < index" class="text-secondary">{{ element }}</p>
+      <p v-if="stepValue - 1 === index">{{ element }}</p>
     </div>
   </div>
 </template>
@@ -16,13 +25,8 @@ import {defineComponent} from "vue";
 import {mapGetters} from "vuex";
 
 const Steps = defineComponent({
-  data() {
-    return {
-      steps: ['My order', 'Information', 'Summary'],
-    }
-  },
   computed: {
-    ...mapGetters('sideMenu', ['stepValue']),
+    ...mapGetters("sideMenu", ["stepValue"])
   }
 });
 export default Steps;
