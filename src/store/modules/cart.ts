@@ -10,8 +10,10 @@ const getters = {
   }
 };
 const mutations = {
-  addToCart(state: CartState, item: CartItem): void {
-    const cartItem = state.items.find(product => product.id === item.id);
+  addToCart: function(state: CartState, item: CartItem): void {
+    const cartItem: CartItem | undefined = state.items.find(
+      product => product.id === item.id
+    );
     cartItem
       ? cartItem.quantity++
       : state.items.push({
@@ -21,7 +23,6 @@ const mutations = {
           price: item.price,
           imgUrl: item.imgUrl
         });
-    console.log(getters.cartItems(state));
   }
 };
 

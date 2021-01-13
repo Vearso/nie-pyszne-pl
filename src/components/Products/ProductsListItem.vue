@@ -2,11 +2,17 @@
   <div class="product-list-item">
     <div
       class="product-list-item__picture"
-      v-bind:style="{ backgroundImage: 'url(' + imgUrl + ')' }"
+      :style="{ backgroundImage: 'url(' + imgUrl + ')' }"
     ></div>
     <div class="product-list-item__description">
-      <span class="product-list-item__description__title" v-if="name.length < 20">{{ name }} </span>
-      <span class="product-list-item__description__title" v-if="name.length >= 20">{{ name.substring(0,14).concat("..") }} </span>
+      <span
+        class="product-list-item__description__title"
+        v-if="name.length < 20"
+        >{{ name }}
+      </span>
+      <span class="product-list-item__description__title" v-else>
+        {{ name.substring(0, 14).concat("..") }}
+      </span>
       <span class="product-list-item__description__price">${{ price }}</span>
     </div>
     <div class="product-list-item__rating">
@@ -29,7 +35,7 @@ export default {
     rating: Number
   },
   computed: {
-    ...mapGetters('cart', ['cartItems'])
+    ...mapGetters("cart", ["cartItems"])
   }
 };
 </script>
@@ -58,7 +64,7 @@ export default {
   }
 
   &__picture {
-    border-radius: 2rem 0 2rem 0;
+    border-radius: 2rem 0;
     filter: contrast(0.5);
     background-size: cover;
   }
