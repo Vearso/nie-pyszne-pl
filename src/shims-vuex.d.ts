@@ -1,7 +1,7 @@
-import { Store } from '@/store';// path to store file
+import {IRootState} from "@/store/interfaces";
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
-        $store: Store;
+        $store: Store<IRootState>;
     }
 }

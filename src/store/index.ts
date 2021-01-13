@@ -1,13 +1,7 @@
 import { createStore } from "vuex";
+import sideMenu from "@/store/modules/sideMenu";
+
 export default createStore({
-  state: {
-    menuOpened: false,
-  },
-  mutations: {
-    toggleMenu(state) {
-      state.menuOpened = !state.menuOpened;
-    }
-  },
-  actions: {},
-  modules: {}
+  modules: { sideMenu }
 });
+
