@@ -18,7 +18,8 @@ const mutations = {
           id: item.id,
           name: item.name,
           quantity: 1,
-          price: item.price
+          price: item.price,
+          imgUrl: item.imgUrl
         });
     console.log(getters.cartItems(state));
   }
