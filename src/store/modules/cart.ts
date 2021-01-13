@@ -1,18 +1,26 @@
-//initial state
-const state = () => ({
-  items: [],
-  totalPrice: null,
-  quantityTotal: null
-});
+import { CartItem, CartState } from "@/store/interfaces";
+
+const state: CartState = {
+  items: []
+};
 
 const getters = {
-  cartTotalPrice(state: { quantityTotal: number; }) {
-    return state.quantityTotal;
+  cartItems(state: CartState): CartItem[] {
+    return state.items;
   }
 };
 const mutations = {
-  incrementItemQuantity (state: { quantityTotal: number; }) {
-    state.quantityTotal++;
+  addToCart(state: CartState, item: CartItem): void {
+    const cartItem = state.items.find(product => product.id === item.id);
+    cartItem
+      ? cartItem.quantity++
+      : state.items.push({
+          id: item.id,
+          name: item.name,
+          quantity: 1,
+          price: item.price
+        });
+    console.log(getters.cartItems(state));
   }
 };
 
@@ -21,4 +29,4 @@ export default {
   state,
   getters,
   mutations
-}
+};

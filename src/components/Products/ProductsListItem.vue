@@ -1,11 +1,12 @@
 <template>
   <div class="product-list-item">
     <div
-        class="product-list-item__picture"
-        v-bind:style="{ backgroundImage: 'url(' + imgUrl + ')' }"
+      class="product-list-item__picture"
+      v-bind:style="{ backgroundImage: 'url(' + imgUrl + ')' }"
     ></div>
     <div class="product-list-item__description">
-      <span class="product-list-item__description__title">{{ title }} </span>
+      <span class="product-list-item__description__title" v-if="name.length < 20">{{ name }} </span>
+      <span class="product-list-item__description__title" v-if="name.length >= 20">{{ name.substring(0,14).concat("..") }} </span>
       <span class="product-list-item__description__price">${{ price }}</span>
     </div>
     <div class="product-list-item__rating">
@@ -15,13 +16,20 @@
 </template>
 
 <script lang="ts">
+import { mapGetters } from "vuex";
+
 export default {
   name: "ProductsListItem",
   props: {
-    title: String,
+    id: String,
+    name: String,
+    type: String,
     price: Number,
     imgUrl: String,
-    rate: Number
+    rating: Number
+  },
+  computed: {
+    ...mapGetters('cart', ['cartItems'])
   }
 };
 </script>
@@ -52,7 +60,7 @@ export default {
   &__picture {
     border-radius: 2rem 0 2rem 0;
     filter: contrast(0.5);
-    background-size: contain;
+    background-size: cover;
   }
 
   &__description {
@@ -63,6 +71,7 @@ export default {
     border: 1px solid #efefee;
     border-top: none;
     box-sizing: border-box;
+    text-overflow: fade;
 
     &__title {
       display: inline-block;

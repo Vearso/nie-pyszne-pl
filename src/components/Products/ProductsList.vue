@@ -1,13 +1,20 @@
 <template>
-  items in cart: {{count}}
-  <div class="product-list">
+  <div
+    class="product-list"
+    v-bind:style="[
+      false
+        ? 'grid-template-columns: 1fr'
+        : 'grid-template-columns: 1fr 1fr 1fr'
+    ]"
+  >
     <products-list-item
       v-for="(item, index) in items"
       :key="index"
-      :title="item.title"
+      :name="item.name"
       :price="item.price"
       :imgUrl="item.imgUrl"
       :rate="item.rate"
+      @click="addToCart(item)"
     >
     </products-list-item>
   </div>
@@ -15,64 +22,76 @@
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
 
 const ProductsList = defineComponent({
   name: "ProductsList",
-  created() {
-    console.log(this.$store.state);
-  },
   data() {
     return {
-      count: 0,
       items: [
         {
-          title: "quatrro",
+          id: 0,
+          name: "quatrrrrrrrrrrrrrrrrrrrrrrrrrrrro",
+          type: "pizza",
           price: 15,
-          rate: 5.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          title: "quatrro",
+          id: 1,
+          name: "quatrro",
+          type: "pizza",
           price: 15,
-          rate: 4.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          title: "quatrro",
+          id: 0,
+          name: "quatrro",
+          type: "pizza",
           price: 15,
-          rate: 3.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          title: "quatrro",
+          id: 0,
+          name: "quatrro",
+          type: "pizza",
           price: 15,
-          rate: 4.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          title: "quatrro",
+          id: 0,
+          name: "quatrro",
+          type: "pizza",
           price: 15,
-          rate: 4.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          title: "quatrro",
+          id: 0,
+          name: "quatrro",
+          type: "pizza",
           price: 15,
-          rate: 4.5,
+          rating: 5.5,
           imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         }
       ]
     };
   },
   components: {
     ProductsListItem
+  },
+  methods: {
+    ...mapMutations("cart", ["addToCart"])
   }
 });
 export default ProductsList;
@@ -81,7 +100,6 @@ export default ProductsList;
 <style lang="scss" scoped>
 .product-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   margin: 0 auto;
 }

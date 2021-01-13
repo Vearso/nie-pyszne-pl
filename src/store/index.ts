@@ -1,13 +1,6 @@
 import { createStore } from "vuex";
+import cart from "@/store/modules/cart";
+
 export default createStore({
-  state: {
-    menuOpened: false,
-  },
-  mutations: {
-    toggleMenu(state) {
-      state.menuOpened = !state.menuOpened;
-    }
-  },
-  actions: {},
-  modules: {}
+  modules: { cart }
 });
