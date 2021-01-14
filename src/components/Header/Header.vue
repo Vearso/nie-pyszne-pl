@@ -2,33 +2,29 @@
   <header class="np-header">
     <img class="np-header__image"
          :src="image"
-         alt="Logo">
+         alt="Logo" />
 
     <div class="np-header__wrapper">
-      <h1 class="np-header__wrapper__title">{{ title }}</h1>
-      <p class="np-header__wrapper__subtitle">{{ subtitle }}</p>
+      <h1 class="np-header__wrapper__title">{{ $t('headerTitle') }}</h1>
+      <p class="np-header__wrapper__subtitle">{{ $t('headerSubtitle')}}</p>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-
-const Header = defineComponent({
+export default {
   props: {
     image: {
       type: String,
-      default: '',
+      default: ""
     },
-    title: {
-      type: String,
-    },
-    subtitle: {
-      type: String,
+  },
+  setup(){
+    return {
+
     }
   }
-})
-export default Header
+}
 </script>
 
 <style scoped lang="scss">
