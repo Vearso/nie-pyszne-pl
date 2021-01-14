@@ -1,3 +1,8 @@
+export interface State {
+  sideMenu: MenuState;
+  cart: CartState;
+  form: CartFormState;
+}
 export interface MenuState {
   menuOpened: boolean;
   step: number;

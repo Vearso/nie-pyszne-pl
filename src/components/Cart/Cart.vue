@@ -53,7 +53,7 @@ export default {
   },
   setup(props: object) {
     const store = useStore();
-
+console.log(store.state);
     const leftArrow = 'https://www.flaticon.com/svg/vstatic/svg/271/271220.svg?token=exp=1610449680~hmac=fdfcf071159efaa5ab2fa6cde3dd1758';
     const rightArrow = 'https://www.flaticon.com/svg/vstatic/svg/271/271228.svg?token=exp=1610449680~hmac=8769db5a2be5abf094bc17d8753de6f0';
 
