@@ -2,28 +2,28 @@
   <div class="cart-form">
     <Form :validation-schema="schema">
       <div class="field-container">
-        <Field name="name"/>
+        <Field name="name" placeholder="Name"/>
         <ErrorMessage name="name" />
       </div>
       <div class="field-container">
-        <Field name="email" />
+        <Field name="email" placeholder="E-mail"/>
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <Field name="phone" />
+        <Field name="phone" placeholder="Phone"/>
         <ErrorMessage name="phone" />
       </div>
       <div class="field-container">
-        <Field name="city" />
+        <Field name="city" placeholder="City"/>
         <ErrorMessage name="city" />
       </div>
       <div class="field-container">
-        <Field name="street" />
+        <Field name="street" placeholder="Street"/>
         <ErrorMessage name="street" />
       </div>
       <div class="field-container">
-        <Field name="postCode"/>
-        <ErrorMessage name="postCode" />
+        <Field name="postCode" placeholder="Post code"/>
+        <ErrorMessage name="postCode"/>
       </div>
     </Form>
   </div>
@@ -57,7 +57,6 @@ export default {
 <style lang="scss" scoped>
 .cart-form {
   form {
-    background-color: #f8f8f7;
     position: relative;
 
     input {
