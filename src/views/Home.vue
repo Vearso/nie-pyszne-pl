@@ -7,17 +7,20 @@
     <Navigation/>
     <Products/>
     <Cart/>
+    <products-list/>
+
   </div>
 </template>
 
 <script lang="ts">
+import ProductsList from "../components/Products/ProductsList.vue";
 import {Options, Vue} from "vue-class-component";
 import Header from "@/components/Header/Header.vue";
-import { Options, Vue } from "vue-class-component";
-import Navigation from '../components/Navigation/Navigation.vue';
+import Navigation from '@/components/Navigation/Navigation.vue';
 
 @Options({
   components: {
+    ProductsList,
     Navigation,
     Header
   }
