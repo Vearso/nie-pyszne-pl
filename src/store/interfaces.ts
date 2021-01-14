@@ -9,3 +9,4 @@ export interface CartItem {
   price: number;
   imgUrl: string;
 }
+
