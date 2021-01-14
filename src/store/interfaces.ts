@@ -15,6 +15,6 @@ export interface CartFormState {
   mail: string;
   phone: number;
   city: string;
-  address: string;
+  street: string;
   postCode: string;
 }

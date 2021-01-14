@@ -13,10 +13,12 @@ module.exports = {
         DEFAULT: "#acacac",
         dark: "#3f3d56",
         darker: "rgba(63, 61, 86, 0.6)"
-      }
+      },
+      alert: "#f44336"
     },
     fontFamily: {
-      default: "Roboto"
+      default: "Roboto",
+      light: "Roboto-light"
     },
     extend: {}
   },

@@ -12,23 +12,23 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 const Header = defineComponent({
   props: {
     image: {
       type: String,
-      default: '',
+      default: ""
     },
     title: {
-      type: String,
+      type: String
     },
     subtitle: {
-      type: String,
+      type: String
     }
   }
-})
-export default Header
+});
+export default Header;
 </script>
 
 <style scoped lang="scss">

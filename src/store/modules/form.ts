@@ -5,6 +5,6 @@ const state: CartFormState = {
   mail: "",
   phone: 0,
   city: "",
-  address: "",
+  street: "",
   postCode: ""
 };

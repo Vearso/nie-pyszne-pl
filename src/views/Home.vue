@@ -1,26 +1,16 @@
 <template>
   <div class="home">
-    <Header
-      :image="imageHeader"
-      :title="titleHeader"
-      :subtitle="subtitleHeader"
-    />
-    <Navigation />
-    <Products />
-    <Cart />
-    <products-list />
+    <cart-form/>
   </div>
 </template>
 
 <script lang="ts">
-import ProductsList from "../components/Products/ProductsList.vue";
 import { Options, Vue } from "vue-class-component";
-import Header from "@/components/Header/Header.vue";
+import CartForm from "./../components/Cart/CartForm.vue";
 
 @Options({
   components: {
-    ProductsList,
-    Header
+    CartForm
   }
 })
 export default class Home extends Vue {
