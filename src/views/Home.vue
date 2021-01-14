@@ -3,19 +3,22 @@
     <Header :image="imageHeader"
             :title="titleHeader"
             :subtitle="subtitleHeader"/>
-
     <Navigation/>
     <Products/>
     <Cart/>
+    <products-list/>
+
   </div>
 </template>
 
 <script lang="ts">
+import ProductsList from "../components/Products/ProductsList.vue";
 import {Options, Vue} from "vue-class-component";
 import Header from "@/components/Header/Header.vue";
 
 @Options({
   components: {
+    ProductsList,
     Header
   }
 })
