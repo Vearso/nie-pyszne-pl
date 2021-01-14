@@ -1,21 +1,29 @@
 <template>
-  <aside v-if="!isOpened" class="np-cart--closed">
+  <aside v-if="!isOpened"
+         class="np-cart--closed">
+
     <img :src="userAvatar"
          alt="avatar"
          class="np-cart__avatar"/>
 
-    <div class="np-cart__arrow__container" @click="toggleMenu">
+    <div class="np-cart__arrow__container"
+         @click="toggleMenu">
+
       <img alt="left arrow"
            class="np-cart__arrow"
            :src="leftArrow"/>
     </div>
   </aside>
 
-  <aside v-else class="np-cart--opened">
+  <aside v-else
+         class="np-cart--opened">
+
     <User/>
     <Steps/>
     <Summary/>
-    <div class="np-cart__arrow__container" @click="toggleMenu">
+    <div class="np-cart__arrow__container"
+         @click="toggleMenu">
+
       <img alt="right arrow"
            class="np-cart__arrow"
            :src="rightArrow"/>

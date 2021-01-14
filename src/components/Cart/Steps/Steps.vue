@@ -1,18 +1,21 @@
 <template>
   <div class="np-steps">
-    <div v-for="(element, index) in $tm('menuSteps',{returnObjects: true})"
+    <div v-for="(stepName, index) in $tm('menuSteps',{returnObjects: true})"
          :key="index"
-         class="np-steps__step">
+         class="np-steps__wrapper">
 
       <div :class="{
-        active: stepValue - 1 === index,
-        completed: stepValue - 1 > index,
-        waiting: stepValue - 1 < index,}"/>
+        'np-steps__wrapper__step--active': active(index),
+        'np-steps__wrapper__step--completed': completed(index),
+        'np-steps__wrapper__step--waiting': waiting(index)}"/>
+
       <p :class="{
-        '':stepValue - 1 === index,
-        'text-primary': stepValue - 1 > index,
-        'text-secondary': stepValue - 1 < index}">{{ element }}
+        'text-secondary-dark': active(index),
+        'text-primary': completed(index),
+        'text-secondary': waiting(index)}">
+        {{ stepName }}
       </p>
+
     </div>
   </div>
 </template>
@@ -24,10 +27,18 @@ import {computed} from "vue";
 export default {
   setup(props) {
     const store = useStore();
+
     const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
-    console.log(stepValue);
+
+    const completed = (index) => stepValue.value - 1 > index || stepValue.value === 3;
+    const active = (index) => stepValue.value - 1 === index && stepValue.value !== 3;
+    const waiting = (index) => stepValue.value - 1 < index;
+
     return {
-      stepValue
+      stepValue,
+      completed,
+      active,
+      waiting,
     }
   },
 }
@@ -37,18 +48,18 @@ export default {
 .np-steps {
   @apply flex justify-between w-full px-12;
 
-  &__step {
+  &__wrapper {
     @apply flex flex-col items-center;
 
-    &__circle--active {
+    &__step--active {
       @apply bg-secondary border-2 border-primary w-4 h-4 rounded-full;
     }
 
-    &__circle--completed {
+    &__step--completed {
       @apply bg-primary w-4 h-4 rounded-full;
     }
 
-    &__circle--waiting {
+    &__step--waiting {
       @apply bg-secondary w-4 h-4 rounded-full;
     }
   }

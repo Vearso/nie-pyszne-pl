@@ -1,7 +1,7 @@
 <template>
   <div class="np-cart__summary">
     <div class="np-cart__summary__price">
-      <p>Total:</p>
+      <p>{{ $t(totalPrice) }}}</p>
       <p>${{ price.toFixed(2) }}</p>
     </div>
 
@@ -10,9 +10,12 @@
             @click="nextStep">
       {{ $t('next') }}
     </button>
-    <button v-else class="np-cart__summary__button" @click="resetOrder">
+
+    <button v-else class="np-cart__summary__button"
+            @click="resetOrder">
       {{ $t('addOrder') }}
     </button>
+
     <button v-if="stepValue === 2"
             class="np-cart__summary__button"
             @click="prevStep">
@@ -45,6 +48,7 @@ export default {
 <style scoped lang="scss">
 .np-cart__summary {
   @apply w-full px-12 py-6;
+
   &__price {
     @apply flex justify-between;
   }
