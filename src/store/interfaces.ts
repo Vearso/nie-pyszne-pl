@@ -1,3 +1,7 @@
+export interface MenuState {
+  menuOpened: boolean;
+  step: number;
+}
 export interface CartState {
   items: Array<CartItem>;
 }

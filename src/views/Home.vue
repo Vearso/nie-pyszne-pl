@@ -1,22 +1,32 @@
 <template>
-  <div class="home">
-    <cart-form/>
+  <div class="v-home flex justify-between">
+    <div class="mx-auto">
+      <Header :image="imageHeader"/>
+      <Navigation/>
+      <ProductsList/>
+    </div>
+    <Cart/>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import CartForm from "./../components/Cart/CartForm.vue";
+import Header from "@/components/Header/Header.vue";
+import Cart from "@/components/Cart/Cart.vue";
+import ProductsList from "@/components/Products/ProductsList.vue";
 
-@Options({
+export default {
   components: {
-    CartForm
+    Header,
+    Cart,
+    ProductsList,
+  },
+  setup() {
+    const imageHeader =
+        "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610442341~hmac=78691034b920a1b5599d482745dddbc9";
+    return {
+      imageHeader,
+    }
   }
-})
-export default class Home extends Vue {
-  private imageHeader =
-    "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610442341~hmac=78691034b920a1b5599d482745dddbc9";
-  private titleHeader = "Free delivery today!";
-  private subtitleHeader = "Lorem ipsum dolor sit amet, consectetur adipiscing";
+
 }
 </script>
