@@ -1,5 +1,10 @@
+export interface MenuState {
+  menuOpened: boolean;
+  step: number;
+}
 export interface CartState {
   items: Array<CartItem>;
+  priceTotal: number,
 }
 
 export interface CartItem {
@@ -8,5 +13,6 @@ export interface CartItem {
   quantity: number;
   price: number;
   imgUrl: string;
+  isHoveredOn: boolean,
 }
 

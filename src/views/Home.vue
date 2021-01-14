@@ -1,34 +1,32 @@
 <template>
-  <div class="home">
-    <Header :image="imageHeader"
-            :title="titleHeader"
-            :subtitle="subtitleHeader"/>
-    <Navigation/>
-    <Products/>
+  <div class="v-home flex justify-between">
+    <div class="mx-auto">
+      <Header :image="imageHeader"/>
+      <Navigation/>
+      <ProductsList/>
+    </div>
     <Cart/>
-    <products-list/>
-    <CartProducts/>
   </div>
 </template>
 
 <script lang="ts">
-import ProductsList from "../components/Products/ProductsList.vue";
-import {Options, Vue} from "vue-class-component";
 import Header from "@/components/Header/Header.vue";
-import CartProducts from "@/components/Cart/CartProducts.vue";
-@Options({
+import Cart from "@/components/Cart/Cart.vue";
+import ProductsList from "@/components/Products/ProductsList.vue";
+
+export default {
   components: {
-    ProductsList,
     Header,
-    CartProducts,
+    Cart,
+    ProductsList,
+  },
+  setup() {
+    const imageHeader =
+        "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610442341~hmac=78691034b920a1b5599d482745dddbc9";
+    return {
+      imageHeader,
+    }
   }
-})
-export default class Home extends Vue {
-  private imageHeader =
-      "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610442341~hmac=78691034b920a1b5599d482745dddbc9";
-  private titleHeader =
-      "Free delivery today!";
-  private subtitleHeader =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing";
+
 }
 </script>
