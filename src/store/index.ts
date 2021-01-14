@@ -1,4 +1,7 @@
 import {createStore, Store, useStore as baseUseStore} from "vuex";
+import sideMenu from "@/store/modules/sideMenu";
+import {InjectionKey} from "vue";
+import {MenuState} from "@/store/interfaces";
 import cart from "@/store/modules/cart";
 import nav from "@/store/modules/navigation";
 import {InjectionKey} from "vue";
@@ -11,5 +14,5 @@ export function useStore () {
 }
 
 export default createStore({
-  modules: { cart, nav }
+  modules: { cart, sideMenu, nav }
 });

@@ -1,3 +1,7 @@
+export interface MenuState {
+  menuOpened: boolean;
+  step: number;
+}
 import { NavState } from "@/store/navigationInterface";
 
 export interface CartState {
@@ -15,4 +19,5 @@ export interface CartItem {
 export interface State {
   cart: CartState;
   nav: NavState;
+  menu: MenuState;
 }
