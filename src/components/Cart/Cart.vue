@@ -1,57 +1,64 @@
 <template>
-  <aside v-if="!openedValue" class="np-cart--closed">
-    <img :src="userAvatar" alt="avatar" class="np-cart__avatar" />
+  <aside v-if="!isOpened" class="np-cart--closed">
+    <img :src="userAvatar"
+         alt="avatar"
+         class="np-cart__avatar"/>
+
     <div class="np-cart__arrow__container" @click="toggleMenu">
-      <img alt="left arrow" class="np-cart__arrow" :src="leftArrow" />
+      <img alt="left arrow"
+           class="np-cart__arrow"
+           :src="leftArrow"/>
     </div>
   </aside>
 
   <aside v-else class="np-cart--opened">
-    <User />
-    <Steps />
-    <Summary />
+    <User/>
+    <Steps/>
+    <Summary/>
     <div class="np-cart__arrow__container" @click="toggleMenu">
-      <img alt="right arrow" class="np-cart__arrow" :src="rightArrow" />
+      <img alt="right arrow"
+           class="np-cart__arrow"
+           :src="rightArrow"/>
     </div>
   </aside>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
+import {computed} from 'vue';
+import {useStore} from "@/store";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
 import Summary from "./Summary/Summary.vue";
 
-const Cart = defineComponent({
+export default {
   components: {
     User,
     Steps,
     Summary
   },
-  data() {
-    return {
-      leftArrow:
-        "https://www.flaticon.com/svg/vstatic/svg/271/271220.svg?token=exp=1610449680~hmac=fdfcf071159efaa5ab2fa6cde3dd1758",
-      rightArrow:
-        "https://www.flaticon.com/svg/vstatic/svg/271/271228.svg?token=exp=1610449680~hmac=8769db5a2be5abf094bc17d8753de6f0"
-    };
-  },
   props: {
     userAvatar: {
       type: String,
       default:
-        "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
+          "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
     }
   },
-  methods: {
-    ...mapMutations("sideMenu", ["toggleMenu"])
-  },
-  computed: {
-    ...mapGetters("sideMenu", ["openedValue"])
+  setup(props: object) {
+    const store = useStore();
+
+    const leftArrow = 'https://www.flaticon.com/svg/vstatic/svg/271/271220.svg?token=exp=1610449680~hmac=fdfcf071159efaa5ab2fa6cde3dd1758';
+    const rightArrow = 'https://www.flaticon.com/svg/vstatic/svg/271/271228.svg?token=exp=1610449680~hmac=8769db5a2be5abf094bc17d8753de6f0';
+
+    const isOpened = computed(()=> store.getters["sideMenu/openedValue"]);
+
+    return {
+      leftArrow,
+      rightArrow,
+      isOpened,
+      toggleMenu: () => store.commit("sideMenu/toggleMenu")
+    }
   }
-});
-export default Cart;
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,16 +1,18 @@
 <template>
   <div class="np-cart__user">
-    <img :src="userAvatar" alt="avatar" class="np-cart__user__avatar" />
+    <img :src="userAvatar"
+         alt="avatar"
+         class="np-cart__user__avatar" />
+
     <div class="np-cart__user__wrapper">
       <h2 class="np-cart__user__wrapper__name">{{ username }}</h2>
-      <a class="np-cart__user__wrapper__logout">Sign out</a>
+      <a class="np-cart__user__wrapper__logout">{{$t('signOut')}}</a>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-const User = defineComponent({
+export default {
   props: {
     username: {
       type: String,
@@ -22,8 +24,7 @@ const User = defineComponent({
         "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
     }
   }
-});
-export default User;
+}
 </script>
 
 <style scoped lang="scss">

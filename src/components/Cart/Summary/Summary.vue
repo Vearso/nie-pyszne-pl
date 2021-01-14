@@ -5,44 +5,41 @@
       <p>${{ price.toFixed(2) }}</p>
     </div>
 
-    <button
-      v-if="stepValue < 3"
-      class="np-cart__summary__button"
-      @click="nextStep"
-    >
-      Next
+    <button v-if="stepValue < 3"
+            class="np-cart__summary__button"
+            @click="nextStep">
+      {{ $t('next') }}
     </button>
     <button v-else class="np-cart__summary__button" @click="resetOrder">
-      Add new order
+      {{ $t('addOrder') }}
     </button>
-    <button
-      v-if="stepValue === 2"
-      class="np-cart__summary__button"
-      @click="prevStep"
-    >
-      Previous
+    <button v-if="stepValue === 2"
+            class="np-cart__summary__button"
+            @click="prevStep">
+      {{ $t('previous') }}
     </button>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
+import {computed} from "vue";
+import {useStore} from "@/store";
 
-const Summary = defineComponent({
-  data() {
+export default {
+  setup(props) {
+    const store = useStore();
+
+    const stepValue = computed(() => store.getters['sideMenu/stepValue']);
+    const price = 0;
     return {
-      price: 0
-    };
+      stepValue,
+      price,
+      nextStep: () => store.commit('sideMenu/nextStep'),
+      prevStep: () => store.commit('sideMenu/prevStep'),
+      resetOrder: () => store.commit('sideMenu/resetOrder'),
+    }
   },
-  methods: {
-    ...mapMutations("sideMenu", ["nextStep", "prevStep", "resetOrder"])
-  },
-  computed: {
-    ...mapGetters("sideMenu", ["stepValue"])
-  }
-});
-export default Summary;
+}
 </script>
 
 <style scoped lang="scss">
