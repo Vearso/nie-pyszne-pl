@@ -3,47 +3,41 @@
     <li class="np-category-list__item"
         v-for="category in categories"
         @click="setActiveCategory"
-        :id="category.type"
-        :class="activeCategory === category.type ? 'np-category-list__item--active' : ''"
+        :id="category.categoryType"
+        :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
         :key="category.name">
-
-      <img class="np-category-list__item-icon"
-           :src="category.src"
-           :alt="altText(category.name)" />
-
+      <component :is="category.iconUrl" />
       <span class="np-category-active">{{ category.name }}</span>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store/index";
 
 export default defineComponent({
-  props: {
-    categories: {
-      type: Array
-    },
-    activeCat: {
-      type: String,
-      default: "all"
-    //  zrobić default all z ikoną restauracji to będzie pokazywać wszystkie opcje
-    }
-  },
+
   setup(props: any) {
-    const activeCategory = ref(props.activeCat);
+    const store = useStore();
+    const categories = store.state.nav.categoryList;
+
+    const activeCategory = computed(() => store.state.nav.activeFoodCategory);
+    const setActiveCategory = function (event: any):void {
+      const id = event.target.closest(".np-category-list__item").id;
+      store.commit("nav/setActiveFoodCategory", id);
+    };
+
     return {
-      activeCategory
+      categories,
+      activeCategory,
+      setActiveCategory
     };
   },
   methods: {
     altText(name: string): string {
       return name + " icon";
     },
-    setActiveCategory(event: MouseEvent) {
-      console.log(event);
-      return true;
-    }
   }
 });
 </script>
@@ -75,8 +69,9 @@ export default defineComponent({
     }
 
     svg {
-      height: inherit;
-      width: auto;
+      width: 35px;
+      height: 35px;
+      margin-right: 20px;
       fill: theme("colors.secondary.DEFAULT");
     }
     &--active {

@@ -1,3 +1,5 @@
+import { NavState } from "@/store/navigationInterface";
+
 export interface CartState {
   items: Array<CartItem>;
 }
@@ -8,4 +10,9 @@ export interface CartItem {
   quantity: number;
   price: number;
   imgUrl: string;
+}
+
+export interface State {
+  cart: CartState;
+  nav: NavState;
 }

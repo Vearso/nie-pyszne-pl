@@ -2,28 +2,12 @@
   <section class="np-search-bar">
     <button type="button"
             class="np-search-bar__toggle-list-view"
-            @click="changeListView">
-      <icon-base icon-name="list" class-name="np-search-bar__list-view-icon">
-        <ListIcon />
-      </icon-base>
-<!--      <svg enable-background="new 0 0 24 24"-->
-<!--           height="100" viewBox="0 0 24 24" width="100" xmlns="http://www.w3.org/2000/svg"><path d="m5 0h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 0h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 9h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 9h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 18h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 18h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/></svg>-->
+            @click="changeFoodListView">
+      <ListIcon />
     </button>
 
     <div class="np-search-bar__input">
-<!--      <icon-base icon-name="search" class-name="np-search-bar">-->
-<!--        <SearchIcon />-->
-<!--      </icon-base>-->
-      <svg class="np-search-bar__input-icon"
-           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 512.005 512.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve">
-          <g>
-            <path d="M505.749,475.587l-145.6-145.6c28.203-34.837,45.184-79.104,45.184-127.317c0-111.744-90.923-202.667-202.667-202.667
-              S0,90.925,0,202.669s90.923,202.667,202.667,202.667c48.213,0,92.48-16.981,127.317-45.184l145.6,145.6
-              c4.16,4.16,9.621,6.251,15.083,6.251s10.923-2.091,15.083-6.251C514.091,497.411,514.091,483.928,505.749,475.587z
-               M202.667,362.669c-88.235,0-160-71.765-160-160s71.765-160,160-160s160,71.765,160,160S290.901,362.669,202.667,362.669z"/>
-          </g>
-        </svg>
+      <SearchIcon class="np-search-bar__input-icon" />
 
       <input class="np-search-bar__input-el"
              type="search"
@@ -35,24 +19,14 @@
     <section class="np-search-bar__filter">
       <div class="np-search-bar__filter-option"
            @click="toggleFilterList">
-
-        <svg class="np-search-bar__filter-option-icon"
-             id="Layer"
-             enable-background="new 0 0 64 64" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m10 26h39.172l-3.586 3.586c-.781.781-.781 2.047 0 2.828.391.391.902.586 1.414.586s1.023-.195 1.414-.586l7-7c.781-.781.781-2.047 0-2.828l-7-7c-.781-.781-2.047-.781-2.828 0s-.781 2.047 0 2.828l3.586 3.586h-39.172c-1.104 0-2 .896-2 2s.896 2 2 2z"/><path d="m54 38h-39.172l3.586-3.586c.781-.781.781-2.047 0-2.828-.78-.781-2.048-.781-2.828 0l-7 7c-.781.781-.781 2.047 0 2.828l7 7c.39.391.902.586 1.414.586s1.024-.195 1.414-.586c.781-.781.781-2.047 0-2.828l-3.586-3.586h39.172c1.104 0 2-.896 2-2s-.896-2-2-2z"/>
-        </svg>
+        <SwitchIcon class="np-search-bar__filter-option-icon"/>
 
         <p class="np-search-bar__filter-option-text"><span>Option: </span>details</p>
 
         <button class="np-search-bar__filter-option-btn"
                 :class="isLiActive ? 'np-search-bar__filter-option-btn--active' : ''">
 
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-               viewBox="0 0 213.333 213.333" style="enable-background:new 0 0 213.333 213.333;" xml:space="preserve">
-            <g>
-              <polygon points="0,53.333 106.667,160 213.333,53.333 		"/>
-            </g>
-
-          </svg>
+          <DownArrowIcon />
         </button>
       </div>
       <ul class="np-search-bar__filter-list"
@@ -70,34 +44,39 @@
 </template>
 
 <script lang="ts">
-import IconBase from "@/assets/IconBase.vue";
-import ListIcon from "@/assets/icons/list.vue";
-// import SearchIcon from "@/assets/icons/loupe.vue";
+
+import ListIcon from "@/assets/icons/icon-list.vue";
+import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
+import SearchIcon from "@/assets/icons/icon-search.vue";
+import SwitchIcon from "@/assets/icons/icon-switch.vue";
 
 import { defineComponent, ref } from "vue";
-import {useStore} from "vuex";
+import {useStore} from "@/store/index";
 
 export default defineComponent({
+  components: {
+    ListIcon,
+    DownArrowIcon,
+    SearchIcon,
+    SwitchIcon
+  },
   props: {
-    inputValue: {
-      type: String,
-      default: ""
-    },
     isListActive: {
       type: Boolean,
       default: false
     },
   },
   setup(props: any) {
-    // const store = useStore();
+    const store = useStore();
 
-    const isLiActive = ref<typeof props.isListActive>(props.isListActive);
-    const inputVal = ref(props.inputValue);
-
-    const changeListView = function() {
-      return true;
+    const isLiActive = ref<typeof props.isListActive>(false);
+    const inputVal = ref("");
+    const changeFoodListView = function() {
+      store.commit("nav/toggleFoodListView")
+      return true
     };
     const setActiveFilter = function() {
+      store.commit("nav/filterFoodList", inputVal);
       return true;
     };
     const toggleFilterList = function() {
@@ -105,18 +84,13 @@ export default defineComponent({
     };
 
     return {
-      changeListView,
+      changeFoodListView,
       setActiveFilter,
       toggleFilterList,
       isLiActive,
       inputVal
     };
   },
-  components: {
-    IconBase,
-    ListIcon,
-    // SearchIcon
-  }
 });
 </script>
 

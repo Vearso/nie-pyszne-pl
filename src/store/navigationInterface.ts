@@ -6,12 +6,13 @@ export interface FoodListItem {
   rating: number;
   imgUrl: string;
 }
+export type ListOrder = "none" | "price_asc" | "price_desc" | "alph_asc" | "alph_desc";
 
 export interface NavState {
   isFoodListAList: boolean;
   fullFoodList: Array<FoodListItem>;
   filteredFoodList: Array<FoodListItem>;
-  foodListOrder: "none" | "price_asc" | "price_desc" | "alph_asc" | "alph_desc";
+  foodListOrder: ListOrder;
   filterFoodParam: string;
   categoryList: Array<CategoryListItem>;
   activeFoodCategory: string;
@@ -22,12 +23,13 @@ export interface CategoryListItem {
   readonly id: string;
   readonly name: string;
   readonly categoryType: string;
-  readonly iconUrl: string;
+  readonly iconUrl: any;
 }
 
 export interface NavStoreModule {
-  state: () => NavState;
+  state: NavState;
   mutations: {};
   actions: {};
   getters: {};
+  namespaced: boolean;
 }

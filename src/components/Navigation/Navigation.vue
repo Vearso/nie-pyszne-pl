@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <FoodCategories :categories="categoryList"/>
+        <FoodCategories/>
         <SearchBar />
     </nav>
 </template>
@@ -12,22 +12,6 @@ import SearchBar from "./SearchBar/SearchBar.vue";
 
 export default {
   name: "Navigation",
-  data(){
-    return {
-      categoryList: [
-        {
-          name: "Pizza",
-          type: "pizza",
-          src: "@/assets/icons/restaurant.svg"
-        },
-        {
-          name: "Sushi",
-          type: "sushi",
-          src: "https://google.com"
-        }
-      ]
-    }
-  },
   components: {
     FoodCategories,
     SearchBar
