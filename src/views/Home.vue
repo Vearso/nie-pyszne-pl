@@ -7,7 +7,7 @@
     <Products/>
     <Cart/>
     <products-list/>
-
+    <CartProducts/>
   </div>
 </template>
 
@@ -15,11 +15,12 @@
 import ProductsList from "../components/Products/ProductsList.vue";
 import {Options, Vue} from "vue-class-component";
 import Header from "@/components/Header/Header.vue";
-
+import CartProducts from "@/components/Cart/CartProducts.vue";
 @Options({
   components: {
     ProductsList,
-    Header
+    Header,
+    CartProducts,
   }
 })
 export default class Home extends Vue {
