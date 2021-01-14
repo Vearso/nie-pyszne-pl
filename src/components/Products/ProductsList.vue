@@ -50,7 +50,7 @@ const ProductsList = defineComponent({
               "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          id: 0,
+          id: 2,
           name: "quatrro",
           type: "pizza",
           price: 15,
@@ -59,7 +59,7 @@ const ProductsList = defineComponent({
               "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          id: 0,
+          id: 3,
           name: "quatrro",
           type: "pizza",
           price: 15,
@@ -68,7 +68,7 @@ const ProductsList = defineComponent({
               "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          id: 0,
+          id: 4,
           name: "quatrro",
           type: "pizza",
           price: 15,
@@ -77,7 +77,7 @@ const ProductsList = defineComponent({
               "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
         },
         {
-          id: 0,
+          id: 5,
           name: "quatrro",
           type: "pizza",
           price: 15,
