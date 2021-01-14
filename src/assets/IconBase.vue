@@ -3,36 +3,41 @@
        xmlns="http://www.w3.org/2000/svg"
        :width="width"
        :height="height"
-       viewBox="0 0 18 18"
+       x="0"
+       y="0"
+       viewBox="0 0 50 50"
+       style="enable-background:new 0 0 50 50;"
        :aria-labelledby="iconName"
        role="presentation">
     <slot />
   </svg>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   props: {
     iconName: {
       type: String,
-      default: 'box'
+      default: "box"
     },
     width: {
       type: [Number, String],
-      default: 18
+      default: 50
     },
     height: {
       type: [Number, String],
-      default: 18
+      default: 50
     },
     iconColor: {
       type: String,
-      default: 'currentColor'
+      default: "currentColor"
     },
     className: {
       type: String,
-      default: ''
+      default: ""
     }
   }
-}
+});
 </script>

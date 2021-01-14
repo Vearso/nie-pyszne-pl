@@ -1,5 +1,5 @@
 <template>
-  <ul class="np-category-list">
+  <ul class="np-category-list" @click="setActiveCategory">
     <li class="np-category-list__item"
         v-for="category in categories"
         @click="setActiveCategory"
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import {ref} from "vue";
+import { defineComponent, ref } from "vue";
 
-export default {
+export default defineComponent({
   props: {
     categories: {
       type: Array
@@ -30,42 +30,37 @@ export default {
     //  zrobić default all z ikoną restauracji to będzie pokazywać wszystkie opcje
     }
   },
-  setup(props: any){
+  setup(props: any) {
     const activeCategory = ref(props.activeCat);
     return {
       activeCategory
-    }
+    };
   },
-  methods:{
-    altText(name: string):string {
+  methods: {
+    altText(name: string): string {
       return name + " icon";
     },
-    setActiveCategory(){
-      return true
+    setActiveCategory(event: MouseEvent) {
+      console.log(event);
+      return true;
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
 .np-category-list{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 100%;
-  height: 60px;
+  @apply flex flex-row justify-start w-full;
 
+  height: 60px;
   margin-bottom: 40px;
 
   &__item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @apply flex flex-row items-center;
 
     color: theme("colors.secondary.DEFAULT");
     font-size: 18px;
     margin-right: 20px;
-
     cursor: pointer;
 
     &:hover{

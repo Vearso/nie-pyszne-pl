@@ -3,12 +3,17 @@
     <button type="button"
             class="np-search-bar__toggle-list-view"
             @click="changeListView">
-<!--      <Icon name="list" />-->
-      <svg enable-background="new 0 0 24 24"
-           height="100" viewBox="0 0 24 24" width="100" xmlns="http://www.w3.org/2000/svg"><path d="m5 0h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 0h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 9h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 9h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 18h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 18h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/></svg>
+      <icon-base icon-name="list" class-name="np-search-bar__list-view-icon">
+        <ListIcon />
+      </icon-base>
+<!--      <svg enable-background="new 0 0 24 24"-->
+<!--           height="100" viewBox="0 0 24 24" width="100" xmlns="http://www.w3.org/2000/svg"><path d="m5 0h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 0h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 9h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 9h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m5 18h-4c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h4c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/><path d="m23 18h-14c-.552 0-1 .448-1 1v4c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-4c0-.552-.448-1-1-1z"/></svg>-->
     </button>
 
     <div class="np-search-bar__input">
+<!--      <icon-base icon-name="search" class-name="np-search-bar">-->
+<!--        <SearchIcon />-->
+<!--      </icon-base>-->
       <svg class="np-search-bar__input-icon"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
            viewBox="0 0 512.005 512.005" style="enable-background:new 0 0 512.005 512.005;" xml:space="preserve">
@@ -65,11 +70,14 @@
 </template>
 
 <script lang="ts">
-// import Icon from "@/assets/Icon.vue";
-import {ref} from 'vue';
+import IconBase from "@/assets/IconBase.vue";
+import ListIcon from "@/assets/icons/list.vue";
+// import SearchIcon from "@/assets/icons/loupe.vue";
+
+import { defineComponent, ref } from "vue";
 import {useStore} from "vuex";
 
-export default {
+export default defineComponent({
   props: {
     inputValue: {
       type: String,
@@ -79,27 +87,20 @@ export default {
       type: Boolean,
       default: false
     },
-    searchOptions: [
-      {
-        category: "",
-        type: ""
-        //  ascending/descending
-      }
-    ]
   },
-  setup(props: any){
-    const store = useStore();
+  setup(props: any) {
+    // const store = useStore();
 
     const isLiActive = ref<typeof props.isListActive>(props.isListActive);
     const inputVal = ref(props.inputValue);
 
-    const changeListView = function(){
-      return true
+    const changeListView = function() {
+      return true;
     };
-    const setActiveFilter = function(){
-      return true
+    const setActiveFilter = function() {
+      return true;
     };
-    const toggleFilterList = function(){
+    const toggleFilterList = function() {
       isLiActive.value = !isLiActive.value;
     };
 
@@ -109,90 +110,79 @@ export default {
       toggleFilterList,
       isLiActive,
       inputVal
-    }
+    };
   },
-  // components: {
-  //   Icon
-  // }
-};
+  components: {
+    IconBase,
+    ListIcon,
+    // SearchIcon
+  }
+});
 </script>
 
 <style lang="scss" scoped>
 .np-search-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-
+  @apply flex flex-row justify-start items-center w-full;
   height: 56px;
-  width: 100%;
 
-  svg{
+  svg {
     height: inherit;
     width: auto;
-    fill: theme('colors.secondary.DEFAULT');
+    fill: theme("colors.secondary.DEFAULT");
   }
 
-  &__toggle-list-view{
+  &__toggle-list-view {
     height: inherit;
     outline: none;
 
-    svg{
+    svg {
       padding: 10px 20px 10px 0;
 
-      &:hover{
-        fill: theme('colors.primary.DEFAULT')
+      &:hover {
+        fill: theme("colors.primary.DEFAULT");
       }
     }
   }
 
-  &__input, &__filter{
+  &__input,&__filter{
     height: inherit;
     margin-left: 44px;
     border-radius: 2px;
-    border: solid 1px theme('colors.secondary.lighter');
+    border: solid 1px theme("colors.secondary.lighter");
   }
 
   &__input {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    @apply flex flex-row justify-start items-center w-full;
 
-    width: 100%;
     height: inherit;
     padding: 10px;
 
-    &:hover{
-      border-color: theme('colors.primary.DEFAULT')
+    &:hover {
+      border-color: theme("colors.primary.DEFAULT");
     }
 
-    &-el{
+    &-el {
       width: 100%;
       font-size: 19px;
       outline: none;
-      color: theme('colors.secondary.dark');
-
+      color: theme("colors.secondary.dark");
     }
-    svg{
+    svg {
       height: 36px;
       margin-right: 20px;
     }
   }
 
-  &__filter{
+  &__filter {
     width: 300px;
     height: inherit;
 
-    &:hover{
-      border-color: theme('colors.primary.DEFAULT')
+    &:hover {
+      border-color: theme("colors.primary.DEFAULT");
     }
 
-    &-option{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+    &-option {
+      @apply flex flex-row justify-between items-center;
 
       height: inherit;
       width: inherit;
@@ -200,66 +190,64 @@ export default {
 
       cursor: pointer;
 
-      svg{
-        fill: theme('colors.secondary.dark');
-        //height: 24px;
+      svg {
+        fill: theme("colors.secondary.dark");
         width: 30px;
       }
 
-      &-text{
+      &-text {
         width: 100%;
         margin: 0 10px;
 
         font-size: 19px;
         text-align: left;
-        color: theme('colors.secondary.DEFAULT');
+        color: theme("colors.secondary.DEFAULT");
 
-        span{
-          color: theme('colors.secondary.dark');
+        span {
+          color: theme("colors.secondary.dark");
         }
       }
 
-      &-icon{
+      &-icon {
         transform: rotate(90deg);
       }
 
-      &-btn{
+      &-btn {
         outline: none;
 
-        &--active{
+        &--active {
           transform: rotate(180deg);
         }
 
-        svg{
+        svg {
           width: 15px;
-          height: auto;
+          //height: auto;
         }
       }
     }
-    &-list{
+    &-list {
       width: inherit;
       display: none;
 
-      &--active{
-        display: block;
-        position: absolute;
-        border: solid 1px theme('colors.secondary.lighter');
+      &--active {
+        @apply block absolute;
+
+        border: solid 1px theme("colors.secondary.lighter");
       }
-      &-item{
+      &-item {
         height: 40px;
         line-height: 40px;
         text-align: center;
-        color: theme('colors.secondary.light');
+        color: theme("colors.secondary.lighter");
 
         cursor: pointer;
-        border: solid 1px theme('colors.secondary.lighter');
+        border: solid 1px theme("colors.secondary.lighter");
 
-        &:hover{
-          color: theme('colors.secondary.darker');
+        &:hover {
+          color: theme("colors.secondary.darker");
         }
       }
     }
   }
 }
-
 </style>
