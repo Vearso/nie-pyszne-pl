@@ -27,12 +27,13 @@ import {computed} from "vue";
 export default {
   setup(props) {
     const store = useStore();
-
     const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
+
 
     const completed = (index) => stepValue.value - 1 > index || stepValue.value === 3;
     const active = (index) => stepValue.value - 1 === index && stepValue.value !== 3;
     const waiting = (index) => stepValue.value - 1 < index;
+
 
     return {
       stepValue,

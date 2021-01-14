@@ -1,7 +1,7 @@
 <template>
   <div class="np-cart__summary">
     <div class="np-cart__summary__price">
-      <p>{{ $t(totalPrice) }}}</p>
+      <p>{{ $t('totalPrice') }}</p>
       <p>${{ price.toFixed(2) }}</p>
     </div>
 
