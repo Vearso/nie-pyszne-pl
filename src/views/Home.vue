@@ -13,9 +13,12 @@
 import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
+import Navigation from '@/components/Navigation/Navigation.vue';
+
 
 export default {
   components: {
+    Navigation,
     Header,
     Cart,
     ProductsList,
