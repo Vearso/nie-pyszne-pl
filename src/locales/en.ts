@@ -8,5 +8,8 @@ export default {
         addOrder: 'Add new order',
         previous: 'Previous',
         signOut: 'Sign Out',
+        yes: "Yes",
+        no: "No",
+        deleteProduct: "Do you want to delete this from cart?"
     }
 }

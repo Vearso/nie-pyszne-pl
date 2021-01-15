@@ -1,7 +1,7 @@
 <template>
   <header class="np-header">
     <img class="np-header__image"
-         src="../../assets/food-delivery.png"
+         :src="image"
          alt="Logo" />
 
     <div class="np-header__wrapper">
@@ -16,7 +16,7 @@ export default {
   props: {
     image: {
       type: String,
-      default: ""
+      default: "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610639219~hmac=7d495723bb794cebd52742b3afc66cb1"
     },
   },
   setup(){

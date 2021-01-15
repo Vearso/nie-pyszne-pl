@@ -21,7 +21,6 @@
     <User/>
     <Steps/>
     <CartProducts v-if="stepValue === 1"/>
-    <Summary/>
     <div class="np-cart__arrow__container"
          @click="toggleMenu">
 
@@ -37,13 +36,11 @@ import {computed} from 'vue';
 import {useStore} from "@/store";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
-import Summary from "./Summary/Summary.vue";
 import CartProducts from "./CartProducts.vue";
 export default {
   components: {
     User,
     Steps,
-    Summary,
     CartProducts,
   },
   props: {
