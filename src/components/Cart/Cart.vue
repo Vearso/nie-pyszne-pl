@@ -75,7 +75,7 @@ export default {
   }
 
   .np-cart__arrow {
-    transform: rotate(180deg);
+    transform: rotateZ(180deg);
   }
 }
 

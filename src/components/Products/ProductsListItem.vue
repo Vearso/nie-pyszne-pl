@@ -76,6 +76,7 @@ export default {
 		border-radius: 2rem 0;
 		filter: contrast(0.5);
 		background-size: cover;
+    background-position: center;
 	}
 
 	&__description {

@@ -1,7 +1,7 @@
 <template>
   <div class="v-home flex justify-between">
-    <div class="mx-auto">
-      <Header :image="imageHeader"/>
+    <div class="mx-auto w-1/2">
+      <Header/>
       <Navigation/>
       <ProductsList/>
     </div>
@@ -31,13 +31,10 @@ export default {
     const getFoodList = function () {
       store.dispatch("nav/fetchFoodList");
     }
-    const imageHeader =
-        "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610639219~hmac=7d495723bb794cebd52742b3afc66cb1";
     onMounted(() => {
       getFoodList()
     })
     return {
-      imageHeader,
       getFoodList
     }
   }
