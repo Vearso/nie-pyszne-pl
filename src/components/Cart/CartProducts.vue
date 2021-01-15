@@ -66,7 +66,7 @@
 
 <script>
 import {useStore} from "@/store";
-import {computed, ref} from "vue";
+import {computed, ref, Ref} from "vue";
 import Summary from "@/components/Cart/Summary/Summary";
 
 export default {

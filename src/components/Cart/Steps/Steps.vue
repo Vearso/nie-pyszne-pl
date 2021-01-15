@@ -20,17 +20,18 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {useStore} from "@/store";
 import {computed} from "vue";
+import {ComputedRef} from "@vue/reactivity";
 
 export default {
   setup(props) {
     const store = useStore();
-    const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
+    const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
 
 
-    const completed = (index) => stepValue.value - 1 > index || stepValue.value === 3;
+    const completed = (index: number): boolean => stepValue.value - 1 > index || stepValue.value === 3;
     const active = (index) => stepValue.value - 1 === index && stepValue.value !== 3;
     const waiting = (index) => stepValue.value - 1 < index;
 
