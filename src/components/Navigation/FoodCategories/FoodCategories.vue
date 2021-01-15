@@ -1,10 +1,9 @@
 <template>
-  <ul class="np-category-list"
-      @click="setActiveCategory">
+  <ul class="np-category-list">
 
     <li class="np-category-list__item"
         v-for="category in categories"
-        @click="setActiveCategory"
+        @click="setActiveCategory(category.categoryType)"
         :id="category.categoryType"
         :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
         :key="category.name">
@@ -34,14 +33,13 @@ export default defineComponent({
     BurgerIcon
   },
 
-  setup(props: any) {
+  setup() {
     const store = useStore();
     const categories: Array<CategoryListItem> = store.state.nav.categoryList;
-
     const activeCategory: ComputedRef<string> = computed(() => store.state.nav.activeFoodCategory);
-    const setActiveCategory = function (event: any):void {
-      const id = event.target.closest(".np-category-list__item").id;
-      store.commit("nav/setActiveFoodCategory", id);
+
+    const setActiveCategory = (name: string): void => {
+      store.commit("nav/setActiveFoodCategory", name);
       store.commit("nav/filterFoodByCategory");
     };
 

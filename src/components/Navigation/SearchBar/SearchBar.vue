@@ -117,6 +117,7 @@ export default defineComponent({
     };
 
     const setActiveFilter = function(): void {
+      store.commit("nav/filterFoodByCategory");
       store.commit("nav/filterFoodList", filterVal.value);
     };
 
