@@ -1,30 +1,22 @@
 <template>
   <header class="np-header">
-    <img class="np-header__image"
-         :src="image"
-         alt="Logo" />
-
+    <Logo class="np-header__image"/>
     <div class="np-header__wrapper">
       <h1 class="np-header__wrapper__title">{{ $t('headerTitle') }}</h1>
-      <p class="np-header__wrapper__subtitle">{{ $t('headerSubtitle')}}</p>
+      <p class="np-header__wrapper__subtitle">{{ $t('headerSubtitle') }}</p>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-export default {
-  props: {
-    image: {
-      type: String,
-      default: "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610639219~hmac=7d495723bb794cebd52742b3afc66cb1"
-    },
-  },
-  setup(){
-    return {
+import Logo from "@/assets/icons/icon-logo.vue"
+import {defineComponent} from "vue";
 
-    }
+export default defineComponent({
+  components: {
+    Logo,
   }
-}
+});
 </script>
 
 <style scoped lang="scss">

@@ -4,25 +4,16 @@
          :key="index"
          class="np-steps__wrapper">
 
-      <div :class="{
-        'np-steps__wrapper__step--active': active(index),
-        'np-steps__wrapper__step--completed': completed(index),
-        'np-steps__wrapper__step--waiting': waiting(index)}"/>
-
-      <p :class="{
-        'text-secondary-dark': active(index),
-        'text-primary': completed(index),
-        'text-secondary': waiting(index)}">
-        {{ stepName }}
-      </p>
+      <div :class="divClassObject(index)"/>
+      <p :class="pClassObject(index)">{{ stepName }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useStore } from "@/store";
-import { computed } from "vue";
-import { ComputedRef } from "@vue/reactivity";
+import {useStore} from "@/store";
+import {computed} from "vue";
+import {ComputedRef} from "@vue/reactivity";
 
 
 export default {
@@ -30,20 +21,33 @@ export default {
     const store = useStore();
     const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
 
-
     const completed = (index: number): boolean => stepValue.value - 1 > index || stepValue.value === 3;
-    const active = (index: number) => stepValue.value - 1 === index && stepValue.value !== 3;
-    const waiting = (index: number) => stepValue.value - 1 < index;
-
+    const active = (index: number): boolean => stepValue.value - 1 === index && stepValue.value !== 3;
+    const waiting = (index: number): boolean => stepValue.value - 1 < index;
 
     return {
       stepValue,
       completed,
       active,
-      waiting
-    };
+      waiting,
+      divClassObject: function (index: number): object {
+        return {
+          'np-steps__wrapper__step--active': active(index),
+          'np-steps__wrapper__step--completed': completed(index),
+          'np-steps__wrapper__step--waiting': waiting(index)
+        }
+      },
+      pClassObject: function (index: number): object {
+        return {
+          'text-secondary-dark': active(index),
+          'text-primary': completed(index),
+          'text-secondary': waiting(index)
+        }
+      }
+    }
   }
-};
+}
+
 </script>
 
 <style scoped lang="scss">

@@ -36,12 +36,16 @@
               @click="increment(item)"> + </span>
       </div>
 
-      <img class="np-cartProducts__item__details__cross"
-           @click="showModal = true; product = item"
-           src="../../assets/remove.png"
-           alt="delete">
+      <IconCross class="np-cartProducts__item__details__cross"
+                 @click="showModal = true; product = item"/>
+
     </div>
   </div>
+  <div class="np-cartProducts__price">
+    <p>{{ $t('totalPrice') }}</p>
+    <p>${{ price.toFixed(2) }}</p>
+  </div>
+
   <Summary/>
 
   <teleport to="#modal">
@@ -53,6 +57,7 @@
                   @click="removeFromCart(product) ; showModal = false">
             {{ $t('yes') }}
           </button>
+
           <button class="np-modal__button"
                   @click="showModal = false">
             {{ $t('no') }}
@@ -64,29 +69,36 @@
   </teleport>
 </template>
 
-<script>
+<script lang="ts">
 import {useStore} from "@/store";
-import {computed, ref, Ref} from "vue";
-import Summary from "@/components/Cart/Summary/Summary";
+import {computed, ref, ComputedRef, Ref} from "vue";
+import Summary from "@/components/Cart/Summary/Buttons";
+import IconCross from "@/assets/icons/icon-cross";
+import {CartItem} from "@/store/interfaces";
 
 export default {
   components: {
     Summary,
+    IconCross,
   },
   setup() {
     const store = useStore();
-    const cart = computed(() => store.getters['cart/cartItems']);
-    const showModal = ref(false);
-    const product = ref({});
-    const removeFromCart = (item) => store.commit('cart/removeFromCart', item)
+    const cart: ComputedRef<CartItem> = computed(() => store.getters['cart/cartItems']);
+    const price: ComputedRef<number> = computed(() => store.getters['cart/priceTotal']);
+
+    const showModal: Ref<boolean> = ref(false);
+    const product: Ref<object> = ref({});
+
+    const removeFromCart = (item : CartItem) : void => store.commit('cart/removeFromCart', item)
     return {
       cart,
       showModal,
       product,
-      turnHoverOn: (item) => store.commit('cart/turnHoverOn', item),
-      turnHoverOff: (item) => store.commit('cart/turnHoverOff', item),
-      increment: (item) => store.commit('cart/incrementQuantity', item),
-      decrement: (item) => store.commit('cart/decrementQuantity', item),
+      price,
+      turnHoverOn: (item : CartItem) => store.commit('cart/turnHoverOn', item),
+      turnHoverOff: (item : CartItem) => store.commit('cart/turnHoverOff', item),
+      increment: (item : CartItem) => store.commit('cart/incrementQuantity', item),
+      decrement: (item : CartItem) => store.commit('cart/decrementQuantity', item),
       removeFromCart,
     }
   }
@@ -138,6 +150,9 @@ export default {
     }
   }
 
+}
+.np-cartProducts__price {
+  @apply flex justify-between w-full px-12 mt-6;
 }
 
 .np-modal {
