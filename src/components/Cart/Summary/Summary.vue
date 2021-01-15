@@ -69,8 +69,7 @@ export default {
     color: #fff;
 
     &--disabled {
-      @apply w-full bg-secondary-light;
-      cursor: default;
+      @apply w-full bg-secondary-light cursor-default;
     }
   }
 }

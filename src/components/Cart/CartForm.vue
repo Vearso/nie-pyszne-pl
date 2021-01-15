@@ -78,14 +78,12 @@ export default {
   }
 
   span {
-    @apply text-left text-alert text-base font-light absolute h-1.5;
+    @apply text-left text-alert text-base font-light absolute h-1.5 text-xs;
     bottom: -0.5rem;
-    font-size: 0.75rem;
   }
 
   .field-container {
-    @apply flex flex-col;
-    position: relative;
+    @apply flex flex-col relative;
   }
 }
 </style>
