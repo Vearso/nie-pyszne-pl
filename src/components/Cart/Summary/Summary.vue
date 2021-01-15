@@ -1,30 +1,29 @@
 <template>
   <div class="np-cart__summary">
-<!--    <div class="np-cart__summary__price">-->
-<!--      <p>{{ $t("totalPrice") }}</p>-->
-<!--      <p>${{ price.toFixed(2) }}</p>-->
-<!--    </div>-->
+    <div class="np-cart__summary__price">
+      <p>{{ $t('totalPrice') }}</p>
+      <p>${{ price.toFixed(2) }}</p>
+    </div>
 
     <button
       v-if="stepValue < 3"
       class="np-cart__summary__button"
-      :disabled="!isFormValid && stepValue === 2"
-      :class="{'np-cart__summary__button--disabled': !isFormValid && stepValue === 2}"
+      :class="{'np-cart__summary__button--disabled': !isFormValid && stepValue === 2 || price === 0 && stepValue === 1}"
       @click="nextStep"
     >
       {{ $t("next") }}
     </button>
 
-    <button v-else class="np-cart__summary__button" @click="resetOrder">
-      {{ $t("addOrder") }}
+    <button v-else
+            class="np-cart__summary__button"
+            @click="resetOrder">
+      {{ $t('addOrder') }}
     </button>
 
-    <button
-      v-if="stepValue === 2"
-      class="np-cart__summary__button"
-      @click="prevStep"
-    >
-      {{ $t("previous") }}
+    <button v-if="stepValue === 2"
+            class="np-cart__summary__button"
+            @click="prevStep">
+      {{ $t('previous') }}
     </button>
   </div>
 </template>
@@ -39,17 +38,22 @@ export default {
   },
   setup(props) {
     const store = useStore();
-    const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
-    const price = 0;
+
+    const stepValue = computed(() => store.getters['sideMenu/stepValue']);
+    const price = computed(() => store.getters['cart/priceTotal'])
+
     return {
       stepValue,
       price,
-      nextStep: () => store.commit("sideMenu/nextStep"),
-      prevStep: () => store.commit("sideMenu/prevStep"),
-      resetOrder: () => store.commit("sideMenu/resetOrder")
-    };
-  }
-};
+      nextStep: () => store.commit('sideMenu/nextStep'),
+      prevStep: () => store.commit('sideMenu/prevStep'),
+      resetOrder: () => {
+        store.commit('sideMenu/resetOrder')
+        store.commit('cart/clearCart')
+      }
+    }
+  },
+}
 </script>
 
 <style scoped lang="scss">

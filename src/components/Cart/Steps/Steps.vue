@@ -1,45 +1,40 @@
 <template>
   <div class="np-steps">
-    <div
-      v-for="(stepName, index) in $tm('menuSteps', { returnObjects: true })"
-      :key="index"
-      class="np-steps__wrapper"
-    >
-      <div
-        :class="{
-          'np-steps__wrapper__step--active': active(index),
-          'np-steps__wrapper__step--completed': completed(index),
-          'np-steps__wrapper__step--waiting': waiting(index)
-        }"
-      />
+    <div v-for="(stepName, index) in $tm('menuSteps',{returnObjects: true})"
+         :key="index"
+         class="np-steps__wrapper">
 
-      <p
-        :class="{
-          'text-secondary-dark': active(index),
-          'text-primary': completed(index),
-          'text-secondary': waiting(index)
-        }"
-      >
+      <div :class="{
+        'np-steps__wrapper__step--active': active(index),
+        'np-steps__wrapper__step--completed': completed(index),
+        'np-steps__wrapper__step--waiting': waiting(index)}"/>
+
+      <p :class="{
+        'text-secondary-dark': active(index),
+        'text-primary': completed(index),
+        'text-secondary': waiting(index)}">
         {{ stepName }}
       </p>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useStore } from "@/store";
 import { computed } from "vue";
+import { ComputedRef } from "@vue/reactivity";
+
 
 export default {
   setup(props) {
     const store = useStore();
-    const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
+    const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
 
-    const completed = index =>
-      stepValue.value - 1 > index || stepValue.value === 3;
-    const active = index =>
-      stepValue.value - 1 === index && stepValue.value !== 3;
-    const waiting = index => stepValue.value - 1 < index;
+
+    const completed = (index: number): boolean => stepValue.value - 1 > index || stepValue.value === 3;
+    const active = (index) => stepValue.value - 1 === index && stepValue.value !== 3;
+    const waiting = (index) => stepValue.value - 1 < index;
+
 
     return {
       stepValue,
@@ -53,7 +48,7 @@ export default {
 
 <style scoped lang="scss">
 .np-steps {
-  @apply flex justify-between w-full px-12;
+  @apply flex justify-between w-full px-12 mb-4;
 
   &__wrapper {
     @apply flex flex-col items-center;

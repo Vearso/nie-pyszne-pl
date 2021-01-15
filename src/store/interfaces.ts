@@ -9,6 +9,7 @@ export interface MenuState {
 }
 export interface CartState {
   items: Array<CartItem>;
+  priceTotal: number,
 }
 
 export interface CartItem {
@@ -17,6 +18,7 @@ export interface CartItem {
   quantity: number;
   price: number;
   imgUrl: string;
+  isHoveredOn: boolean,
 }
 
 export interface CartFormState {

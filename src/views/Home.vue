@@ -22,7 +22,7 @@ export default {
   },
   setup() {
     const imageHeader =
-        "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610442341~hmac=78691034b920a1b5599d482745dddbc9";
+        "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610639219~hmac=7d495723bb794cebd52742b3afc66cb1";
     return {
       imageHeader,
     }

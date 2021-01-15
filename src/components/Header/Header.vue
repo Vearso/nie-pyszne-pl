@@ -16,7 +16,7 @@ export default {
   props: {
     image: {
       type: String,
-      default: ""
+      default: "https://www.flaticon.com/svg/vstatic/svg/2833/2833438.svg?token=exp=1610639219~hmac=7d495723bb794cebd52742b3afc66cb1"
     },
   },
   setup(){
@@ -29,7 +29,7 @@ export default {
 
 <style scoped lang="scss">
 .np-header {
-  @apply flex justify-around w-1/2 max-h-28 place-self-center mx-auto mt-20 bg-primary-light rounded-tr-2xl;
+  @apply flex justify-around max-h-28 place-self-center mx-auto mt-20 bg-primary-light rounded-tr-2xl mb-6;
 
   &__image {
     @apply w-44 h-44 self-center;
