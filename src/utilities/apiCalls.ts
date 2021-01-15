@@ -1,4 +1,4 @@
-const api: string = "http://localhost:3000/productList";
+const api = "http://localhost:3000/productList";
 
 const headers = {
   'Content-Type': 'application/json',
