@@ -3,7 +3,7 @@
     class="product-list"
     v-if="items.length"
     :style="[
-      false
+      displayList
         ? 'grid-template-columns: 1fr'
         : 'grid-template-columns: 1fr 1fr 1fr'
     ]"
@@ -19,83 +19,34 @@
     >
     </products-list-item>
   </div>
+
+  <div v-else class="empty-product-list">
+	  <strong>Product list is empty</strong>
+  </div>
 </template>
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
-import { defineComponent } from "vue";
 import { mapMutations } from "vuex";
+import { useStore } from "@/store";
+import { computed } from "vue";
 
-const ProductsList = defineComponent({
+export default {
   name: "ProductsList",
-  data() {
-    return {
-      items: [
-        {
-          id: 0,
-          name: "quatrrrrrrrrrrrrrrrrrrrrrrrrrrrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        },
-        {
-          id: 1,
-          name: "quatrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        },
-        {
-          id: 2,
-          name: "quatrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        },
-        {
-          id: 3,
-          name: "quatrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        },
-        {
-          id: 4,
-          name: "quatrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        },
-        {
-          id: 5,
-          name: "quatrro",
-          type: "pizza",
-          price: 15,
-          rating: 5.5,
-          imgUrl:
-              "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-        }
-      ]
-    };
-  },
   components: {
     ProductsListItem
+  },
+  setup() {
+    const store = useStore();
+    return {
+      items: computed(() => store.state.nav.filteredFoodList),
+      displayList: computed(() => store.state.nav.isFoodListAList)
+    };
   },
   methods: {
     ...mapMutations("cart", ["addToCart"])
   }
-});
-export default ProductsList;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -103,5 +54,10 @@ export default ProductsList;
   display: grid;
   width: 100%;
   margin: 0 auto;
+}
+
+.empty-product-list {
+  @apply text-primary;
+  font-size: 2rem;
 }
 </style>
