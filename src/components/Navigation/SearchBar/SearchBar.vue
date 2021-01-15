@@ -3,6 +3,7 @@
     <button type="button"
             class="np-search-bar__toggle-list-view"
             @click="changeFoodListView">
+
       <ListIcon />
     </button>
 
@@ -12,13 +13,13 @@
       <input class="np-search-bar__input-el"
              type="search"
              placeholder="Search"
-             v-model="filterVal"
-             />
+             v-model="filterVal" />
     </div>
 
     <section class="np-search-bar__filter">
       <div class="np-search-bar__filter-option"
            @click="toggleOrderList">
+
         <SwitchIcon class="np-search-bar__filter-option-icon"/>
 
         <p class="np-search-bar__filter-option-text">
@@ -26,19 +27,20 @@
         </p>
 
         <button class="np-search-bar__filter-option-btn"
-                :class="isLiActive ? 'np-search-bar__filter-option-btn--active' : ''">
+                :class="isListActive('np-search-bar__filter-option-btn--active')">
 
           <DownArrowIcon />
         </button>
       </div>
       <ul class="np-search-bar__filter-list"
-          :class="isLiActive ? 'np-search-bar__filter-list--active' : ''"
+          :class="isListActive('np-search-bar__filter-list--active')"
           @click="setFoodOrder">
 
         <li class="np-search-bar__filter-list-item"
             v-for="option in orderOptions"
             :id="option.type"
             :key="option.type">
+
           <span>{{option.category}} </span> {{option.order}}
         </li>
       </ul>
@@ -52,12 +54,9 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, ComputedRef, Ref } from "vue";
 import {useStore} from "@/store/index";
 import {OrderOption} from "@/store/navigationInterface";
-
-
 
 export default defineComponent({
   components: {
@@ -68,10 +67,9 @@ export default defineComponent({
   },
   setup(props: any) {
     const store = useStore();
-
     const isLiActive = ref<any>(false);
-    const filterVal = ref("");
-    const orderVal = ref<any>(computed(() => store.state.nav.foodListOrder));
+    const filterVal: Ref<string> = ref("");
+    const orderVal: ComputedRef<OrderOption> = computed(() => store.state.nav.foodListOrder);
     const orderOptions: OrderOption[] = [
       {
         category: "Price",
@@ -101,6 +99,13 @@ export default defineComponent({
     const toggleOrderList = function(): void {
       isLiActive.value = !isLiActive.value;
     };
+    const isListActive = function(className: string): string {
+      if(isLiActive.value){
+        return className
+      }else{
+        return ""
+      }
+    };
 
     const setFoodOrder = function(event: any): void{
       const id = event.target.closest(".np-search-bar__filter-list-item").id;
@@ -112,7 +117,6 @@ export default defineComponent({
 
     const setActiveFilter = function(): void {
       store.commit("nav/filterFoodList", filterVal.value);
-      store.commit("nav/")
     };
 
     return {
@@ -120,6 +124,7 @@ export default defineComponent({
       setActiveFilter,
       setFoodOrder,
       toggleOrderList,
+      isListActive,
       filterVal,
       orderVal,
       orderOptions,
@@ -163,7 +168,6 @@ export default defineComponent({
 
   &__input {
     @apply flex flex-row justify-start items-center w-full;
-
     height: inherit;
     padding: 10px;
 
@@ -193,11 +197,9 @@ export default defineComponent({
 
     &-option {
       @apply flex flex-row justify-between items-center;
-
       height: inherit;
       width: inherit;
       padding: 16px;
-
       cursor: pointer;
 
       svg {
@@ -208,7 +210,6 @@ export default defineComponent({
       &-text {
         width: 100%;
         margin: 0 10px;
-
         font-size: 19px;
         text-align: left;
         color: theme("colors.secondary.DEFAULT");
@@ -248,7 +249,6 @@ export default defineComponent({
         line-height: 40px;
         text-align: center;
         color: theme("colors.secondary.DEFAULT");
-
         cursor: pointer;
         border: solid 1px theme("colors.secondary.lighter");
 

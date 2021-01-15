@@ -89,8 +89,8 @@ const mutations = {
   },
   filterFoodList(state: NavState, param: string) {
     const parameter = param.trim().toLowerCase();
-
     const filteredList = [...state.fullFoodList];
+
     filteredList.filter(result => {
       if (
         result.name.includes(parameter) ||
@@ -100,6 +100,7 @@ const mutations = {
         return result;
       }
     });
+
     state.filteredFoodList = filteredList;
   },
   setFoodListFilter(state: NavState, filter: string) {
