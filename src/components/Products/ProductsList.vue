@@ -14,7 +14,7 @@
       :name="item.name"
       :price="item.price"
       :imgUrl="item.imgUrl"
-      :rate="item.rate"
+      :rating="item.rating"
       @click="addToCart(item)"
     >
     </products-list-item>

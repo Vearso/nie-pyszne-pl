@@ -5,11 +5,13 @@
       <p>${{ price.toFixed(2) }}</p>
     </div>
 
-    <button v-if="stepValue < 3"
-            :class="[price === 0 ? 'disabled' : 'np-cart__summary__button']"
-            @click="nextStep"
-            :disabled="price === 0">
-      {{ $t('next') }}
+    <button
+      v-if="stepValue < 3"
+      class="np-cart__summary__button"
+      :class="{'np-cart__summary__button--disabled': !isFormValid && stepValue === 2 || price === 0 && stepValue === 1}"
+      @click="nextStep"
+    >
+      {{ $t("next") }}
     </button>
 
     <button v-else
@@ -27,11 +29,14 @@
 </template>
 
 <script>
-import {computed} from "vue";
-import {useStore} from "@/store";
+import { computed } from "vue";
+import { useStore } from "@/store";
 
 export default {
-  setup() {
+  props: {
+    isFormValid: Boolean
+  },
+  setup(props) {
     const store = useStore();
 
     const stepValue = computed(() => store.getters['sideMenu/stepValue']);
@@ -58,14 +63,14 @@ export default {
   &__price {
     @apply flex justify-between;
   }
+
   &__button {
     @apply w-full bg-primary font-bold mt-4 p-1;
     color: #fff;
-  }
-  .disabled {
-    @apply w-full bg-secondary-light font-bold mt-4 p-1;
-    color: #fff;
-  }
 
+    &--disabled {
+      @apply w-full bg-secondary-light cursor-default;
+    }
+  }
 }
 </style>

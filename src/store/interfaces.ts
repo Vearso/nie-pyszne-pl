@@ -1,3 +1,8 @@
+export interface State {
+  sideMenu: MenuState;
+  cart: CartState;
+  form: CartFormState;
+}
 export interface MenuState {
   menuOpened: boolean;
   step: number;
@@ -16,3 +21,12 @@ export interface CartItem {
   isHoveredOn: boolean,
 }
 
+export interface CartFormState {
+  fullName: string;
+  mail: string;
+  phone: number;
+  city: string;
+  street: string;
+  postCode: string;
+  isValid: boolean;
+}

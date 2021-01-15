@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "vee-validate": "^4.1.9",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-i18n": "^9.0.0-rc.2",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
