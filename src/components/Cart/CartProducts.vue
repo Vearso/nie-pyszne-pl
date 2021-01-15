@@ -72,8 +72,8 @@
 <script lang="ts">
 import {useStore} from "@/store";
 import {computed, ref, ComputedRef, Ref} from "vue";
-import Summary from "@/components/Cart/Summary/Buttons";
-import IconCross from "@/assets/icons/icon-cross";
+import Summary from "@/components/Cart/Summary/Buttons.vue";
+import IconCross from "@/assets/icons/icon-cross.vue";
 import {CartItem} from "@/store/interfaces";
 
 export default {
