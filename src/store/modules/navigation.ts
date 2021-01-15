@@ -125,6 +125,7 @@ const mutations = {
       });
 
       state.filteredFoodList = filteredList;
+      console.log(state.filteredFoodList);
     }
   }
 };
