@@ -73,7 +73,6 @@ const mutations = {
               return -1;
             }
             return 0;
-            // return b.name - a.name;
           });
           break;
         case "price_asc":
