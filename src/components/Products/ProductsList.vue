@@ -38,7 +38,6 @@ export default {
   },
   setup() {
     const store = useStore();
-	  console.log(store.state.nav.filteredFoodList);
     return {
       items: computed(() => store.state.nav.filteredFoodList),
       displayList: computed(() => store.state.nav.isFoodListAList)
@@ -58,7 +57,7 @@ export default {
 }
 
 .empty-product-list {
-  color: theme("colors.primary.DEFAULT");
+  @apply text-primary;
   font-size: 2rem;
 }
 </style>
