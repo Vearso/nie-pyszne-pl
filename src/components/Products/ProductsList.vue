@@ -21,7 +21,7 @@
   </div>
 
   <div v-else class="empty-product-list">
-    Product list is empty
+	  <strong>Product list is empty</strong>
   </div>
 </template>
 
