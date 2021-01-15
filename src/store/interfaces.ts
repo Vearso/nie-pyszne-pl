@@ -26,4 +26,5 @@ export interface CartFormState {
   city: string;
   street: string;
   postCode: string;
+  isValid: boolean;
 }

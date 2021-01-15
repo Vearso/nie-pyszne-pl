@@ -1,55 +1,68 @@
 <template>
   <div class="cart-form">
-    <Form :validation-schema="schema">
+    <VForm :validation-schema="schema" v-slot="{meta}">
       <div class="field-container">
-        <Field name="name" placeholder="Name"/>
+        <VField name="name" placeholder="Name" />
         <ErrorMessage name="name" />
       </div>
       <div class="field-container">
-        <Field name="email" placeholder="E-mail"/>
+        <VField name="email" placeholder="E-mail" />
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <Field name="phone" placeholder="Phone"/>
+        <VField name="phone" placeholder="Phone" />
         <ErrorMessage name="phone" />
       </div>
       <div class="field-container">
-        <Field name="city" placeholder="City"/>
+        <VField name="city" placeholder="City" />
         <ErrorMessage name="city" />
       </div>
       <div class="field-container">
-        <Field name="street" placeholder="Street"/>
+        <VField name="street" placeholder="Street" />
         <ErrorMessage name="street" />
       </div>
       <div class="field-container">
-        <Field name="postCode" placeholder="Post code"/>
-        <ErrorMessage name="postCode"/>
+        <VField name="postCode" placeholder="Post code" />
+        <ErrorMessage name="postCode" />
       </div>
-    </Form>
+      <Summary :isFormValid="meta.valid"/>
+    </VForm>
   </div>
 </template>
 
 <script>
-import { ErrorMessage, Field, Form } from "vee-validate";
-import * as yup from 'yup';
+import { ErrorMessage } from "vee-validate";
+import * as VeeValidate from "vee-validate";
+import * as yup from "yup";
+import Summary from "@/components/Cart/Summary/Summary";
+
 
 export default {
   name: "CartForm",
   components: {
-    Field,
-    Form,
+    Summary,
+    VField: VeeValidate.Field,
+    VForm: VeeValidate.Form,
     ErrorMessage
   },
   setup() {
     const schema = yup.object({
       name: yup.string().required(),
-      email: yup.string().required().email(),
-      phone: yup.number().required().positive(),
+      email: yup
+        .string()
+        .required()
+        .email(),
+      phone: yup
+        .number()
+        .required()
+        .positive(),
       city: yup.string().required(),
       street: yup.string().required(),
       postCode: yup.string().required()
     });
-    return { schema };
+    return {
+      schema
+    };
   }
 };
 </script>
