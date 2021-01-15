@@ -5,13 +5,17 @@
       <p>${{ price.toFixed(2) }}</p>
     </div>
 
-    <button v-if="stepValue < 3"
-            class="np-cart__summary__button"
-            @click="nextStep">
-      {{ $t('next') }}
+    <button
+      v-if="stepValue < 3"
+      class="np-cart__summary__button"
+      :class="{'np-cart__summary__button--disabled': !isFormValid && stepValue === 2 || price === 0 && stepValue === 1}"
+      @click="nextStep"
+    >
+      {{ $t("next") }}
     </button>
 
-    <button v-else class="np-cart__summary__button"
+    <button v-else
+            class="np-cart__summary__button"
             @click="resetOrder">
       {{ $t('addOrder') }}
     </button>
@@ -25,21 +29,28 @@
 </template>
 
 <script>
-import {computed} from "vue";
-import {useStore} from "@/store";
+import { computed } from "vue";
+import { useStore } from "@/store";
 
 export default {
+  props: {
+    isFormValid: Boolean
+  },
   setup(props) {
     const store = useStore();
 
     const stepValue = computed(() => store.getters['sideMenu/stepValue']);
-    const price = 0;
+    const price = computed(() => store.getters['cart/priceTotal'])
+
     return {
       stepValue,
       price,
       nextStep: () => store.commit('sideMenu/nextStep'),
       prevStep: () => store.commit('sideMenu/prevStep'),
-      resetOrder: () => store.commit('sideMenu/resetOrder'),
+      resetOrder: () => {
+        store.commit('sideMenu/resetOrder')
+        store.commit('cart/clearCart')
+      }
     }
   },
 }
@@ -56,6 +67,10 @@ export default {
   &__button {
     @apply w-full bg-primary font-bold mt-4 p-1;
     color: #fff;
+
+    &--disabled {
+      @apply w-full bg-secondary-light cursor-default;
+    }
   }
 }
 </style>

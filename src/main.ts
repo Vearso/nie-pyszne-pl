@@ -1,9 +1,9 @@
 import { createApp } from "vue";
 import { createI18n} from "vue-i18n";
-import App from "./App.vue";
 import router from "./router";
 import store,{key} from "./store";
 import "./index.scss";
+import App from "./App.vue";
 import messages from "./locales/en";
 
 const i18n = createI18n({

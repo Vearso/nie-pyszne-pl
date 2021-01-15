@@ -15,39 +15,40 @@
         'text-secondary': waiting(index)}">
         {{ stepName }}
       </p>
-
     </div>
   </div>
 </template>
 
-<script>
-import {useStore} from "@/store";
-import {computed} from "vue";
+<script lang="ts">
+import { useStore } from "@/store";
+import { computed } from "vue";
+import { ComputedRef } from "@vue/reactivity";
+
 
 export default {
-  setup(props) {
+  setup() {
     const store = useStore();
-    const stepValue = computed(() => store.getters["sideMenu/stepValue"]);
+    const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
 
 
-    const completed = (index) => stepValue.value - 1 > index || stepValue.value === 3;
-    const active = (index) => stepValue.value - 1 === index && stepValue.value !== 3;
-    const waiting = (index) => stepValue.value - 1 < index;
+    const completed = (index: number): boolean => stepValue.value - 1 > index || stepValue.value === 3;
+    const active = (index: number) => stepValue.value - 1 === index && stepValue.value !== 3;
+    const waiting = (index: number) => stepValue.value - 1 < index;
 
 
     return {
       stepValue,
       completed,
       active,
-      waiting,
-    }
-  },
-}
+      waiting
+    };
+  }
+};
 </script>
 
 <style scoped lang="scss">
 .np-steps {
-  @apply flex justify-between w-full px-12;
+  @apply flex justify-between w-full px-12 mb-4;
 
   &__wrapper {
     @apply flex flex-col items-center;
