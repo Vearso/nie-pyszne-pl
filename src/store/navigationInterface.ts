@@ -8,16 +8,21 @@ export interface FoodListItem {
 }
 export type ListOrder = "none" | "price_asc" | "price_desc" | "alph_asc" | "alph_desc";
 
+export interface OrderOption {
+  category: string;
+  order: string;
+  type: ListOrder;
+}
+
 export interface NavState {
   isFoodListAList: boolean;
   fullFoodList: Array<FoodListItem>;
   filteredFoodList: Array<FoodListItem>;
-  foodListOrder: ListOrder;
+  foodListOrder: OrderOption;
   filterFoodParam: string;
   categoryList: Array<CategoryListItem>;
   activeFoodCategory: string;
 }
-
 
 export interface CategoryListItem {
   readonly id: string;

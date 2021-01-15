@@ -4,7 +4,6 @@ import {InjectionKey} from "vue";
 import {MenuState} from "@/store/interfaces";
 import cart from "@/store/modules/cart";
 import nav from "@/store/modules/navigation";
-import {InjectionKey} from "vue";
 import { CartState, State } from "@/store/interfaces";
 
 export const key: InjectionKey<Store<State>> = Symbol()

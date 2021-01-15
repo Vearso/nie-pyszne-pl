@@ -15,8 +15,20 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store/index";
+import RestaurantIcon from "@/assets/icons/food/icon-resturant.vue";
+import PizzaIcon from "@/assets/icons/food/icon-pizza.vue";
+import SushiIcon from "@/assets/icons/food/icon-sushi.vue";
+import TacoIcon from "@/assets/icons/food/icon-taco.vue";
+import BurgerIcon from "@/assets/icons/food/icon-burger.vue";
 
 export default defineComponent({
+  components: {
+    PizzaIcon,
+    RestaurantIcon,
+    SushiIcon,
+    TacoIcon,
+    BurgerIcon
+  },
 
   setup(props: any) {
     const store = useStore();

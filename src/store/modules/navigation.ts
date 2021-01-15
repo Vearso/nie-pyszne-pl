@@ -1,32 +1,46 @@
-import { NavState, FoodListItem } from "../navigationInterface";
+import { NavState, FoodListItem, OrderOption } from "../navigationInterface";
 import { getFoodList } from "@/utilities/apiCalls";
-import ListIcon from "@/assets/icons/icon-list.vue";
-
 
 const state: NavState = {
   isFoodListAList: false,
   fullFoodList: [],
   filteredFoodList: [],
   filterFoodParam: "",
-  foodListOrder: "none",
+  foodListOrder: {
+    category: "Option",
+    order: "details",
+    type: "none"
+  },
   categoryList: [
     {
       id: "all",
-      name: "all",
+      name: "All",
       categoryType: "all",
-      iconUrl: ListIcon
+      iconUrl: "RestaurantIcon"
     },
     {
       id: "pizza",
       name: "Pizza",
       categoryType: "pizza",
-      iconUrl: ListIcon
+      iconUrl: "PizzaIcon"
     },
     {
       id: "sushi",
       name: "Sushi",
       categoryType: "sushi",
-      iconUrl: ListIcon
+      iconUrl: "SushiIcon"
+    },
+    {
+      id: "mexican",
+      name: "Mexican",
+      categoryType: "mexican",
+      iconUrl: "TacoIcon"
+    },
+    {
+      id: "burgers",
+      name: "Burgers",
+      categoryType: "burgers",
+      iconUrl: "BurgerIcon"
     }
   ],
   activeFoodCategory: "all"
@@ -38,12 +52,13 @@ const mutations = {
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
     state.fullFoodList = list;
-    state.filteredFoodList = state.fullFoodList;
+    state.filteredFoodList = [...state.fullFoodList];
   },
+
   orderFoodList(state: NavState) {
     const foodList = [...state.filteredFoodList];
     const orderList = () => {
-      switch (state.foodListOrder) {
+      switch (state.foodListOrder.type) {
         case "alph_asc":
           foodList.sort((a: any, b: any) => {
             return a.name - b.name;
@@ -69,6 +84,9 @@ const mutations = {
     orderList();
     state.filteredFoodList = foodList;
   },
+  setFoodListOrder(state: NavState, order: OrderOption) {
+    state.foodListOrder = order;
+  },
   filterFoodList(state: NavState, param: string) {
     const parameter = param.trim().toLowerCase();
 
@@ -87,6 +105,7 @@ const mutations = {
   setFoodListFilter(state: NavState, filter: string) {
     state.filterFoodParam = filter;
   },
+
   setActiveFoodCategory(state: NavState, newCategory: string) {
     state.activeFoodCategory = newCategory;
   }

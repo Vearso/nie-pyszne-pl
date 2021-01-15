@@ -12,16 +12,18 @@
       <input class="np-search-bar__input-el"
              type="search"
              placeholder="Search"
-             v-model="inputVal"/>
-
+             v-model="filterVal"
+             />
     </div>
 
     <section class="np-search-bar__filter">
       <div class="np-search-bar__filter-option"
-           @click="toggleFilterList">
+           @click="toggleOrderList">
         <SwitchIcon class="np-search-bar__filter-option-icon"/>
 
-        <p class="np-search-bar__filter-option-text"><span>Option: </span>details</p>
+        <p class="np-search-bar__filter-option-text">
+          <span>{{orderVal.category}}: </span>{{orderVal.order}}
+        </p>
 
         <button class="np-search-bar__filter-option-btn"
                 :class="isLiActive ? 'np-search-bar__filter-option-btn--active' : ''">
@@ -31,12 +33,14 @@
       </div>
       <ul class="np-search-bar__filter-list"
           :class="isLiActive ? 'np-search-bar__filter-list--active' : ''"
-          @click="setActiveFilter">
+          @click="setFoodOrder">
 
-        <li class="np-search-bar__filter-list-item"><span>Price </span>Low to High</li>
-        <li class="np-search-bar__filter-list-item"><span>Price </span>High to Low</li>
-        <li class="np-search-bar__filter-list-item"><span>Alphabetically </span>A to Z</li>
-        <li class="np-search-bar__filter-list-item"><span>Alphabetically </span>Z to A</li>
+        <li class="np-search-bar__filter-list-item"
+            v-for="option in orderOptions"
+            :id="option.type"
+            :key="option.type">
+          <span>{{option.category}} </span> {{option.order}}
+        </li>
       </ul>
     </section>
 
@@ -44,14 +48,16 @@
 </template>
 
 <script lang="ts">
-
 import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
 
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import {useStore} from "@/store/index";
+import {OrderOption} from "@/store/navigationInterface";
+
+
 
 export default defineComponent({
   components: {
@@ -60,35 +66,64 @@ export default defineComponent({
     SearchIcon,
     SwitchIcon
   },
-  props: {
-    isListActive: {
-      type: Boolean,
-      default: false
-    },
-  },
   setup(props: any) {
     const store = useStore();
 
-    const isLiActive = ref<typeof props.isListActive>(false);
-    const inputVal = ref("");
-    const changeFoodListView = function() {
+    const isLiActive = ref<any>(false);
+    const filterVal = ref("");
+    const orderVal = ref<any>(computed(() => store.state.nav.foodListOrder));
+    const orderOptions: OrderOption[] = [
+      {
+        category: "Price",
+        order: "Low to High",
+        type: "price_asc"
+      },
+      {
+        category: "Price",
+        order: "High to Low",
+        type: "price_desc"
+      },
+      {
+        category: "Alphabetically",
+        order: "A to Z",
+        type: "alph_asc"
+      },
+      {
+        category: "Alphabetically",
+        order: "Z to A",
+        type: "alph_desc"
+      }
+    ];
+
+    const changeFoodListView = function(): void {
       store.commit("nav/toggleFoodListView")
-      return true
     };
-    const setActiveFilter = function() {
-      store.commit("nav/filterFoodList", inputVal);
-      return true;
-    };
-    const toggleFilterList = function() {
+    const toggleOrderList = function(): void {
       isLiActive.value = !isLiActive.value;
+    };
+
+    const setFoodOrder = function(event: any): void{
+      const id = event.target.closest(".np-search-bar__filter-list-item").id;
+      const activeOrder = orderOptions.filter((option: OrderOption) => option.type === id);
+      store.commit("nav/setFoodListOrder", activeOrder[0]);
+      store.commit("nav/orderFoodList");
+      toggleOrderList();
+    };
+
+    const setActiveFilter = function(): void {
+      store.commit("nav/filterFoodList", filterVal.value);
+      store.commit("nav/")
     };
 
     return {
       changeFoodListView,
       setActiveFilter,
-      toggleFilterList,
-      isLiActive,
-      inputVal
+      setFoodOrder,
+      toggleOrderList,
+      filterVal,
+      orderVal,
+      orderOptions,
+      isLiActive
     };
   },
 });
@@ -96,8 +131,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-search-bar {
-  @apply flex flex-row justify-start items-center w-full;
+  @apply flex flex-row justify-start items-center w-full mb-10;
   height: 56px;
+  background-color: #ffffff;
 
   svg {
     height: inherit;
@@ -195,30 +231,31 @@ export default defineComponent({
 
         svg {
           width: 15px;
-          //height: auto;
         }
       }
     }
     &-list {
       width: inherit;
       display: none;
+      background-color: #ffffff;
 
       &--active {
-        @apply block absolute;
-
+        @apply block absolute z-10 ;
         border: solid 1px theme("colors.secondary.lighter");
       }
       &-item {
         height: 40px;
         line-height: 40px;
         text-align: center;
-        color: theme("colors.secondary.lighter");
+        color: theme("colors.secondary.DEFAULT");
 
         cursor: pointer;
         border: solid 1px theme("colors.secondary.lighter");
 
         &:hover {
           color: theme("colors.secondary.darker");
+          border-color: theme("colors.secondary.darker");
+
         }
       }
     }
