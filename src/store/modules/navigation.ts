@@ -60,13 +60,20 @@ const mutations = {
     const orderList = () => {
       switch (state.foodListOrder.type) {
         case "alph_asc":
-          foodList.sort((a: any, b: any) => {
-            return a.name - b.name;
+          foodList.sort((a: FoodListItem, b: FoodListItem) => {
+            if(a.name < b.name){
+              return -1;
+            }
+            return 0;
           });
           break;
         case "alph_desc":
-          foodList.sort((a: any, b: any) => {
-            return b.name - a.name;
+          foodList.sort((a: FoodListItem, b: FoodListItem) => {
+            if(a.name > b.name){
+              return -1;
+            }
+            return 0;
+            // return b.name - a.name;
           });
           break;
         case "price_asc":
@@ -93,7 +100,7 @@ const mutations = {
 
     const filteredList = list.filter(result => {
       if (
-        result.name.includes(parameter) ||
+        result.name.toLowerCase().includes(parameter) ||
         result.price.toString() === parameter ||
         result.rating.toString() === parameter
       ) {
