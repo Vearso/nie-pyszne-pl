@@ -19,7 +19,7 @@
     {
       "id": 2,
       "name": "Double Cheddar Cheeseburger",
-      "foodType": "burger",
+      "foodType": "burgers",
       "price": 12,
       "rating": 3.5,
       "imgUrl": ""
@@ -27,7 +27,7 @@
     {
       "id": 3,
       "name": "Royal with Cheese",
-      "foodType": "burger",
+      "foodType": "burgers",
       "price": 42,
       "rating": 5,
       "imgUrl": "https://3.bp.blogspot.com/_4pBmaoufKvc/TU3rQzGlpxI/AAAAAAAAAPI/P-aQ9CnvziA/s1600/howl00001.png"

@@ -41,6 +41,7 @@ export default defineComponent({
     const setActiveCategory = function (event: any):void {
       const id = event.target.closest(".np-category-list__item").id;
       store.commit("nav/setActiveFoodCategory", id);
+      store.commit("nav/filterFoodByCategory");
     };
 
     return {

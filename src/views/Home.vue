@@ -36,7 +36,6 @@ export default {
     onMounted(() => {
       getFoodList()
     })
-    console.log(store.state.nav.filteredFoodList);
     return {
       imageHeader,
       getFoodList
