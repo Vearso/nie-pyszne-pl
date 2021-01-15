@@ -13,7 +13,8 @@
       <input class="np-search-bar__input-el"
              type="search"
              placeholder="Search"
-             v-model="filterVal" />
+             v-model="filterVal"
+             @keyup="setActiveFilter"/>
     </div>
 
     <section class="np-search-bar__filter">
