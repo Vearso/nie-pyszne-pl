@@ -14,7 +14,7 @@ import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
 import Navigation from '@/components/Navigation/Navigation.vue';
-import {onMounted} from 'vue';
+import { onMounted } from 'vue';
 import { useStore } from "@/store";
 
 
