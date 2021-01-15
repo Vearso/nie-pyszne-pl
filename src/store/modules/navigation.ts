@@ -1,5 +1,6 @@
 import { NavState, FoodListItem, OrderOption } from "../navigationInterface";
 import { getFoodList } from "@/utilities/apiCalls";
+import List from "@/store/food-list";
 
 const state: NavState = {
   isFoodListAList: false,
@@ -52,7 +53,9 @@ const mutations = {
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
     state.fullFoodList = list;
+    console.log(state.fullFoodList);
     state.filteredFoodList = [...state.fullFoodList];
+    console.log(state.filteredFoodList);
   },
 
   orderFoodList(state: NavState) {
@@ -115,9 +118,10 @@ const mutations = {
 const actions = {
   async fetchFoodList(context: any) {
     const searchedCategory = context.state.activeFoodCategory;
-    const list: FoodListItem[] = await getFoodList(searchedCategory);
+    const list: FoodListItem[] = await getFoodList();
 
     context.commit("setFoodList", list);
+    console.log(List)
   }
 };
 

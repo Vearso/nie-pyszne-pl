@@ -1,14 +1,13 @@
-const apiKey = "";
+const api = "http://localhost:3000/productList";
 
 const headers = {
   'Content-Type': 'application/json',
 }
 
-export function getFoodList (data:string) {
-  return fetch(apiKey,{
+export function getFoodList () {
+  return fetch(api,{
     method: 'GET',
     headers,
-    body: JSON.stringify(data),
   }).then(res => res.json())
     .catch(err => console.log(err));
 }
