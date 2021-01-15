@@ -16,8 +16,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ComputedRef } from "vue";
 import { useStore } from "@/store/index";
+import { CategoryListItem } from "@/store/navigationInterface";
 import RestaurantIcon from "@/assets/icons/food/icon-resturant.vue";
 import PizzaIcon from "@/assets/icons/food/icon-pizza.vue";
 import SushiIcon from "@/assets/icons/food/icon-sushi.vue";
@@ -35,9 +36,9 @@ export default defineComponent({
 
   setup(props: any) {
     const store = useStore();
-    const categories = store.state.nav.categoryList;
+    const categories: Array<CategoryListItem> = store.state.nav.categoryList;
 
-    const activeCategory = computed(() => store.state.nav.activeFoodCategory);
+    const activeCategory: ComputedRef<string> = computed(() => store.state.nav.activeFoodCategory);
     const setActiveCategory = function (event: any):void {
       const id = event.target.closest(".np-category-list__item").id;
       store.commit("nav/setActiveFoodCategory", id);
