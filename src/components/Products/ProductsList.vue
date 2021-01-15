@@ -38,7 +38,7 @@ export default {
   },
   setup() {
     const store = useStore();
-
+	  console.log(store.state.nav.filteredFoodList);
     return {
       items: computed(() => store.state.nav.filteredFoodList),
       displayList: computed(() => store.state.nav.isFoodListAList)
