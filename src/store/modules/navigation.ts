@@ -89,9 +89,9 @@ const mutations = {
   },
   filterFoodList(state: NavState, param: string) {
     const parameter = param.trim().toLowerCase();
-    const filteredList = [...state.fullFoodList];
+    const list = [...state.filteredFoodList];
 
-    filteredList.filter(result => {
+    const filteredList = list.filter(result => {
       if (
         result.name.includes(parameter) ||
         result.price.toString() === parameter ||
@@ -109,13 +109,30 @@ const mutations = {
 
   setActiveFoodCategory(state: NavState, newCategory: string) {
     state.activeFoodCategory = newCategory;
+  },
+
+  filterFoodByCategory(state: NavState){
+    if(state.activeFoodCategory === "all"){
+      state.filteredFoodList = state.fullFoodList;
+    }else{
+      const list = [...state.fullFoodList];
+      const filteredList = list.filter(foodItem => {
+        if (
+          state.activeFoodCategory === foodItem.foodType
+        ) {
+          return foodItem;
+        }
+      });
+
+      state.filteredFoodList = filteredList;
+    }
   }
 };
 
 const actions = {
   async fetchFoodList(context: any) {
     const searchedCategory = context.state.activeFoodCategory;
-    const list: FoodListItem[] = await getFoodList(searchedCategory);
+    const list: FoodListItem[] = await getFoodList();
 
     context.commit("setFoodList", list);
   }
