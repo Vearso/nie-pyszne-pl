@@ -38,6 +38,7 @@ import CartForm from "./CartForm.vue";
 import RightArrow from "@/assets/icons/icon-arrow.vue"
 
 export default defineComponent({
+  name: "Cart",
   components: {
     User,
     Steps,

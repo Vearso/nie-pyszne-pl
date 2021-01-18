@@ -14,17 +14,20 @@ import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
 import Navigation from '@/components/Navigation/Navigation.vue';
-import { onMounted } from 'vue';
+import { onMounted, defineComponent } from 'vue';
 import { useStore } from "@/store";
 
 
-export default {
+export default defineComponent({
+  name: "Home",
+
   components: {
     Navigation,
     Header,
     Cart,
     ProductsList,
   },
+
   setup() {
     const store = useStore();
 
@@ -38,5 +41,5 @@ export default {
       getFoodList
     }
   }
-}
+});
 </script>

@@ -13,6 +13,7 @@ import Logo from "@/assets/icons/icon-logo.vue"
 import {defineComponent} from "vue";
 
 export default defineComponent({
+  name: 'Header',
   components: {
     Logo,
   }
