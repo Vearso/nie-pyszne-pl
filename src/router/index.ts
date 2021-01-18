@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
+import { UrlParameters } from "@/utilities/urlHandler";
 
 const routes: Array<RouteRecordRaw> = [
   {
