@@ -5,7 +5,14 @@ export interface State {
   cart: CartState;
   nav: NavState;
   form: CartFormState;
+  modal: ModalState;
 }
+
+export interface ModalState {
+  showModal: boolean,
+  itemToDelete: null | CartItem,
+}
+
 export interface MenuState {
   menuOpened: boolean;
   step: number;

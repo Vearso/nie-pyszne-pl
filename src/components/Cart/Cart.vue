@@ -29,15 +29,15 @@
 </template>
 
 <script lang="ts">
-import {computed, ComputedRef} from "vue";
+import {computed, ComputedRef, defineComponent} from "vue";
 import {useStore} from "@/store";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
-import CartProducts from "./CartProducts.vue";
+import CartProducts from "./CartProducts/CartProducts.vue";
 import CartForm from "./CartForm.vue";
 import RightArrow from "@/assets/icons/icon-arrow.vue"
 
-export default {
+export default defineComponent({
   components: {
     User,
     Steps,
@@ -52,7 +52,7 @@ export default {
           "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
     }
   },
-  setup(props: object) {
+  setup() {
     const store = useStore();
 
     const isOpened: ComputedRef<boolean> = computed(() => store.getters["sideMenu/openedValue"]);
@@ -63,7 +63,7 @@ export default {
       toggleMenu: () => store.commit("sideMenu/toggleMenu")
     };
   }
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -75,24 +75,24 @@ export default {
   }
 
   .np-cart__arrow {
-    transform: rotateZ(180deg);
+    @apply transform rotate-180 left-2.5;
   }
 }
 
 .np-cart--opened {
   @apply bg-secondary-lighter w-1/4 h-screen flex flex-col items-center relative text-secondary-dark;
   .np-cart__arrow {
+    @apply left-3;
   }
 }
 
 .np-cart__arrow__container {
-  @apply h-12 w-12 rounded-full bg-primary absolute -left-6 flex justify-center items-center;
+  @apply h-12 w-12 rounded-full bg-primary absolute -left-6 flex justify-center items-center cursor-pointer;
   top: calc(50% - 1.5rem);
-  cursor: pointer;
 
   .np-cart__arrow {
-    @apply h-8 w-8 absolute left-1.5 ;
-    fill: white;
+    @apply h-6 w-6 absolute;
+    fill: #fff;
   }
 }
 

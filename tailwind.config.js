@@ -3,6 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
+      white: '#fff',
       primary: {
         light: "rgba(108, 99, 255, 0.2)",
         DEFAULT: "#6c63ff"
@@ -14,7 +15,8 @@ module.exports = {
         dark: "#3f3d56",
         darker: "rgba(63, 61, 86, 0.6)"
       },
-      alert: "#f44336"
+      alert: "#f44336",
+      shadow: "rgba(0, 0, 0, 0.4)"
     },
     fontFamily: {
       default: "Roboto",

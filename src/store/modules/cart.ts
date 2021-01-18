@@ -9,13 +9,13 @@ const getters = {
     cartItems(state: CartState): CartItem[] {
         return state.items;
     },
-    priceTotal(state: CartState) {
+    priceTotal(state: CartState) :number {
         let priceTotal = 0;
         for (const item of state.items) {
             priceTotal += (item.price * item.quantity);
         }
         return state.priceTotal = priceTotal;
-    }
+    },
 };
 
 const mutations = {
