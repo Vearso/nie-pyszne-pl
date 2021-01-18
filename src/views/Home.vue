@@ -19,6 +19,7 @@ import { useStore } from "@/store";
 import router from "@/router";
 import { UrlParameters } from "@/utilities/urlHandler";
 import orderOptions from "@/components/Navigation/SearchBar/orderOptions";
+import { OrderOption } from "@/store/navigationInterface";
 
 
 export default {
@@ -46,9 +47,11 @@ export default {
         store.commit("nav/filterFoodList", params.filterPhrase);
       }
       if(params.listOrder){
-        const option = orderOptions.find(option => option.type === params.listOrder);
-        store.commit("nav/setFoodListOrder", option);
-        store.commit("nav/orderFoodList");
+        const option: OrderOption | undefined = orderOptions.find(option => option.type === params.listOrder);
+        if(typeof option != undefined){
+          store.commit("nav/setFoodListOrder", option);
+          store.commit("nav/orderFoodList");
+        }
       }
       store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
     });

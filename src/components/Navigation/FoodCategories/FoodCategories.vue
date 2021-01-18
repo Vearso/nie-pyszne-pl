@@ -1,12 +1,12 @@
 <template>
   <ul class="np-category-list">
 
-    <li class="np-category-list__item"
-        v-for="category in categories"
-        @click="setActiveCategory(category.categoryType)"
-        :id="category.categoryType"
-        :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
-        :key="category.name">
+    <li :id="category.categoryType"
+      :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
+      :key="category.name"
+      v-for="category in categories"
+      @click="setActiveCategory(category.categoryType)"
+      class="np-category-list__item">
 
       <component :is="category.iconUrl" />
       <span class="np-category-active">{{ category.name }}</span>

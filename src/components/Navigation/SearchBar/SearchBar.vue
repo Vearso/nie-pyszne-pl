@@ -1,9 +1,9 @@
 <template>
   <section class="np-search-bar">
     <button
+      @click="changeFoodListView"
       type="button"
       class="np-search-bar__toggle-list-view"
-      @click="changeFoodListView"
     >
       <ListIcon />
     </button>
@@ -12,16 +12,18 @@
       <SearchIcon class="np-search-bar__input-icon" />
 
       <input
+        v-model="filterVal"
+        @keyup="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
         placeholder="Search"
-        v-model="filterVal"
-        @keyup="setActiveFilter"
       />
     </div>
 
     <section class="np-search-bar__filter">
-      <div class="np-search-bar__filter-option" @click="toggleOrderList">
+      <div @click="toggleOrderList"
+           class="np-search-bar__filter-option">
+
         <SwitchIcon class="np-search-bar__filter-option-icon" />
 
         <p class="np-search-bar__filter-option-text">
@@ -29,22 +31,22 @@
         </p>
 
         <button
-          class="np-search-bar__filter-option-btn"
           :class="isListActive('np-search-bar__filter-option-btn--active')"
+          class="np-search-bar__filter-option-btn"
         >
           <DownArrowIcon />
         </button>
       </div>
       <ul
-        class="np-search-bar__filter-list"
         :class="isListActive('np-search-bar__filter-list--active')"
         @click="setFoodOrder"
+        class="np-search-bar__filter-list"
       >
         <li
-          class="np-search-bar__filter-list-item"
-          v-for="option in orderOptions"
           :id="option.type"
           :key="option.type"
+          v-for="option in orderOptions"
+          class="np-search-bar__filter-list-item"
         >
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
@@ -74,7 +76,9 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const isLiActive = ref<any>(false);
-    const filterVal: Ref<string> = ref("");
+    const filterVal: ComputedRef<string> = computed(
+      () => store.state.nav.filterFoodParam
+    );
     const orderVal: ComputedRef<OrderOption> = computed(
       () => store.state.nav.foodListOrder
     );
@@ -87,11 +91,7 @@ export default defineComponent({
       isLiActive.value = !isLiActive.value;
     };
     const isListActive = function(className: string): string {
-      if (isLiActive.value) {
-        return className;
-      } else {
-        return "";
-      }
+      return isLiActive.value ? className : "";
     };
 
     const setFoodOrder = function(event: any): void {

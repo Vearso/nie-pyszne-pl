@@ -1,7 +1,7 @@
-import { OrderOption } from "@/store/navigationInterface";
+import { ListOrder } from "@/store/navigationInterface";
 
 export interface UrlParameters {
   foodCategory: string;
-  listOrder: OrderOption;
+  listOrder: ListOrder;
   filterPhrase: string | number;
 }
