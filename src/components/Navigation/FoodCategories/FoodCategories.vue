@@ -1,12 +1,12 @@
 <template>
   <ul class="np-category-list">
 
-    <li class="np-category-list__item"
-        v-for="category in categories"
-        @click="setActiveCategory(category.categoryType)"
-        :id="category.categoryType"
-        :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
-        :key="category.name">
+    <li :id="category.categoryType"
+      :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
+      :key="category.name"
+      v-for="category in categories"
+      @click="setActiveCategory(category.categoryType)"
+      class="np-category-list__item">
 
       <component :is="category.iconUrl" />
       <span class="np-category-active">{{ category.name }}</span>
@@ -23,6 +23,7 @@ import PizzaIcon from "@/assets/icons/food/icon-pizza.vue";
 import SushiIcon from "@/assets/icons/food/icon-sushi.vue";
 import TacoIcon from "@/assets/icons/food/icon-taco.vue";
 import BurgerIcon from "@/assets/icons/food/icon-burger.vue";
+import router from "@/router";
 
 export default defineComponent({
   components: {
@@ -38,8 +39,15 @@ export default defineComponent({
     const categories: Array<CategoryListItem> = store.state.nav.categoryList;
     const activeCategory: ComputedRef<string> = computed(() => store.state.nav.activeFoodCategory);
 
-    const setActiveCategory = (name: string): void => {
-      store.commit("nav/setActiveFoodCategory", name);
+    const setActiveCategory = (activeCategory: string): void => {
+      router.replace({
+        path: "/",
+        query: {
+          ...router.currentRoute.value.query,
+          foodCategory: activeCategory
+        }
+      });
+      store.commit("nav/setActiveFoodCategory", activeCategory);
       store.commit("nav/filterFoodByCategory");
     };
 
@@ -52,7 +60,7 @@ export default defineComponent({
   methods: {
     altText(name: string): string {
       return name + " icon";
-    },
+    }
   }
 });
 </script>
@@ -72,14 +80,14 @@ export default defineComponent({
     margin-right: 20px;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
       color: theme('colors.secondary.darker');
 
       svg {
         fill: theme('colors.secondary.darker');
       }
     }
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
 
@@ -98,7 +106,7 @@ export default defineComponent({
         fill: theme("colors.primary.DEFAULT");
       }
 
-      &:hover{
+      &:hover {
         color: theme('colors.primary.DEFAULT');
 
         svg {
