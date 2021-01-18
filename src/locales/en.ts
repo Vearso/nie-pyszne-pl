@@ -13,5 +13,7 @@ export default {
         deleteProduct: "Do you want to delete this from cart?",
         orderSummary: "Your order is being processed!",
         time: "time",
+        currency: "$",
+        emptyCart: "Seems like your cart is empty, please add some products",
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="np-productsDetails">
-    <p class="np-productsDetails__quantity text-secondary-light">{{`${item.quantity} x`}}</p>
+    <p class="np-productsDetails__quantity text-secondary-light">{{ `${item.quantity} x` }}</p>
 
     <span v-if="item.name.length < 20"
           class="np-productsDetails__name">
@@ -14,7 +14,7 @@
         {{ cutName }}
     </span>
 
-    <p class="np-productsDetails__price">{{ '$' + price }}</p>
+    <p class="np-productsDetails__price">{{ $t('currency') + price }}</p>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default defineComponent({
   },
 
   setup(props: Props) {
-    const price = computed(() => props.item.price * props.item.quantity);
+    const price: ComputedRef<number> = computed(() => props.item.price * props.item.quantity);
     const cutName: ComputedRef<string> = computed(() => props.item.name.substring(0, 20).concat("..").toUpperCase());
 
     return {
@@ -49,14 +49,15 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
- .np-productsDetails {
-   @apply flex w-full justify-between items-center;
+.np-productsDetails {
+  @apply flex w-full justify-between items-center;
 
-   &__quantity {
-     @apply px-4;
-   }
-   &__name {
-     @apply flex-grow text-left font-bold;
-   }
- }
+  &__quantity {
+    @apply px-4 truncate w-20;
+  }
+
+  &__name {
+    @apply flex-grow text-left font-bold;
+  }
+}
 </style>

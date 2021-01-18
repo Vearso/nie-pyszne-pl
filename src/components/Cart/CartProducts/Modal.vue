@@ -2,25 +2,25 @@
   <teleport to="#modal">
     <div class="shadow">
       <div class="np-Modal">
-        <p class="np-Modal__text">{{ $t('deleteProduct') }}</p>
+        <p class="np-Modal__text"> {{ $t('deleteProduct') }} </p>
 
         <div class="np-Modal__product">
           <img :src="itemToDelete.imgUrl"
-               alt="Food"
+               :alt="itemToDelete.name"
                class="np-Modal__product__image"/>
 
-          <p class="np-Modal__product__name">{{itemToDelete.name.toUpperCase()}}</p>
+          <p class="np-Modal__product__name"> {{ itemToDelete.name.toUpperCase() }} </p>
         </div>
 
         <div class="np-Modal__wrapper">
-          <button class="np-Modal__wrapper__button"
-                  @click="deleteItem(itemToDelete)">
+          <button @click="deleteItem(itemToDelete)"
+                  class="np-Modal__wrapper__button">
 
             {{ $t('yes') }}
           </button>
 
-          <button class="np-Modal__wrapper__button"
-                  @click="hideModal()">
+          <button @click="hideModal()"
+                  class="np-Modal__wrapper__button">
 
             {{ $t('no') }}
           </button>
@@ -44,8 +44,8 @@ export default defineComponent({
     const itemToDelete = computed(() => store.getters['modal/productToDelete']);
 
     const removeFromCart = (item: CartItem): void => store.commit('cart/removeFromCart', item)
-    const hideModal = () :void => store.commit('modal/hideModal');
-    const deleteItem = (item : CartItem) : void => {
+    const hideModal = (): void => store.commit('modal/hideModal');
+    const deleteItem = (item: CartItem): void => {
       removeFromCart(item);
       hideModal();
     }
@@ -74,13 +74,15 @@ export default defineComponent({
 
   &__product {
     @apply flex justify-center items-center;
-    &__image{
+    &__image {
       @apply w-16 h-14;
     }
-    &__name{
+
+    &__name {
       @apply font-bold text-secondary-dark px-2 text-lg;
     }
   }
+
   &__wrapper {
     @apply flex justify-around;
 

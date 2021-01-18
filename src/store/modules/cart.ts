@@ -10,11 +10,7 @@ const getters = {
         return state.items;
     },
     priceTotal(state: CartState) :number {
-        let priceTotal = 0;
-        for (const item of state.items) {
-            priceTotal += (item.price * item.quantity);
-        }
-        return state.priceTotal = priceTotal;
+        return state.priceTotal;
     },
 };
 
@@ -33,6 +29,13 @@ const mutations = {
                 imgUrl: item.imgUrl,
                 isHoveredOn: false
             });
+    },
+    calculatePrice: function (state: CartState): void {
+        let priceTotal = 0;
+        for (const item of state.items) {
+            priceTotal += (item.price * item.quantity);
+        }
+        state.priceTotal = priceTotal;
     },
     clearCart: function (state: CartState): void {
         state.items = [];

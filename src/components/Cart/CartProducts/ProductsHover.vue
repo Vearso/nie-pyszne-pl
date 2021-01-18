@@ -2,23 +2,23 @@
   <div class="np-productsHover">
     <div class="np-productsHover__actions">
       <span :class="{'text-secondary-light': item.quantity === 1}"
-            class="np-productsHover__actions__action"
-            @click="decrement(item)">
+            @click="decrement(item)"
+            class="np-productsHover__actions__action">
 
          -
       </span>
 
-      <p class=" np-productsHover__actions__quantity text-secondary-dark"> {{ item.quantity }}</p>
+      <p class=" np-productsHover__actions__quantity text-secondary-dark"> {{ item.quantity }} </p>
 
-      <span class="np-productsHover__actions__action"
-            @click="increment(item)">
+      <span @click="increment(item)"
+            class="np-productsHover__actions__action">
 
          +
       </span>
     </div>
 
-    <IconCross class="np-productsHover__cross"
-               @click="showModal(item)"/>
+    <IconCross @click="showModal(item)"
+               class="np-productsHover__cross"/>
 
   </div>
 </template>
