@@ -34,6 +34,7 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
+import "yup-phone";
 import Summary from "@/components/Cart/Summary/Buttons";
 
 export default {
@@ -47,14 +48,12 @@ export default {
   setup() {
     const schema = yup.object({
       name: yup.string().required(),
-      email: yup
-          .string()
+      email: yup.string()
           .required()
           .email(),
-      phone: yup
-          .string()
-          .required()
-          .max(9),
+      phone: yup.string()
+          .phone("PL")
+          .required(),
       city: yup.string().required(),
       street: yup.string().required(),
       postCode: yup.string().required()
