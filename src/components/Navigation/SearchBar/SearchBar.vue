@@ -12,7 +12,7 @@
       <SearchIcon class="np-search-bar__input-icon" />
 
       <input
-        v-model="filterVal"
+        :value="filterVal"
         @keyup="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
@@ -64,7 +64,7 @@ import { computed, defineComponent, ref, ComputedRef, Ref } from "vue";
 import { useStore } from "@/store/index";
 import { OrderOption } from "@/store/navigationInterface";
 import router from "@/router";
-import orderOpt from "@/components/Navigation/SearchBar/orderOptions";
+import orderOptions from "@/components/Navigation/SearchBar/orderOptions";
 
 export default defineComponent({
   components: {
@@ -79,10 +79,11 @@ export default defineComponent({
     const filterVal: ComputedRef<string> = computed(
       () => store.state.nav.filterFoodParam
     );
+    // const filterVal = ref<any>("");
     const orderVal: ComputedRef<OrderOption> = computed(
       () => store.state.nav.foodListOrder
     );
-    const orderOptions: OrderOption[] = orderOpt.filter(option => option.type !== "none");
+    const orderOpts: OrderOption[] = orderOptions.filter(option => option.type !== "none");
 
     const changeFoodListView = function(): void {
       store.commit("nav/toggleFoodListView");
@@ -96,7 +97,7 @@ export default defineComponent({
 
     const setFoodOrder = function(event: any): void {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find(
+      const activeOrder: OrderOption | undefined = orderOpts.find(
         (option: OrderOption) => option.type === type
       );
       if (activeOrder) {
@@ -113,16 +114,19 @@ export default defineComponent({
       }
     };
 
-    const setActiveFilter = function(): void {
-      router.replace({
-        path: "/",
-        query: {
-          ...router.currentRoute.value.query,
-          filterPhrase: filterVal.value
-        }
-      });
-      store.commit("nav/filterFoodByCategory");
-      store.commit("nav/filterFoodList", filterVal.value);
+    const setActiveFilter = function(event: any): void {
+      if(event && event.target){
+        const filterValue = event.target.value;
+        router.replace({
+          path: "/",
+          query: {
+            ...router.currentRoute.value.query,
+            filterPhrase: filterValue
+          }
+        });
+        store.commit("nav/filterFoodByCategory");
+        store.commit("nav/filterFoodList", filterValue);
+      }
     };
 
     return {

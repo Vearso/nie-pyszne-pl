@@ -44,6 +44,7 @@ export default {
       }
       if(params.filterPhrase){
         store.commit("nav/filterFoodByCategory");
+        store.commit("nav/setFoodListFilter", params.filterPhrase);
         store.commit("nav/filterFoodList", params.filterPhrase);
       }
       if(params.listOrder){
