@@ -21,7 +21,6 @@
          class="form-container">
       <cart-form/>
     </div>
-    <Summary v-if="stepValue === 3"/>
 
     <div class="np-cart__arrow__container" @click="toggleMenu">
       <RightArrow class="np-cart__arrow"/>
@@ -36,7 +35,6 @@ import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
 import CartProducts from "./CartProducts/CartProducts.vue";
 import CartForm from "./CartForm.vue";
-import Summary from "@/components/Cart/Summary/Summary.vue";
 import RightArrow from "@/assets/icons/icon-arrow.vue"
 
 export default defineComponent({
@@ -47,7 +45,6 @@ export default defineComponent({
     CartProducts,
     CartForm,
     RightArrow,
-    Summary,
   },
   props: {
     userAvatar: {

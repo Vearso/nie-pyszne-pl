@@ -6,16 +6,6 @@ export interface State {
   nav: NavState;
   form: CartFormState;
   modal: ModalState;
-  time: TimeState;
-}
-export interface TimeObject {
-  hours: number,
-  minutes: number,
-  seconds: number,
-}
-export interface TimeState {
-    time: number,
-    calculatedTime: TimeObject,
 }
 
 export interface ModalState {
