@@ -129,9 +129,7 @@ const mutations = {
           return foodItem;
         }
       });
-
       state.filteredFoodList = filteredList;
-      console.log(state.filteredFoodList);
     }
   },
 };
