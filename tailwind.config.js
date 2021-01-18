@@ -14,7 +14,8 @@ module.exports = {
         dark: "#3f3d56",
         darker: "rgba(63, 61, 86, 0.6)"
       },
-      alert: "#f44336"
+      alert: "#f44336",
+      white: "#fff"
     },
     fontFamily: {
       default: "Roboto",

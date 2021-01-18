@@ -16,7 +16,7 @@
   </div>
 
   <div v-else class="empty-product-list">
-    <strong>Product list is empty</strong>
+    <strong>{{ $t("emptyProductList") }}</strong>
   </div>
 </template>
 

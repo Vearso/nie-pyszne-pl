@@ -1,25 +1,29 @@
 <template>
 	<div class="product-list-item">
 		<div class="product-list-item__picture"
-         :style="{ backgroundImage: 'url(' + imgUrl + ')' }"></div>
+         :style="{ backgroundImage: 'url(' + imgUrl + ')' }">
+    </div>
+
 		<div class="product-list-item__description">
 			<span class="product-list-item__description__title">
         {{ name }}
       </span>
 			<span class="product-list-item__description__price">${{ price }}</span>
 		</div>
+
 		<div class="product-list-item__rating">
 			<IconStar class="product-list-item__star" />
-			<span>{{ rating }} </span>
+			<span>{{ rating }}</span>
 		</div>
+
 	</div>
 </template>
 
 <script lang="ts">
-import { mapGetters } from "vuex";
 import IconStar from "@/assets/icons/icon-stars.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
 	components: {
 		IconStar
 	},
@@ -31,11 +35,8 @@ export default {
 		price: Number,
 		imgUrl: String,
 		rating: Number
-	},
-	computed: {
-		...mapGetters("cart", ["cartItems"])
 	}
-};
+});
 </script>
 
 <style lang="scss" scoped>
