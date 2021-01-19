@@ -11,7 +11,7 @@ export default {
         yes: "Yes",
         no: "No",
         deleteProduct: "Do you want to delete this from cart?",
-        emptyProdList: "Product list is empty",
+        emptyProductList: "Product list is empty",
         addedToCart: "Added to cart"
     }
 }

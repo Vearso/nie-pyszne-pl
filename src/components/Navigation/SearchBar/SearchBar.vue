@@ -9,7 +9,7 @@
     </button>
 
     <div class="np-search-bar__input">
-      <SearchIcon class="np-search-bar__input-icon" />
+      <SearchIcon class="np-search-bar__input-icon"/>
 
       <input
         :value="filterVal"
@@ -23,7 +23,7 @@
       <div @click="toggleOrderList"
            class="np-search-bar__filter-option">
 
-        <SwitchIcon class="np-search-bar__filter-option-icon" />
+        <SwitchIcon class="np-search-bar__filter-option-icon"/>
 
         <p class="np-search-bar__filter-option-text">
           <span>{{ orderVal.category }}: </span>{{ orderVal.order }}
@@ -59,9 +59,9 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-import { computed, defineComponent, ref, ComputedRef, Ref } from "vue";
-import { useStore } from "@/store/index";
-import { OrderOption } from "@/store/navigationInterface";
+import {computed, defineComponent, ref, ComputedRef} from "vue";
+import {useStore} from "@/store/index";
+import {OrderOption} from "@/store/navigationInterface";
 import router from "@/router";
 import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
@@ -72,7 +72,7 @@ export default defineComponent({
     SearchIcon,
     SwitchIcon
   },
-  setup(props, context) {
+  setup() {
     const store = useStore();
     const isLiActive = ref<any>(false);
     const filterVal: ComputedRef<string> = computed(
@@ -83,7 +83,16 @@ export default defineComponent({
     );
     const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
 
-    const changeFoodListView = function(): void {
+    const changeFoodListView = function (): void {
+      let listType = ''
+      store.state.nav.isFoodListAList ? listType = 'grid' : listType = 'list';
+      router.replace({
+        path: "/",
+        query: {
+          ...router.currentRoute.value.query,
+          displayType: listType,
+        }
+      });
       store.commit("nav/toggleFoodListView");
     };
     const toggleOrderList = function(): void {
@@ -93,8 +102,7 @@ export default defineComponent({
       return isLiActive.value ? className : "";
     };
 
-    const setFoodOrder = (event: any): void  =>{
-      console.log("event", event);
+    const setFoodOrder = (event: any): void => {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
       const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
       if (activeOrder) {
@@ -189,6 +197,7 @@ export default defineComponent({
       outline: none;
       color: theme("colors.secondary.dark");
     }
+
     svg {
       height: 36px;
       margin-right: 20px;
@@ -243,6 +252,7 @@ export default defineComponent({
         }
       }
     }
+
     &-list {
       width: inherit;
       display: none;
@@ -252,6 +262,7 @@ export default defineComponent({
         @apply block absolute z-10;
         border: solid 1px theme("colors.secondary.lighter");
       }
+
       &-item {
         height: 40px;
         line-height: 40px;

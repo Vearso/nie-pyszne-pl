@@ -33,6 +33,7 @@ export default {
     const store = useStore();
 
     onMounted(async() => {
+      await store.dispatch("nav/fetchMenuCategories");
       await store.dispatch("nav/fetchFoodList");
       const params: Partial<UrlParameters> = {
         ...router.currentRoute.value.query
@@ -53,6 +54,9 @@ export default {
           store.commit("nav/setFoodListOrder", option);
           store.commit("nav/orderFoodList");
         }
+      }
+      if(params.displayType){
+        params.displayType === 'list' ? null : store.commit('nav/toggleFoodListView')
       }
       store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
     });
