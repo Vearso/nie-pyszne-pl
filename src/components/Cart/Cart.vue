@@ -37,6 +37,7 @@ import CartProducts from "./CartProducts/CartProducts.vue";
 import CartForm from "./CartForm.vue";
 import RightArrow from "@/assets/icons/icon-arrow.vue"
 import Summary from "@/components/Cart/Summary/Summary.vue";
+
 export default defineComponent({
   name: "Cart",
   components: {
@@ -70,31 +71,48 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .np-cart--closed {
-  @apply bg-secondary-lighter w-20 flex justify-center min-h-full fixed right-0;
+  @apply bg-secondary-lighter w-20 flex justify-center h-screen fixed right-0;
+  @apply sm:absolute sm:w-screen sm:h-12 sm:items-center sm:justify-between;
 
   .np-cart__avatar {
     @apply h-12 w-12 rounded-full mt-6;
+    @apply sm:p-2 sm:m-0;
   }
 
   .np-cart__arrow {
     @apply transform rotate-180 left-2.5;
+    @apply sm:transform sm:rotate-90 sm:left-1.5;
   }
 }
 
 .np-cart--opened {
   @apply bg-secondary-lighter w-1/4 flex flex-col items-center min-h-screen relative right-0 ml-1 text-secondary-dark;
+  @apply sm:absolute sm:w-screen sm:items-center;
+
+  .np-cart__arrow__container {
+    @apply sm:relative sm:order-first sm:p-2 sm:h-8 sm:w-8 sm:self-end sm:mt-2;
+  }
   .np-cart__arrow {
     @apply left-3;
+    @apply sm:left-1.5 sm:transform sm:-rotate-90;
   }
 }
 
 .np-cart__arrow__container {
   @apply h-12 w-12 rounded-full bg-primary absolute -left-6 flex justify-center items-center cursor-pointer;
-  top: calc(50vh - 1.5rem);
+  @apply sm:relative sm:h-8 sm:w-8;
 
-  .np-cart__arrow {
-    @apply h-6 w-6 absolute fill-current text-white;
+}
+
+@media (min-width: 761px) {
+  .np-cart__arrow__container {
+    top: calc(50vh - 1.5rem);
   }
+}
+
+.np-cart__arrow {
+  @apply h-6 w-6 absolute fill-current text-white;
+  @apply sm:h-5 sm:w-5;
 }
 
 

@@ -54,10 +54,15 @@ export default defineComponent({
 
   &__quantity {
     @apply px-4 truncate w-20;
+    @apply sm:text-xs sm:px-2 sm:w-8;
   }
 
   &__name {
     @apply flex-grow text-left font-bold;
+    @apply sm:text-xs;
+  }
+  &__price {
+    @apply sm:text-xs;
   }
 }
 </style>

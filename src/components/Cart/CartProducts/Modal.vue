@@ -67,6 +67,7 @@ export default defineComponent({
   width: 30vw;
   bottom: calc(50vh - 5rem);
   left: 35vw;
+  @apply sm:w-full sm:h-1/2 sm:top-1/4 sm:left-0;
 
   &__text {
     @apply text-center font-bold p-4 text-primary text-xl;

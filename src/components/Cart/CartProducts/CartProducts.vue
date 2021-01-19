@@ -58,7 +58,7 @@ export default defineComponent({
     const cart = computed(() => store.getters['cart/cartItems']);
     const priceTotal = computed(() => store.getters['cart/priceTotal']);
     const showModal = computed(() => store.getters['modal/showModal']);
-
+    store.commit('cart/calculatePrice');
     onUpdated(() => {
       store.commit('cart/calculatePrice');
     })

@@ -60,6 +60,7 @@ export default defineComponent({
 
   &__actions {
     @apply flex flex-grow;
+    @apply sm:text-base;
 
     &__action {
       @apply px-4 cursor-pointer;
