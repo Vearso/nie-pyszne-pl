@@ -1,9 +1,9 @@
 <template>
   <div class="np-steps">
-    <div v-for="(stepName, index) in $tm('menuSteps',{returnObjects: true})"
+    <div @click="switchStep(index)"
+        v-for="(stepName, index) in $tm('menuSteps',{returnObjects: true})"
          :key="index"
          class="np-steps__wrapper">
-
       <div :class="divClassObject(index)"/>
       <p :class="pClassObject(index)">{{ stepName }}</p>
     </div>
@@ -27,8 +27,13 @@ export default defineComponent({
     const active = (index: number): boolean => stepValue.value - 1 === index && stepValue.value !== 3;
     const waiting = (index: number): boolean => stepValue.value - 1 < index;
 
+    const switchStep = (index: number): void => {
+      index === 0 && stepValue.value === 2 ? store.commit("sideMenu/prevStep") : null
+    };
+
     return {
       stepValue,
+      switchStep,
       completed,
       active,
       waiting,

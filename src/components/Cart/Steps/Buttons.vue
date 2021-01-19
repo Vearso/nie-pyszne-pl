@@ -1,11 +1,11 @@
 <template>
   <div class="np-cart__buttons">
     <button
-        v-if="stepValue < 3"
-        class="np-cart__buttons__button"
-        :class="{'np-cart__buttons__button--disabled': isChecked()}"
-        :disabled="isChecked()"
-        @click="nextStep">
+      v-if="stepValue < 3"
+      class="np-cart__buttons__button"
+      :class="{'np-cart__buttons__button--disabled': isChecked}"
+      :disabled="isChecked"
+      @click="nextStep">
 
       {{ $t("next") }}
     </button>
@@ -14,50 +14,54 @@
             class="np-cart__buttons__button"
             @click="resetOrder">
 
-      {{ $t('addOrder') }}
+      {{ $t("addOrder") }}
     </button>
 
     <button v-if="stepValue === 2"
             class="np-cart__buttons__button"
             @click="prevStep">
 
-      {{ $t('previous') }}
+      {{ $t("previous") }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import {computed, ToRefs, ComputedRef, Ref} from "vue";
-import {useStore} from "@/store";
-import {ref} from "@vue/reactivity";
+import { computed, ToRefs, ComputedRef, Ref } from "vue";
+import { useStore } from "@/store";
+import { ref } from "@vue/reactivity";
+
+interface ButtonsPropTypes {
+  isFormValid: boolean
+}
 
 export default {
   props: {
     isFormValid: Boolean
   },
-  setup(props: any) {
+  setup(props: ButtonsPropTypes) {
     const store = useStore();
     const formValid: ComputedRef<boolean> = computed(() => props.isFormValid);
-    const stepValue: ComputedRef<number> = computed(() => store.getters['sideMenu/stepValue']);
-    const price: ComputedRef<number> = computed(() => store.getters['cart/priceTotal']);
+    const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
+    const price: ComputedRef<number> = computed(() => store.getters["cart/priceTotal"]);
 
-    const isChecked: Ref<()=>boolean> = ref((): boolean => {
-      return (!formValid.value && stepValue.value === 2 || price.value === 0 && stepValue.value === 1)
-    })
+    const isChecked: ComputedRef<boolean> = computed((): boolean => {
+      return (!formValid.value && stepValue.value === 2 || price.value === 0 && stepValue.value === 1);
+    });
 
     return {
       stepValue,
       price,
       isChecked,
-      nextStep: () => store.commit('sideMenu/nextStep'),
-      prevStep: () => store.commit('sideMenu/prevStep'),
+      nextStep: () => store.commit("sideMenu/nextStep"),
+      prevStep: () => store.commit("sideMenu/prevStep"),
       resetOrder: () => {
-        store.commit('sideMenu/resetOrder')
-        store.commit('cart/clearCart')
+        store.commit("sideMenu/resetOrder");
+        store.commit("cart/clearCart");
       }
-    }
-  },
-}
+    };
+  }
+};
 </script>
 
 <style scoped lang="scss">

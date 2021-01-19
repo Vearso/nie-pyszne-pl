@@ -25,7 +25,7 @@
         <VField name="postCode" placeholder="Post code" />
         <ErrorMessage name="postCode" />
       </div>
-      <Summary :isFormValid="meta.valid" />
+      <Buttons :isFormValid="meta.valid"/>
     </VForm>
   </div>
 </template>
@@ -34,13 +34,13 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
+import Buttons from "@/components/Cart/Summary/Buttons";
 import "yup-phone";
-import Summary from "@/components/Cart/Steps/Buttons";
 
 export default {
   name: "CartForm",
   components: {
-    Summary,
+    Buttons,
     VField: VeeValidate.Field,
     VForm: VeeValidate.Form,
     ErrorMessage

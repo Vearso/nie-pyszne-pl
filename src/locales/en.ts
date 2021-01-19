@@ -15,5 +15,7 @@ export default {
         time: "time",
         currency: "$",
         emptyCart: "Seems like your cart is empty, please add some products",
+        emptyProductList: "Product list is empty",
+        addedToCart: "Added to cart"
     }
 }

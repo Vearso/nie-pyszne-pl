@@ -1,36 +1,30 @@
 <template>
-  <div
-      class="product-list"
-      v-if="items.length"
-      :style="[
-      displayList
+  <div class="product-list"
+       v-if="items.length"
+       :style="[displayList
         ? 'grid-template-columns: 1fr'
-        : 'grid-template-columns: 1fr 1fr 1fr'
-    ]"
-  >
-    <products-list-item
-        v-for="item in items"
-        :key="item.id"
-        :name="item.name"
-        :price="item.price"
-        :imgUrl="item.imgUrl"
-        :rating="item.rating"
-        @click="addToCart(item)"
-    >
+        : 'grid-template-columns: 1fr 1fr 1fr']">
+
+    <products-list-item v-for="item in items"
+                        :key="item.id"
+                        :name="item.name"
+                        :price="item.price"
+                        :imgUrl="item.imgUrl"
+                        :rating="item.rating"
+                        @click="addToCart(item)">
     </products-list-item>
   </div>
 
   <div v-else class="empty-product-list">
-    <strong>Product list is empty</strong>
+    <strong>{{ $t("emptyProductList") }}</strong>
   </div>
 </template>
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
-import {mapMutations} from "vuex";
-import {useStore} from "@/store";
-import {computed, onUpdated, onMounted} from "vue";
-import router from "@/router";
+import { mapMutations } from "vuex";
+import { useStore } from "@/store";
+import { computed, ref, Ref } from "vue";
 
 export default {
   name: "ProductsList",
@@ -40,11 +34,9 @@ export default {
   setup() {
     const store = useStore();
 
-    const displayList = computed(() => store.state.nav.isFoodListAList);
-
     return {
       items: computed(() => store.state.nav.filteredFoodList),
-      displayList,
+      displayList: computed(() => store.state.nav.isFoodListAList),
     };
   },
   methods: {
@@ -55,13 +47,10 @@ export default {
 
 <style lang="scss" scoped>
 .product-list {
-  display: grid;
-  width: 100%;
-  margin: 0 auto;
+  @apply grid w-full;
 }
 
 .empty-product-list {
-  @apply text-primary;
-  font-size: 2rem;
+  @apply text-primary text-4xl;
 }
 </style>
