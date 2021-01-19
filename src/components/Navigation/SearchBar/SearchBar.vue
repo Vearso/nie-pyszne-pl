@@ -72,7 +72,7 @@ export default defineComponent({
     SearchIcon,
     SwitchIcon
   },
-  setup() {
+  setup(props, context) {
     const store = useStore();
     const isLiActive = ref<any>(false);
     const filterVal: ComputedRef<string> = computed(
