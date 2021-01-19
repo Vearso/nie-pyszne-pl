@@ -1,4 +1,36 @@
 {
+  "foodCategories": [
+    {
+      "id": "all",
+      "name": "All",
+      "categoryType": "all",
+      "iconUrl": "RestaurantIcon"
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "categoryType": "pizza",
+      "iconUrl": "PizzaIcon"
+    },
+    {
+      "id": "sushi",
+      "name": "Sushi",
+      "categoryType": "sushi",
+      "iconUrl": "SushiIcon"
+    },
+    {
+      "id": "mexican",
+      "name": "Mexican",
+      "categoryType": "mexican",
+      "iconUrl": "TacoIcon"
+    },
+    {
+      "id": "burgers",
+      "name": "Burgers",
+      "categoryType": "burgers",
+      "iconUrl": "BurgerIcon"
+    }
+  ],
   "productList": [
     {
       "id": 0,

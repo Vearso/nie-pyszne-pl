@@ -1,13 +1,13 @@
-const api = "http://localhost:3000/productList";
+const api = "http://localhost:3000";
 
-const headers = {
-  'Content-Type': 'application/json',
-}
-// console.log("env ",process.env.VUE_APP_API);
-export function getFoodList () {
-  return fetch(api,{
-    method: 'GET',
-    headers
-  }).then(res => res.json())
+export function getFoodList() {
+  return fetch(`${api}/productList`)
+    .then(res => res.json())
     .catch(err => console.log(err));
+}
+
+export function getFoodCategories() {
+  return fetch(`${api}/foodCategories`)
+      .then(res => res.json())
+      .catch(err => console.warn(err))
 }

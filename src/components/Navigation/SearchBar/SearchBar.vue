@@ -1,52 +1,56 @@
 <template>
   <section class="np-search-bar">
-    <button type="button"
-            class="np-search-bar__toggle-list-view"
-            @click="changeFoodListView">
-
-      <ListIcon />
+    <button
+        @click="changeFoodListView"
+        type="button"
+        class="np-search-bar__toggle-list-view">
+      <ListIcon/>
     </button>
 
     <div class="np-search-bar__input">
-      <SearchIcon class="np-search-bar__input-icon" />
+      <SearchIcon class="np-search-bar__input-icon"/>
 
-      <input class="np-search-bar__input-el"
-             type="search"
-             placeholder="Search"
-             v-model="filterVal"
-             @keyup="setActiveFilter"/>
+      <input
+          v-model="filterVal"
+          @keyup="setActiveFilter"
+          class="np-search-bar__input-el"
+          type="search"
+          placeholder="Search"
+      />
     </div>
 
     <section class="np-search-bar__filter">
-      <div class="np-search-bar__filter-option"
-           @click="toggleOrderList">
+      <div @click="toggleOrderList"
+           class="np-search-bar__filter-option">
 
         <SwitchIcon class="np-search-bar__filter-option-icon"/>
 
         <p class="np-search-bar__filter-option-text">
-          <span>{{orderVal.category}}: </span>{{orderVal.order}}
+          <span>{{ orderVal.category }}: </span>{{ orderVal.order }}
         </p>
 
-        <button class="np-search-bar__filter-option-btn"
-                :class="isListActive('np-search-bar__filter-option-btn--active')">
-
-          <DownArrowIcon />
+        <button
+            :class="isListActive('np-search-bar__filter-option-btn--active')"
+            class="np-search-bar__filter-option-btn"
+        >
+          <DownArrowIcon/>
         </button>
       </div>
-      <ul class="np-search-bar__filter-list"
+      <ul
           :class="isListActive('np-search-bar__filter-list--active')"
-          @click="setFoodOrder">
-
-        <li class="np-search-bar__filter-list-item"
-            v-for="option in orderOptions"
+          @click="setFoodOrder"
+          class="np-search-bar__filter-list"
+      >
+        <li
             :id="option.type"
-            :key="option.type">
-
-          <span>{{option.category}} </span> {{option.order}}
+            :key="option.type"
+            v-for="option in orderOptions"
+            class="np-search-bar__filter-list-item"
+        >
+          <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
     </section>
-
   </section>
 </template>
 
@@ -55,9 +59,11 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-import { computed, defineComponent, ref, ComputedRef, Ref } from "vue";
+import {computed, defineComponent, ref, ComputedRef, Ref} from "vue";
 import {useStore} from "@/store/index";
 import {OrderOption} from "@/store/navigationInterface";
+import router from "@/router";
+import orderOpt from "@/components/Navigation/SearchBar/orderOptions";
 
 export default defineComponent({
   components: {
@@ -66,57 +72,63 @@ export default defineComponent({
     SearchIcon,
     SwitchIcon
   },
-  setup(props: any) {
+  setup() {
     const store = useStore();
     const isLiActive = ref<any>(false);
-    const filterVal: Ref<string> = ref("");
-    const orderVal: ComputedRef<OrderOption> = computed(() => store.state.nav.foodListOrder);
-    const orderOptions: OrderOption[] = [
-      {
-        category: "Price",
-        order: "Low to High",
-        type: "price_asc"
-      },
-      {
-        category: "Price",
-        order: "High to Low",
-        type: "price_desc"
-      },
-      {
-        category: "Alphabetically",
-        order: "A to Z",
-        type: "alph_asc"
-      },
-      {
-        category: "Alphabetically",
-        order: "Z to A",
-        type: "alph_desc"
-      }
-    ];
+    const filterVal: ComputedRef<string> = computed(
+        () => store.state.nav.filterFoodParam
+    );
+    const orderVal: ComputedRef<OrderOption> = computed(
+        () => store.state.nav.foodListOrder
+    );
+    const orderOptions: OrderOption[] = orderOpt.filter(option => option.type !== "none");
 
-    const changeFoodListView = function(): void {
-      store.commit("nav/toggleFoodListView")
+    const changeFoodListView = function (): void {
+      let listType = ''
+      store.state.nav.isFoodListAList ? listType = 'grid' : listType = 'list';
+      router.replace({
+        path: "/",
+        query: {
+          ...router.currentRoute.value.query,
+          displayType: listType,
+        }
+      });
+      store.commit("nav/toggleFoodListView");
     };
-    const toggleOrderList = function(): void {
+    const toggleOrderList = function (): void {
       isLiActive.value = !isLiActive.value;
     };
-    const isListActive = function(className: string): string {
-      if(isLiActive.value){
-        return className
-      }else{
-        return ""
+    const isListActive = function (className: string): string {
+      return isLiActive.value ? className : "";
+    };
+
+    const setFoodOrder = function (event: any): void {
+      const type = event.target.closest(".np-search-bar__filter-list-item").id;
+      const activeOrder: OrderOption | undefined = orderOptions.find(
+          (option: OrderOption) => option.type === type
+      );
+      if (activeOrder) {
+        router.replace({
+          path: "/",
+          query: {
+            ...router.currentRoute.value.query,
+            listOrder: activeOrder.type
+          }
+        });
+        store.commit("nav/setFoodListOrder", activeOrder);
+        store.commit("nav/orderFoodList");
+        toggleOrderList();
       }
     };
 
-    const setFoodOrder = function(event: any): void{
-      const id = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder = orderOptions.filter((option: OrderOption) => option.type === id);
-      store.commit("nav/setFoodListOrder", activeOrder[0]);
-      store.commit("nav/orderFoodList");
-      toggleOrderList();
-    };
-
-    const setActiveFilter = function(): void {
+    const setActiveFilter = function (): void {
+      router.replace({
+        path: "/",
+        query: {
+          ...router.currentRoute.value.query,
+          filterPhrase: filterVal.value
+        }
+      });
       store.commit("nav/filterFoodByCategory");
       store.commit("nav/filterFoodList", filterVal.value);
     };
@@ -132,7 +144,7 @@ export default defineComponent({
       orderOptions,
       isLiActive
     };
-  },
+  }
 });
 </script>
 
@@ -161,7 +173,8 @@ export default defineComponent({
     }
   }
 
-  &__input,&__filter{
+  &__input,
+  &__filter {
     height: inherit;
     margin-left: 44px;
     border-radius: 2px;
@@ -183,6 +196,7 @@ export default defineComponent({
       outline: none;
       color: theme("colors.secondary.dark");
     }
+
     svg {
       height: 36px;
       margin-right: 20px;
@@ -237,15 +251,17 @@ export default defineComponent({
         }
       }
     }
+
     &-list {
       width: inherit;
       display: none;
       background-color: #ffffff;
 
       &--active {
-        @apply block absolute z-10 ;
+        @apply block absolute z-10;
         border: solid 1px theme("colors.secondary.lighter");
       }
+
       &-item {
         height: 40px;
         line-height: 40px;
@@ -257,7 +273,6 @@ export default defineComponent({
         &:hover {
           color: theme("colors.secondary.darker");
           border-color: theme("colors.secondary.darker");
-
         }
       }
     }
