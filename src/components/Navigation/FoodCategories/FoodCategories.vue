@@ -2,22 +2,22 @@
   <ul class="np-category-list">
 
     <li :id="category.categoryType"
-      :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
-      :key="category.name"
-      v-for="category in categories"
-      @click="setActiveCategory(category.categoryType)"
-      class="np-category-list__item">
+        :class="activeCategory === category.categoryType ? 'np-category-list__item--active' : ''"
+        :key="category.name"
+        v-for="category in categories"
+        @click="setActiveCategory(category.categoryType)"
+        class="np-category-list__item">
 
-      <component :is="category.iconUrl" />
+      <component :is="checkIcon(category.iconUrl)"/>
       <span class="np-category-active">{{ category.name }}</span>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from "vue";
-import { useStore } from "@/store/index";
-import { CategoryListItem } from "@/store/navigationInterface";
+import {defineComponent, computed, ComputedRef} from "vue";
+import {useStore} from "@/store/index";
+import {CategoryListItem} from "@/store/navigationInterface";
 import RestaurantIcon from "@/assets/icons/food/icon-resturant.vue";
 import PizzaIcon from "@/assets/icons/food/icon-pizza.vue";
 import SushiIcon from "@/assets/icons/food/icon-sushi.vue";
@@ -36,10 +36,20 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
-    const categories: Array<CategoryListItem> = store.state.nav.categoryList;
+    const categories: ComputedRef<Array<CategoryListItem>> = computed(() => store.state.nav.categoryList)
     const activeCategory: ComputedRef<string> = computed(() => store.state.nav.activeFoodCategory);
+    const checkIcon = (iconUrl: string): string => {
+      const availableIcons = ['PizzaIcon', 'RestaurantIcon', 'SushiIcon', 'TacoIcon', 'BurgerIcon'];
 
+      for (const icon of availableIcons) {
+        if (icon === iconUrl) {
+          return iconUrl;
+        }
+      }
+      return 'RestaurantIcon'
+    }
     const setActiveCategory = (activeCategory: string): void => {
+      console.log(activeCategory);
       router.replace({
         path: "/",
         query: {
@@ -54,6 +64,7 @@ export default defineComponent({
     return {
       categories,
       activeCategory,
+      checkIcon,
       setActiveCategory
     };
   },
@@ -66,7 +77,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.np-category-list{
+.np-category-list {
   @apply flex flex-row justify-start w-full;
 
   height: 60px;
@@ -87,6 +98,7 @@ export default defineComponent({
         fill: theme('colors.secondary.darker');
       }
     }
+
     &:last-child {
       margin-right: 0;
     }
@@ -97,6 +109,7 @@ export default defineComponent({
       margin-right: 20px;
       fill: theme("colors.secondary.DEFAULT");
     }
+
     &--active {
       color: theme("colors.primary.DEFAULT");
       border-bottom: 3px solid theme("colors.primary.DEFAULT");

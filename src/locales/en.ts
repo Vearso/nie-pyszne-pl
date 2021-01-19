@@ -10,6 +10,8 @@ export default {
         signOut: 'Sign Out',
         yes: "Yes",
         no: "No",
-        deleteProduct: "Do you want to delete this from cart?"
+        deleteProduct: "Do you want to delete this from cart?",
+        emptyProductList: "Product list is empty",
+        addedToCart: "Added to cart"
     }
 }

@@ -31,11 +31,15 @@ import { computed, ToRefs, ComputedRef, Ref } from "vue";
 import { useStore } from "@/store";
 import { ref } from "@vue/reactivity";
 
+interface ButtonsPropTypes {
+  isFormValid: boolean
+}
+
 export default {
   props: {
     isFormValid: Boolean
   },
-  setup(props: any) {
+  setup(props: ButtonsPropTypes) {
     const store = useStore();
     const formValid: ComputedRef<boolean> = computed(() => props.isFormValid);
     const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);

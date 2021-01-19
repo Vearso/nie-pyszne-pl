@@ -46,7 +46,7 @@
     <p>${{ price.toFixed(2) }}</p>
   </div>
 
-  <Summary/>
+  <Buttons/>
 
   <teleport to="#modal">
     <div v-if="showModal" class="shadow">
@@ -72,13 +72,13 @@
 <script lang="ts">
 import {useStore} from "@/store";
 import {computed, ref, ComputedRef, Ref} from "vue";
-import Summary from "@/components/Cart/Summary/Buttons.vue";
+import Buttons from "@/components/Cart/Summary/Buttons.vue";
 import IconCross from "@/assets/icons/icon-cross.vue";
 import {CartItem} from "@/store/interfaces";
 
 export default {
   components: {
-    Summary,
+    Buttons,
     IconCross,
   },
   setup() {
@@ -154,7 +154,16 @@ export default {
 .np-cartProducts__price {
   @apply flex justify-between w-full px-12 mt-6;
 }
+</style>
 
+<style lang="scss">
+.shadow {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
 .np-modal {
   @apply h-40 bg-secondary-lighter flex flex-col justify-between rounded-2xl;
   width: 30vw;
@@ -174,13 +183,5 @@ export default {
     @apply bg-primary px-4 py-2 m-4 font-bold;
     color: #fff;
   }
-}
-
-.shadow {
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
 }
 </style>
