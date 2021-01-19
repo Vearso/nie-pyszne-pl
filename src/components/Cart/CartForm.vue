@@ -34,7 +34,7 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import Buttons from "@/components/Cart/Summary/Buttons";
+import Buttons from "@/components/Cart/Steps/Buttons";
 import "yup-phone";
 
 export default {

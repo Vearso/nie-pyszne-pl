@@ -15,7 +15,7 @@ module.exports = {
         darker: "rgba(63, 61, 86, 0.6)"
       },
       alert: "#f44336",
-      shadow: "rgba(0, 0, 0, 0.4)"
+      shadow: "rgba(0, 0, 0, 0.4)",
       white: "#fff"
     },
     fontFamily: {
