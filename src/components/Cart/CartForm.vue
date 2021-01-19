@@ -39,19 +39,6 @@ import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
 import Buttons from "@/components/Cart/Summary/Buttons";
 import "yup-phone";
-// import { localize } from 'vee-validate';
-//
-// localize({
-//   en:{
-//     fields:{
-//       email: {
-//         required: 'Email cannot be empty xD'
-//       }
-//     }
-//   }
-// });
-//set custom error msg
-// https://logaretm.github.io/vee-validate/guide/localization.html#using-the-default-i18n
 
 export default {
   name: "CartForm",
