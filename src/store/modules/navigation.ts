@@ -138,6 +138,7 @@ const actions = {
   async fetchFoodList(context: any) {
     const searchedCategory = context.state.activeFoodCategory;
     const list: FoodListItem[] = await getFoodList();
+    console.log(list);
 
     context.commit("setFoodList", list);
   }

@@ -3,12 +3,10 @@
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
     viewBox="0 0 512.001 512.001"
     style="enable-background:new 0 0 512.001 512.001;"
-    xml:space="preserve"
-  >
+    xml:space="preserve">
+
     <path
       d="M458.03,215.786c-2.949-2.907-7.698-2.873-10.605,0.076c-2.908,2.95-2.874,7.699,0.076,10.606
 			c1.601,1.578,3.156,3.19,4.684,4.82c-0.426-0.357-0.859-0.704-1.294-1.036c-5.669-4.324-12.436-7.159-19.052-7.982
@@ -127,6 +125,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "TacoIcon"
+  name: "IconTaco"
 });
 </script>

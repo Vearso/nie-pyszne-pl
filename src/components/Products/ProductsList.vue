@@ -16,20 +16,22 @@
       :imgUrl="item.imgUrl"
       :rating="item.rating"
       @click="addToCart(item)"
+      @click.right="toggleModal"
     >
     </products-list-item>
   </div>
 
   <div v-else class="empty-product-list">
-    <strong>Product list is empty</strong>
+    <strong>{{ $t('emptyProdList')}}</strong>
   </div>
+
 </template>
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
 import { mapMutations } from "vuex";
 import { useStore } from "@/store";
-import { computed } from "vue";
+import { computed, ref, Ref } from "vue";
 
 export default {
   name: "ProductsList",
@@ -38,9 +40,10 @@ export default {
   },
   setup() {
     const store = useStore();
+
     return {
       items: computed(() => store.state.nav.filteredFoodList),
-      displayList: computed(() => store.state.nav.isFoodListAList)
+      displayList: computed(() => store.state.nav.isFoodListAList),
     };
   },
   methods: {

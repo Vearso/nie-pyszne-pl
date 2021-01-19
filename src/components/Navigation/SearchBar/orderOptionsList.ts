@@ -1,6 +1,6 @@
 import { OrderOption } from "@/store/navigationInterface";
 
-const orderOptions: OrderOption[] = [
+const orderOptionsList: OrderOption[] = [
   {
     category: "Option",
     order: "details",
@@ -27,4 +27,4 @@ const orderOptions: OrderOption[] = [
     type: "alph_desc"
   }
 ];
-export default orderOptions;
+export default orderOptionsList;

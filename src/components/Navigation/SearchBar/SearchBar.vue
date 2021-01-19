@@ -3,8 +3,8 @@
     <button
       @click="changeFoodListView"
       type="button"
-      class="np-search-bar__toggle-list-view"
-    >
+      class="np-search-bar__toggle-list-view">
+
       <ListIcon />
     </button>
 
@@ -16,8 +16,7 @@
         @keyup="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
-        placeholder="Search"
-      />
+        placeholder="Search"/>
     </div>
 
     <section class="np-search-bar__filter">
@@ -32,22 +31,22 @@
 
         <button
           :class="isListActive('np-search-bar__filter-option-btn--active')"
-          class="np-search-bar__filter-option-btn"
-        >
+          class="np-search-bar__filter-option-btn">
+
           <DownArrowIcon />
         </button>
       </div>
       <ul
         :class="isListActive('np-search-bar__filter-list--active')"
         @click="setFoodOrder"
-        class="np-search-bar__filter-list"
-      >
+        class="np-search-bar__filter-list">
+
         <li
           :id="option.type"
           :key="option.type"
           v-for="option in orderOptions"
-          class="np-search-bar__filter-list-item"
-        >
+          class="np-search-bar__filter-list-item">
+
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
@@ -64,7 +63,7 @@ import { computed, defineComponent, ref, ComputedRef, Ref } from "vue";
 import { useStore } from "@/store/index";
 import { OrderOption } from "@/store/navigationInterface";
 import router from "@/router";
-import orderOptions from "@/components/Navigation/SearchBar/orderOptions";
+import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
 export default defineComponent({
   components: {
@@ -79,11 +78,10 @@ export default defineComponent({
     const filterVal: ComputedRef<string> = computed(
       () => store.state.nav.filterFoodParam
     );
-    // const filterVal = ref<any>("");
     const orderVal: ComputedRef<OrderOption> = computed(
       () => store.state.nav.foodListOrder
     );
-    const orderOpts: OrderOption[] = orderOptions.filter(option => option.type !== "none");
+    const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
 
     const changeFoodListView = function(): void {
       store.commit("nav/toggleFoodListView");
@@ -97,7 +95,7 @@ export default defineComponent({
 
     const setFoodOrder = function(event: any): void {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOpts.find(
+      const activeOrder: OrderOption | undefined = orderOptions.find(
         (option: OrderOption) => option.type === type
       );
       if (activeOrder) {

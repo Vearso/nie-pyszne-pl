@@ -18,7 +18,7 @@ import { onMounted } from "vue";
 import { useStore } from "@/store";
 import router from "@/router";
 import { UrlParameters } from "@/utilities/urlHandler";
-import orderOptions from "@/components/Navigation/SearchBar/orderOptions";
+import orderOptions from "@/components/Navigation/SearchBar/orderOptionsList";
 import { OrderOption } from "@/store/navigationInterface";
 
 
