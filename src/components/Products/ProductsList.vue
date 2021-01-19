@@ -24,7 +24,7 @@
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
 import { mapMutations } from "vuex";
 import { useStore } from "@/store";
-import { computed } from "vue";
+import { computed, ref, Ref } from "vue";
 
 export default {
   name: "ProductsList",
@@ -33,9 +33,10 @@ export default {
   },
   setup() {
     const store = useStore();
+
     return {
       items: computed(() => store.state.nav.filteredFoodList),
-      displayList: computed(() => store.state.nav.isFoodListAList)
+      displayList: computed(() => store.state.nav.isFoodListAList),
     };
   },
   methods: {

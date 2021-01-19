@@ -1,22 +1,22 @@
 <template>
   <section class="np-search-bar">
     <button
-        @click="changeFoodListView"
-        type="button"
-        class="np-search-bar__toggle-list-view">
-      <ListIcon/>
+      @click="changeFoodListView"
+      type="button"
+      class="np-search-bar__toggle-list-view">
+
+      <ListIcon />
     </button>
 
     <div class="np-search-bar__input">
       <SearchIcon class="np-search-bar__input-icon"/>
 
       <input
-          v-model="filterVal"
-          @keyup="setActiveFilter"
-          class="np-search-bar__input-el"
-          type="search"
-          placeholder="Search"
-      />
+        :value="filterVal"
+        @keyup="setActiveFilter"
+        class="np-search-bar__input-el"
+        type="search"
+        placeholder="Search"/>
     </div>
 
     <section class="np-search-bar__filter">
@@ -30,23 +30,23 @@
         </p>
 
         <button
-            :class="isListActive('np-search-bar__filter-option-btn--active')"
-            class="np-search-bar__filter-option-btn"
-        >
-          <DownArrowIcon/>
+          :class="isListActive('np-search-bar__filter-option-btn--active')"
+          class="np-search-bar__filter-option-btn">
+
+          <DownArrowIcon />
         </button>
       </div>
       <ul
-          :class="isListActive('np-search-bar__filter-list--active')"
-          @click="setFoodOrder"
-          class="np-search-bar__filter-list"
-      >
+        :class="isListActive('np-search-bar__filter-list--active')"
+        @click="setFoodOrder"
+        class="np-search-bar__filter-list">
+
         <li
-            :id="option.type"
-            :key="option.type"
-            v-for="option in orderOptions"
-            class="np-search-bar__filter-list-item"
-        >
+          :id="option.type"
+          :key="option.type"
+          v-for="option in orderOptions"
+          class="np-search-bar__filter-list-item">
+
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
@@ -59,11 +59,11 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-import {computed, defineComponent, ref, ComputedRef, Ref} from "vue";
+import {computed, defineComponent, ref, ComputedRef} from "vue";
 import {useStore} from "@/store/index";
 import {OrderOption} from "@/store/navigationInterface";
 import router from "@/router";
-import orderOpt from "@/components/Navigation/SearchBar/orderOptions";
+import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
 export default defineComponent({
   components: {
@@ -76,12 +76,12 @@ export default defineComponent({
     const store = useStore();
     const isLiActive = ref<any>(false);
     const filterVal: ComputedRef<string> = computed(
-        () => store.state.nav.filterFoodParam
+      () => store.state.nav.filterFoodParam
     );
     const orderVal: ComputedRef<OrderOption> = computed(
-        () => store.state.nav.foodListOrder
+      () => store.state.nav.foodListOrder
     );
-    const orderOptions: OrderOption[] = orderOpt.filter(option => option.type !== "none");
+    const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
 
     const changeFoodListView = function (): void {
       let listType = ''
@@ -95,18 +95,16 @@ export default defineComponent({
       });
       store.commit("nav/toggleFoodListView");
     };
-    const toggleOrderList = function (): void {
+    const toggleOrderList = function(): void {
       isLiActive.value = !isLiActive.value;
     };
-    const isListActive = function (className: string): string {
+    const isListActive = function(className: string): string {
       return isLiActive.value ? className : "";
     };
 
-    const setFoodOrder = function (event: any): void {
+    const setFoodOrder = (event: any): void => {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find(
-          (option: OrderOption) => option.type === type
-      );
+      const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
       if (activeOrder) {
         router.replace({
           path: "/",
@@ -121,16 +119,19 @@ export default defineComponent({
       }
     };
 
-    const setActiveFilter = function (): void {
-      router.replace({
-        path: "/",
-        query: {
-          ...router.currentRoute.value.query,
-          filterPhrase: filterVal.value
-        }
-      });
-      store.commit("nav/filterFoodByCategory");
-      store.commit("nav/filterFoodList", filterVal.value);
+    const setActiveFilter = function(event: any): void {
+      if(event && event.target){
+        const filterValue = event.target.value;
+        router.replace({
+          name: "Home",
+          query: {
+            ...router.currentRoute.value.query,
+            filterPhrase: filterValue
+          }
+        });
+        store.commit("nav/filterFoodByCategory");
+        store.commit("nav/filterFoodList", filterValue);
+      }
     };
 
     return {

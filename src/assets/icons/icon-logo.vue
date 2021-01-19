@@ -1,6 +1,5 @@
 <template>
-  <svg id="flat"
-       viewBox="0 0 512 512"
+  <svg viewBox="0 0 512 512"
        xmlns="http://www.w3.org/2000/svg">
 
     <path d="m312 104h-40l-16 40h40z" fill="#639aff"/>
