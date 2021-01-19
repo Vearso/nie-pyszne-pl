@@ -17,7 +17,8 @@
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "yup-phone": "^1.2.19"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
@@ -51,9 +52,7 @@
     "extends": [
       "plugin:vue/vue3-essential",
       "eslint:recommended",
-      "@vue/typescript/recommended",
-      "@vue/prettier",
-      "@vue/prettier/@typescript-eslint"
+      "@vue/typescript/recommended"
     ],
     "parserOptions": {
       "ecmaVersion": 2020
