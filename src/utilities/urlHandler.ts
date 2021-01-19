@@ -4,5 +4,5 @@ export interface UrlParameters {
   foodCategory: string;
   listOrder: ListOrder;
   filterPhrase: string | number;
-  displayType: string
+  displayType: string;
 }
