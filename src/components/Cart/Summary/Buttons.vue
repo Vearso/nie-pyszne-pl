@@ -32,7 +32,7 @@ import { useStore } from "@/store";
 import { ref } from "@vue/reactivity";
 
 interface ButtonsPropTypes {
-  isFormValid: boolean
+  isFormValid: boolean;
 }
 
 export default {

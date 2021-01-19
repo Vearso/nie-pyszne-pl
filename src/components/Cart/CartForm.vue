@@ -7,6 +7,9 @@
       </div>
       <div class="field-container">
         <VField name="email" placeholder="E-mail" />
+<!--        <ErrorMessage name="email" v-slot="'lol'">-->
+<!--          <p>{{message}}</p>-->
+<!--        </ErrorMessage>-->
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
@@ -36,6 +39,19 @@ import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
 import Buttons from "@/components/Cart/Summary/Buttons";
 import "yup-phone";
+// import { localize } from 'vee-validate';
+//
+// localize({
+//   en:{
+//     fields:{
+//       email: {
+//         required: 'Email cannot be empty xD'
+//       }
+//     }
+//   }
+// });
+//set custom error msg
+// https://logaretm.github.io/vee-validate/guide/localization.html#using-the-default-i18n
 
 export default {
   name: "CartForm",
@@ -47,17 +63,18 @@ export default {
   },
   setup() {
     const schema = yup.object({
-      name: yup.string().required(),
+      name: yup.string().required("Name is required"),
       email: yup.string()
-          .required()
+          .required("Email is required")
           .email(),
       phone: yup.string()
-          .phone("PL")
-          .required(),
-      city: yup.string().required(),
-      street: yup.string().required(),
-      postCode: yup.string().required()
+          .phone("PL", false, "Enter valid phone number for PL region")
+          .required("Phone is required"),
+      city: yup.string().required("City is required"),
+      street: yup.string().required("Street is required"),
+      postCode: yup.string().required("Post code is required")
     });
+    console.log(ErrorMessage);
     return {
       schema
     };
@@ -71,12 +88,13 @@ export default {
     @apply relative;
 
     input {
-      @apply p-2 mt-6 h-10 mb-2;
+      @apply p-2 mt-6 h-10 mb-3.5;
     }
   }
 
   span {
     @apply text-left text-alert text-base font-light absolute h-1.5 text-xs bottom-0.5;
+    font-family: Roboto, sans-serif;
   }
 
   .field-container {
