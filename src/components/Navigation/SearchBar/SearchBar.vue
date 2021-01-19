@@ -93,11 +93,10 @@ export default defineComponent({
       return isLiActive.value ? className : "";
     };
 
-    const setFoodOrder = function(event: any): void {
+    const setFoodOrder = (event: any): void  =>{
+      console.log("event", event);
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find(
-        (option: OrderOption) => option.type === type
-      );
+      const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
       if (activeOrder) {
         router.replace({
           path: "/",
@@ -116,7 +115,7 @@ export default defineComponent({
       if(event && event.target){
         const filterValue = event.target.value;
         router.replace({
-          path: "/",
+          name: "Home",
           query: {
             ...router.currentRoute.value.query,
             filterPhrase: filterValue

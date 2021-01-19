@@ -3,7 +3,7 @@
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 512 512"
-    style="enable-background:new 0 0 512 512;"
+    enable-background="new 0 0 512 512"
     xml:space="preserve">
     <path
       d="M498.682,435.326L297.917,234.56L63.357,0H45.026l-3.743,9.511c-9.879,25.104-14.1,50.78-12.205,74.249

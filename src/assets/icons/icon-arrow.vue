@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  <svg xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 492.004 492.004"
        style="enable-background:new 0 0 492.004 492.004;"
        xml:space="preserve">
