@@ -1,6 +1,6 @@
 <template>
   <div class="np-productsDetails">
-    <p class="np-productsDetails__quantity text-secondary-light">{{`${item.quantity} x`}}</p>
+    <p class="np-productsDetails__quantity text-secondary-light">{{ `${item.quantity} x` }}</p>
 
     <span v-if="item.name.length < 20"
           class="np-productsDetails__name">
@@ -23,7 +23,7 @@ import {CartItem} from "@/store/interfaces";
 import {defineComponent, PropType, computed, ComputedRef} from "vue";
 
 interface Props {
-  item: CartItem,
+  item: CartItem;
 }
 
 export default defineComponent({
@@ -49,14 +49,15 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
- .np-productsDetails {
-   @apply flex w-full justify-between items-center;
+.np-productsDetails {
+  @apply flex w-full justify-between items-center;
 
-   &__quantity {
-     @apply px-4;
-   }
-   &__name {
-     @apply flex-grow text-left font-bold;
-   }
- }
+  &__quantity {
+    @apply px-4;
+  }
+
+  &__name {
+    @apply flex-grow text-left font-bold;
+  }
+}
 </style>

@@ -18,7 +18,7 @@
     <p>${{ priceTotal.toFixed(2) }}</p>
   </div>
 
-  <Summary/>
+  <Buttons/>
 
   <Modal v-if="showModal"/>
 </template>
@@ -26,7 +26,7 @@
 <script lang="ts">
 import {useStore} from "@/store";
 import {computed, defineComponent, ComputedRef} from "vue";
-import Summary from "@/components/Cart/Summary/Buttons.vue";
+import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import {CartItem, CartState} from "@/store/interfaces";
 import ProductsDetails from "@/components/Cart/CartProducts/ProductsDetails.vue";
 import ProductsHover from "@/components/Cart/CartProducts/ProductsHover.vue";
@@ -40,7 +40,7 @@ export default defineComponent({
     ProductsDetails,
     ProductsHover,
     Modal,
-    Summary,
+    Buttons,
   },
 
   setup() {

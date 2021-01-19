@@ -1,20 +1,17 @@
 <template>
   <div class="np-Summary">
     <h2 class="np-Summary__title">{{ $t("orderSummary") }}</h2>
-    <p class="np-Summary__time">{{ $t("time").toUpperCase() }}: {{ displayedTime(calculateTime(time)) }}</p>
+    <p class="np-Summary__time">{{ $t("time").toUpperCase() }}: {{ displayedTime }}</p>
   </div>
   <Buttons/>
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, computed, ComputedRef} from "vue";
-import Buttons from "@/components/Cart/Summary/Buttons.vue";
+import {defineComponent, onMounted, computed, ComputedRef, onUpdated} from "vue";
+import Buttons from "@/components/Cart/Steps/Buttons.vue";
+import {useStore} from '@/store';
+import {TimeObject} from "@/store/interfaces";
 
-interface TimeObject {
-  hours: number,
-  minutes: number,
-  seconds: number,
-}
 
 export default defineComponent({
   name: "Summary",
@@ -22,41 +19,39 @@ export default defineComponent({
     Buttons
   },
   setup() {
-    const time = ;
-    const calculateTime = (time: number): TimeObject => {
-      const hours = Math.floor((time / 3600));
-      const minutes = Math.floor((time % 3600) / 60);
-      const seconds = ((time % 3600) % 60);
-      return {
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
+    const store = useStore();
+
+    const time: ComputedRef<TimeObject> = computed(() => store.getters['time/calculatedTime'])
+    const displayedTime: ComputedRef<string> = computed(() => store.getters['time/displayedTime']);
+
+    onUpdated(()=> {
+      if(time.value.hours === 0 && time.value.minutes === 0 && time.value.seconds === 0){
+        store.commit('sideMenu/resetOrder')
+        store.commit('cart/clearCart')
       }
-    }
-    const displayedTime = (timeObject: TimeObject): string => {
-      return (timeObject.hours
-          ? `${timeObject.hours}:${timeObject.minutes}:${timeObject.seconds}`
-          : `${timeObject.minutes}:${timeObject.seconds}`)
-    }
-    const countDownTimer = (): void => {
-      if (time > 0) {
-        setTimeout(() => {
-          countDownTimer();
-        }, 1000)
-      }
-    }
-    onMounted(() => {
-      countDownTimer();
     })
+    onMounted(() => {
+      store.commit('time/setTime');
+      store.commit('time/calculateTime');
+      store.dispatch('time/countDown');
+    });
+
     return {
       displayedTime,
-      calculateTime,
       time,
     }
   }
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .np-Summary {
 
+      &__title {
+        @apply font-bold my-6;
+      }
+      &__time {
+        @apply text-4xl text-primary mb-10 ;
+      }
+    }
 </style>
