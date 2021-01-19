@@ -89,16 +89,16 @@ export default {
     const showModal: Ref<boolean> = ref(false);
     const product: Ref<object> = ref({});
 
-    const removeFromCart = (item : CartItem) : void => store.commit('cart/removeFromCart', item)
+    const removeFromCart = (item: CartItem): void => store.commit('cart/removeFromCart', item)
     return {
       cart,
       showModal,
       product,
       price,
-      turnHoverOn: (item : CartItem) => store.commit('cart/turnHoverOn', item),
-      turnHoverOff: (item : CartItem) => store.commit('cart/turnHoverOff', item),
-      increment: (item : CartItem) => store.commit('cart/incrementQuantity', item),
-      decrement: (item : CartItem) => store.commit('cart/decrementQuantity', item),
+      turnHoverOn: (item: CartItem) => store.commit('cart/turnHoverOn', item),
+      turnHoverOff: (item: CartItem) => store.commit('cart/turnHoverOff', item),
+      increment: (item: CartItem) => store.commit('cart/incrementQuantity', item),
+      decrement: (item: CartItem) => store.commit('cart/decrementQuantity', item),
       removeFromCart,
     }
   }
@@ -151,6 +151,7 @@ export default {
   }
 
 }
+
 .np-cartProducts__price {
   @apply flex justify-between w-full px-12 mt-6;
 }
