@@ -39,9 +39,9 @@ export default {
       },
       pClassObject: function (index: number): object {
         return {
-          'text-secondary-dark': active(index),
-          'text-primary': completed(index),
-          'text-secondary': waiting(index)
+          'text-secondary-dark np-steps__step__text': active(index),
+          'text-primary np-steps__step__text': completed(index),
+          'text-secondary np-steps__step__text': waiting(index)
         }
       }
     }
@@ -68,6 +68,9 @@ export default {
     &__step--waiting {
       @apply bg-secondary w-4 h-4 rounded-full;
     }
+  }
+  &__step__text{
+    @apply sm:text-xs;
   }
 }
 </style>

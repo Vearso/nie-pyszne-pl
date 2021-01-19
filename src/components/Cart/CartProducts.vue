@@ -89,16 +89,16 @@ export default {
     const showModal: Ref<boolean> = ref(false);
     const product: Ref<object> = ref({});
 
-    const removeFromCart = (item : CartItem) : void => store.commit('cart/removeFromCart', item)
+    const removeFromCart = (item: CartItem): void => store.commit('cart/removeFromCart', item)
     return {
       cart,
       showModal,
       product,
       price,
-      turnHoverOn: (item : CartItem) => store.commit('cart/turnHoverOn', item),
-      turnHoverOff: (item : CartItem) => store.commit('cart/turnHoverOff', item),
-      increment: (item : CartItem) => store.commit('cart/incrementQuantity', item),
-      decrement: (item : CartItem) => store.commit('cart/decrementQuantity', item),
+      turnHoverOn: (item: CartItem) => store.commit('cart/turnHoverOn', item),
+      turnHoverOff: (item: CartItem) => store.commit('cart/turnHoverOff', item),
+      increment: (item: CartItem) => store.commit('cart/incrementQuantity', item),
+      decrement: (item: CartItem) => store.commit('cart/decrementQuantity', item),
       removeFromCart,
     }
   }
@@ -122,7 +122,6 @@ export default {
   &__details {
     @apply flex items-center justify-between w-full;
 
-
     &__actions {
       @apply flex ml-4;
     }
@@ -134,10 +133,12 @@ export default {
 
     &__quantity {
       @apply px-4;
+      @apply sm:text-xs;
     }
 
     &__name {
       @apply text-secondary-dark pr-6 font-bold flex-grow;
+      @apply sm:text-xs;
     }
 
     &__price {
@@ -151,6 +152,7 @@ export default {
   }
 
 }
+
 .np-cartProducts__price {
   @apply flex justify-between w-full px-12 mt-6;
 }

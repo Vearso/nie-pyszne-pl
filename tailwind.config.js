@@ -20,6 +20,9 @@ module.exports = {
       default: "Roboto",
       light: "Roboto-light"
     },
+    screens: {
+     'sm' : {'max': '760px'}
+    },
     extend: {}
   },
   variants: {

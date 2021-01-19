@@ -1,9 +1,9 @@
 <template>
-  <div class="v-home flex justify-between">
-    <div class="mx-auto w-1/2">
+  <div class="v-home">
+    <div class="mx-auto w-1/2 sm:w-full ">
       <Header/>
-      <Navigation/>
-      <ProductsList/>
+      <Navigation class="sm:hidden"/>
+      <ProductsList class="sm:hidden"/>
     </div>
     <Cart/>
   </div>

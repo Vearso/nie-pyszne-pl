@@ -30,20 +30,24 @@ export default {
 <style scoped lang="scss">
 .np-cart__user {
   @apply flex self-start p-12;
+  @apply sm:items-center sm:self-center sm:pt-0 sm:pb-6;
 
   &__avatar {
     @apply h-16 w-16;
+    @apply sm:h-10 sm:w-10;
   }
 
   &__wrapper {
     @apply ml-12 text-left;
-
+    @apply sm:ml-6;
     &__name {
       @apply text-2xl;
+      @apply sm:text-lg;
     }
 
     &__logout {
       @apply text-secondary-darker;
+      @apply sm:text-sm;
     }
   }
 }
