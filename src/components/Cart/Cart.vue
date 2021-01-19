@@ -81,16 +81,21 @@ export default {
 
 .np-cart--opened {
   @apply bg-secondary-lighter w-1/4 h-screen flex flex-col items-center relative text-secondary-dark;
+  .np-cart__arrow {
+  }
 }
 
 .np-cart__arrow__container {
-  @apply h-12 w-12 rounded-full bg-secondary-light absolute -left-6 flex justify-center items-center;
+  @apply h-12 w-12 rounded-full bg-primary absolute -left-6 flex justify-center items-center;
   top: calc(50% - 1.5rem);
+  cursor: pointer;
 
   .np-cart__arrow {
-    @apply h-8 w-8 absolute left-1.5;
+    @apply h-8 w-8 absolute left-1.5 ;
+    fill: white;
   }
 }
+
 
 .form-container {
   @apply w-full px-8;
