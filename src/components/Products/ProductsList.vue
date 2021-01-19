@@ -15,9 +15,7 @@
       :price="item.price"
       :imgUrl="item.imgUrl"
       :rating="item.rating"
-      @click="addToCart(item)"
-      @click.right="toggleModal"
-    >
+      @click="addToCart(item)">
     </products-list-item>
   </div>
 
