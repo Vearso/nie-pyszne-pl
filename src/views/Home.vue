@@ -1,5 +1,5 @@
 <template>
-  <div class="v-home flex justify-between">
+  <div class="v-home flex justify-around min-h-full">
     <div class="mx-auto w-1/2 sm:w-full ">
       <Header/>
       <Navigation class="sm:hidden"/>
