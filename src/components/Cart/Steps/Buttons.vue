@@ -3,8 +3,8 @@
     <button
         v-if="stepValue < 3"
         class="np-cart__buttons__button"
-        :class="{'np-cart__buttons__button--disabled': !isChecked}"
-        :disabled="!isChecked"
+        :class="{'np-cart__buttons__button--disabled': isChecked()}"
+        :disabled="isChecked()"
         @click="nextStep">
 
       {{ $t("next") }}
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import {computed,ComputedRef, Ref, ref} from "vue";
+import {computed, ComputedRef, Ref, ref} from "vue";
 import {useStore} from "@/store";
 
 interface ButtonsPropTypes {
@@ -44,7 +44,10 @@ export default {
     const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
     const price: ComputedRef<number> = computed(() => store.getters["cart/priceTotal"]);
 
-    const isChecked: Ref<boolean> = ref((!formValid.value && stepValue.value === 2 || price.value === 0 && stepValue.value === 1));
+    const isChecked: () => ComputedRef<boolean> = () => computed(() =>
+      (formValid.value && stepValue.value === 2 || price.value !== 0 && stepValue.value === 1)
+    );
+    console.log(isChecked().value);
 
     return {
       stepValue,
