@@ -12,11 +12,13 @@
 
 <script lang="ts">
 import {useStore} from "@/store";
-import {computed} from "vue";
+import {computed, defineComponent} from "vue";
 import {ComputedRef} from "@vue/reactivity";
 
 
-export default {
+export default defineComponent({
+  name: 'Steps',
+
   setup() {
     const store = useStore();
     const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
@@ -46,8 +48,7 @@ export default {
       }
     }
   }
-}
-
+});
 </script>
 
 <style scoped lang="scss">

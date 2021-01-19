@@ -9,13 +9,9 @@ const getters = {
     cartItems(state: CartState): CartItem[] {
         return state.items;
     },
-    priceTotal(state: CartState) {
-        let priceTotal = 0;
-        for (const item of state.items) {
-            priceTotal += (item.price * item.quantity);
-        }
-        return state.priceTotal = priceTotal;
-    }
+    priceTotal(state: CartState): number {
+        return state.priceTotal;
+    },
 };
 
 const mutations = {
@@ -33,6 +29,13 @@ const mutations = {
                 imgUrl: item.imgUrl,
                 isHoveredOn: false
             });
+    },
+    calculatePrice: function (state: CartState): void {
+        let priceTotal = 0;
+        for (const item of state.items) {
+            priceTotal += (item.price * item.quantity);
+        }
+        state.priceTotal = priceTotal;
     },
     clearCart: function (state: CartState): void {
         state.items = [];
