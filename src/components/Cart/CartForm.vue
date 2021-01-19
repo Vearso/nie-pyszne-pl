@@ -7,9 +7,6 @@
       </div>
       <div class="field-container">
         <VField name="email" placeholder="E-mail" />
-<!--        <ErrorMessage name="email" v-slot="'lol'">-->
-<!--          <p>{{message}}</p>-->
-<!--        </ErrorMessage>-->
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
