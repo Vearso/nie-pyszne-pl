@@ -35,7 +35,7 @@ import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
 import "yup-phone";
-import Summary from "@/components/Cart/Summary/Buttons";
+import Summary from "@/components/Cart/Steps/Buttons";
 
 export default {
   name: "CartForm",

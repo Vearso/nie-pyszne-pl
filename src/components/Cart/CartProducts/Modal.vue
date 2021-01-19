@@ -82,7 +82,6 @@ export default defineComponent({
       @apply font-bold text-secondary-dark px-2 text-lg;
     }
   }
-
   &__wrapper {
     @apply flex justify-around;
 

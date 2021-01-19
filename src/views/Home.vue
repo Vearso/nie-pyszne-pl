@@ -31,7 +31,6 @@ export default defineComponent({
     Cart,
     ProductsList,
   },
-
   setup() {
     const store = useStore();
 
