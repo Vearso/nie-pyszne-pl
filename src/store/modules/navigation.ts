@@ -30,38 +30,23 @@ const mutations = {
   },
 
   orderFoodList(state: NavState) {
-    const foodList = [...state.filteredFoodList];
-    const orderList = () => {
-      switch (state.foodListOrder.type) {
-        case "alph_asc":
-          foodList.sort((a: FoodListItem, b: FoodListItem) => {
-            if (a.name < b.name) {
-              return -1;
-            }
-            return 0;
-          });
-          break;
-        case "alph_desc":
-          foodList.sort((a: FoodListItem, b: FoodListItem) => {
-            if (a.name > b.name) {
-              return -1;
-            }
-            return 0;
-          });
-          break;
-        case "price_asc":
-          foodList.sort((a: FoodListItem, b: FoodListItem) => {
-            return a.price - b.price;
-          });
-          break;
-        case "price_desc":
-          foodList.sort((a: FoodListItem, b: FoodListItem) => {
-            return b.price - a.price;
-          });
-          break;
-      }
-    };
-    orderList();
+    const foodList: FoodListItem[] = [...state.filteredFoodList];
+
+    switch (state.foodListOrder.type) {
+      case "alph_asc":
+        foodList.sort((prevItem, nextItem) => prevItem.name < nextItem.name ? -1 : 0);
+        break;
+      case "alph_desc":
+        foodList.sort((prevItem, nextItem) => prevItem.name > nextItem.name ? -1 : 0);
+        break;
+      case "price_asc":
+        foodList.sort((prevItem, nextItem) => prevItem.price - nextItem.price);
+        break;
+      case "price_desc":
+        foodList.sort((prevItem, nextItem) => nextItem.price - prevItem.price);
+        break;
+    }
+
     state.filteredFoodList = foodList;
   },
   setFoodListOrder(state: NavState, order: OrderOption) {
@@ -71,21 +56,18 @@ const mutations = {
     const activeCategory: string = state.activeFoodCategory;
     const parameter: string = state.filterFoodParam;
     const allItems: FoodListItem[] = state.fullFoodList;
-    let itemsByCategory: FoodListItem[];
 
-    activeCategory === "all"
-      ? (itemsByCategory = allItems)
-      : (itemsByCategory = allItems.filter(
-          item => item.foodType === activeCategory
-        ));
+    const itemsByCategory: FoodListItem[] = activeCategory === "all"
+      ?  allItems
+      : allItems.filter(item => item.foodType === activeCategory);
 
     state.filteredFoodList = parameter.length
       ? itemsByCategory.filter(
-        item =>
-          item.name.toLowerCase().includes(parameter) ||
-          item.price.toString() === parameter ||
-          item.rating.toString() === parameter
-      )
+          item =>
+            item.name.toLowerCase().includes(parameter) ||
+            item.price.toString() === parameter ||
+            item.rating.toString() === parameter
+        )
       : itemsByCategory;
   },
   setFoodListFilter(state: NavState, filter: string) {
@@ -103,7 +85,6 @@ const mutations = {
 
 const actions = {
   async fetchFoodList(context: any) {
-    const searchedCategory = context.state.activeFoodCategory;
     const list: FoodListItem[] = await getFoodList();
 
     context.commit("setFoodList", list);
