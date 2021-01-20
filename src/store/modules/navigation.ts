@@ -1,13 +1,13 @@
 import {
-  CategoryListItem,
-  FoodListItem,
   NavState,
-  OrderOption
+  FoodListItem,
+  OrderOption,
+  CategoryListItem
 } from "../navigationInterface";
-import { getFoodCategories, getFoodList } from "@/utilities/apiCalls";
+import { getFoodList, getFoodCategories } from "@/utilities/apiCalls";
 
 const state: NavState = {
-  isFoodListAList: false,
+  displayAsList: false,
   fullFoodList: [],
   filteredFoodList: [],
   filterFoodParam: "",
@@ -22,7 +22,7 @@ const state: NavState = {
 
 const mutations = {
   toggleFoodListView(state: NavState) {
-    state.isFoodListAList = !state.isFoodListAList;
+    state.displayAsList = !state.displayAsList;
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
     state.fullFoodList = list;
@@ -34,10 +34,14 @@ const mutations = {
 
     switch (state.foodListOrder.type) {
       case "alph_asc":
-        foodList.sort((prevItem, nextItem) => prevItem.name < nextItem.name ? -1 : 0);
+        foodList.sort((prevItem, nextItem) =>
+          prevItem.name < nextItem.name ? -1 : 0
+        );
         break;
       case "alph_desc":
-        foodList.sort((prevItem, nextItem) => prevItem.name > nextItem.name ? -1 : 0);
+        foodList.sort((prevItem, nextItem) =>
+          prevItem.name > nextItem.name ? -1 : 0
+        );
         break;
       case "price_asc":
         foodList.sort((prevItem, nextItem) => prevItem.price - nextItem.price);
@@ -57,9 +61,10 @@ const mutations = {
     const parameter: string = state.filterFoodParam;
     const allItems: FoodListItem[] = state.fullFoodList;
 
-    const itemsByCategory: FoodListItem[] = activeCategory === "all"
-      ?  allItems
-      : allItems.filter(item => item.foodType === activeCategory);
+    const itemsByCategory: FoodListItem[] =
+      activeCategory === "all"
+        ? allItems
+        : allItems.filter(item => item.foodType === activeCategory);
 
     state.filteredFoodList = parameter.length
       ? itemsByCategory.filter(

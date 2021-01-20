@@ -1,21 +1,21 @@
 <template>
   <header class="np-header">
-    <Logo class="np-header__image"/>
+    <Logo class="np-header__image" />
     <div class="np-header__wrapper">
-      <h1 class="np-header__wrapper__title">{{ $t('headerTitle') }}</h1>
-      <p class="np-header__wrapper__subtitle">{{ $t('headerSubtitle') }}</p>
+      <h1 class="np-header__wrapper__title">{{ $t("headerTitle") }}</h1>
+      <p class="np-header__wrapper__subtitle">{{ $t("headerSubtitle") }}</p>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import Logo from "@/assets/icons/icon-logo.vue"
-import {defineComponent} from "vue";
+import Logo from "@/assets/icons/icon-logo.vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'Header',
+  name: "Header",
   components: {
-    Logo,
+    Logo
   }
 });
 </script>

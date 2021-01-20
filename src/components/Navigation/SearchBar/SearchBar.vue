@@ -1,47 +1,51 @@
 <template>
   <section class="np-search-bar">
-    <button @click="changeFoodListView"
-            type="button"
-            class="np-search-bar__toggle-list-view">
-
+    <button
+      @click="changeFoodListView"
+      type="button"
+      class="np-search-bar__toggle-list-view"
+    >
       <ListIcon />
     </button>
 
     <div class="np-search-bar__input">
       <SearchIcon class="np-search-bar__input-icon" />
 
-      <input :value="filterVal"
-             @input="setActiveFilter"
-             class="np-search-bar__input-el"
-             type="search"
-             placeholder="Search" />
+      <input
+        :value="filterVal"
+        @input="setActiveFilter"
+        class="np-search-bar__input-el"
+        type="search"
+        placeholder="Search"
+      />
     </div>
 
     <section class="np-search-bar__filter">
-      <div @click="toggleOrderList"
-           class="np-search-bar__filter-option">
-
+      <div @click="toggleOrderList" class="np-search-bar__filter-option">
         <SwitchIcon class="np-search-bar__filter-option-icon" />
 
         <p class="np-search-bar__filter-option-text">
           <span>{{ orderVal.category }}: </span>{{ orderVal.order }}
         </p>
 
-        <button :class="isListActive('np-search-bar__filter-option-btn--active')"
-                class="np-search-bar__filter-option-btn">
-
+        <button
+          :class="isListActive('np-search-bar__filter-option-btn--active')"
+          class="np-search-bar__filter-option-btn"
+        >
           <DownArrowIcon />
         </button>
       </div>
-      <ul :class="isListActive('np-search-bar__filter-list--active')"
-          @click="setFoodOrder"
-          class="np-search-bar__filter-list">
-
-        <li :id="option.type"
-            :key="option.type"
-            v-for="option in orderOptions"
-            class="np-search-bar__filter-list-item">
-
+      <ul
+        :class="isListActive('np-search-bar__filter-list--active')"
+        @click="setFoodOrder"
+        class="np-search-bar__filter-list"
+      >
+        <li
+          :id="option.type"
+          :key="option.type"
+          v-for="option in orderOptions"
+          class="np-search-bar__filter-list-item"
+        >
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
@@ -71,16 +75,18 @@ export default defineComponent({
     const store = useStore();
     const isLiActive = ref<any>(false);
     const filterVal: ComputedRef<string> = computed(
-        () => store.state.nav.filterFoodParam
+      () => store.state.nav.filterFoodParam
     );
     const orderVal: ComputedRef<OrderOption> = computed(
-        () => store.state.nav.foodListOrder
+      () => store.state.nav.foodListOrder
     );
-    const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
+    const orderOptions: OrderOption[] = orderOptionsList.filter(
+      option => option.type !== "none"
+    );
 
     const changeFoodListView = function(): void {
       let listType = "";
-      store.state.nav.isFoodListAList ? listType = "grid" : listType = "list";
+      store.state.nav.displayAsList ? (listType = "grid") : (listType = "list");
       router.replace({
         path: "/",
         query: {
@@ -99,7 +105,9 @@ export default defineComponent({
 
     const setFoodOrder = (event: any): void => {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
+      const activeOrder: OrderOption | undefined = orderOptions.find(
+        (option: OrderOption) => option.type === type
+      );
       if (activeOrder) {
         router.replace({
           path: "/",
