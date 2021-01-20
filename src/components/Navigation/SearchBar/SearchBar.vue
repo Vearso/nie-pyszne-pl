@@ -3,27 +3,26 @@
     <button
       @click="changeFoodListView"
       type="button"
-      class="np-search-bar__toggle-list-view">
-
+      class="np-search-bar__toggle-list-view"
+    >
       <ListIcon />
     </button>
 
     <div class="np-search-bar__input">
-      <SearchIcon class="np-search-bar__input-icon"/>
+      <SearchIcon class="np-search-bar__input-icon" />
 
       <input
         :value="filterVal"
         @keyup="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
-        placeholder="Search"/>
+        placeholder="Search"
+      />
     </div>
 
     <section class="np-search-bar__filter">
-      <div @click="toggleOrderList"
-           class="np-search-bar__filter-option">
-
-        <SwitchIcon class="np-search-bar__filter-option-icon"/>
+      <div @click="toggleOrderList" class="np-search-bar__filter-option">
+        <SwitchIcon class="np-search-bar__filter-option-icon" />
 
         <p class="np-search-bar__filter-option-text">
           <span>{{ orderVal.category }}: </span>{{ orderVal.order }}
@@ -31,22 +30,22 @@
 
         <button
           :class="isListActive('np-search-bar__filter-option-btn--active')"
-          class="np-search-bar__filter-option-btn">
-
+          class="np-search-bar__filter-option-btn"
+        >
           <DownArrowIcon />
         </button>
       </div>
       <ul
         :class="isListActive('np-search-bar__filter-list--active')"
         @click="setFoodOrder"
-        class="np-search-bar__filter-list">
-
+        class="np-search-bar__filter-list"
+      >
         <li
           :id="option.type"
           :key="option.type"
           v-for="option in orderOptions"
-          class="np-search-bar__filter-list-item">
-
+          class="np-search-bar__filter-list-item"
+        >
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
@@ -59,9 +58,9 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-import {computed, defineComponent, ref, ComputedRef} from "vue";
-import {useStore} from "@/store/index";
-import {OrderOption} from "@/store/navigationInterface";
+import { computed, defineComponent, ref, ComputedRef } from "vue";
+import { useStore } from "@/store/index";
+import { OrderOption } from "@/store/navigationInterface";
 import router from "@/router";
 import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
@@ -81,16 +80,20 @@ export default defineComponent({
     const orderVal: ComputedRef<OrderOption> = computed(
       () => store.state.nav.foodListOrder
     );
-    const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
+    const orderOptions: OrderOption[] = orderOptionsList.filter(
+      option => option.type !== "none"
+    );
 
-    const changeFoodListView = function (): void {
-      let listType = ''
-      store.state.nav.isFoodListAList ? listType = 'grid' : listType = 'list';
+    const changeFoodListView = function(): void {
+      let listType = "";
+      store.state.nav.isFoodListAList
+        ? (listType = "grid")
+        : (listType = "list");
       router.replace({
         path: "/",
         query: {
           ...router.currentRoute.value.query,
-          displayType: listType,
+          displayType: listType
         }
       });
       store.commit("nav/toggleFoodListView");
@@ -104,7 +107,9 @@ export default defineComponent({
 
     const setFoodOrder = (event: any): void => {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
+      const activeOrder: OrderOption | undefined = orderOptions.find(
+        (option: OrderOption) => option.type === type
+      );
       if (activeOrder) {
         router.replace({
           path: "/",
@@ -120,7 +125,7 @@ export default defineComponent({
     };
 
     const setActiveFilter = function(event: any): void {
-      if(event && event.target){
+      if (event && event.target) {
         const filterValue = event.target.value;
         router.replace({
           name: "Home",
