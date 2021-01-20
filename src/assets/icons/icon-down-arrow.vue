@@ -1,18 +1,19 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg"
-       xmlns:xlink="http://www.w3.org/1999/xlink"
-       viewBox="0 0 213.333 213.333"
-       style="enable-background:new 0 0 213.333 213.333;"
-       xml:space="preserve">
-
-		<polygon points="0,53.333 106.667,160 213.333,53.333"/>
-</svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 213.333 213.333"
+    style="enable-background:new 0 0 213.333 213.333;"
+    xml:space="preserve"
+  >
+    <polygon points="0,53.333 106.667,160 213.333,53.333" />
+  </svg>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "DownArrow",
+  name: "DownArrow"
 });
 </script>
