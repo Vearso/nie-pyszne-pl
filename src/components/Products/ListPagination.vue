@@ -22,6 +22,12 @@ import {defineComponent, computed, Ref, onUpdated, ComputedRef, ref} from "vue";
 import {useStore} from "@/store";
 import {FoodListItem} from "@/store/navigationInterface";
 
+interface ChangeEvent {
+  target: {
+    value: number;
+  };
+}
+
 export default defineComponent({
   name: "ListPagination",
   components: {
@@ -41,7 +47,7 @@ export default defineComponent({
       inputValue.value = currentPage.value;
     }
 
-    const setPage = (event: any): void => {
+    const setPage = (event: ChangeEvent): void => {
       inputValue.value = event.target.value;
       if (!(+inputValue.value > 0 && +inputValue.value <= store.state.products.numberOfPages)) {
         inputValue.value = currentPage.value;
@@ -53,9 +59,9 @@ export default defineComponent({
     const setResults = (list: Array<FoodListItem>): void => store.commit('products/setResults', list);
     const setNumberOfPages = (list: Array<FoodListItem>): void => store.commit('products/setNumberOfPages', list);
 
-    setNumberOfPages(filteredList.value)
 
     onUpdated(() => {
+      setNumberOfPages(filteredList.value)
       setResults(filteredList.value);
     })
 

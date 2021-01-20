@@ -58,6 +58,8 @@ export default defineComponent({
       });
       store.commit("nav/setActiveFoodCategory", activeCategory);
       store.commit("nav/filterFoodByCategory");
+      store.commit('products/setNumberOfPages',store.state.nav.filteredFoodList);
+      store.commit("products/setResults",store.state.nav.filteredFoodList);
     };
 
     return {

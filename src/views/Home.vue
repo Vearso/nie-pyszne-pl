@@ -61,6 +61,7 @@ export default defineComponent({
         params.displayType === 'list' ? null : store.commit('nav/toggleFoodListView')
       }
       store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
+      store.commit('products/setNumberOfPages',store.state.nav.filteredFoodList);
       store.commit('products/setResults', store.state.nav.filteredFoodList);
     });
   }

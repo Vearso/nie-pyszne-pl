@@ -30,7 +30,7 @@ const mutations = {
         }
     },
     setPage(state: ProductsState, page: number) {
-            state.pageNumber = page;
+        state.pageNumber = page;
     },
 
     setResults(state: ProductsState, list: Array<FoodListItem>) {
@@ -46,10 +46,10 @@ const mutations = {
         }
     },
     setNumberOfPages(state: ProductsState, list: Array<FoodListItem>) {
-        if (list.length % 9 !== 0) {
-            state.numberOfPages = Math.ceil(list.length / 9);
+        if (list.length % state.numberOfProducts !== 0) {
+            state.numberOfPages = Math.ceil(list.length / state.numberOfPages);
         } else
-            state.numberOfPages = list.length / 9
+            state.numberOfPages = list.length / state.numberOfProducts
     },
 }
 
