@@ -1,44 +1,43 @@
 <template>
   <div class="np-productsHover">
     <div class="np-productsHover__actions">
-      <span :class="{'text-secondary-light': item.quantity === 1}"
-            @click="decrement(item)"
-            class="np-productsHover__actions__action">
-
-         -
+      <span
+        :class="{ 'text-secondary-light': item.quantity === 1 }"
+        @click="decrement(item)"
+        class="np-productsHover__actions__action"
+      >
+        -
       </span>
 
-      <p class=" np-productsHover__actions__quantity text-secondary-dark"> {{ item.quantity }} </p>
+      <p class=" np-productsHover__actions__quantity text-secondary-dark">
+        {{ item.quantity }}
+      </p>
 
-      <span @click="increment(item)"
-            class="np-productsHover__actions__action">
-
-         +
+      <span @click="increment(item)" class="np-productsHover__actions__action">
+        +
       </span>
     </div>
 
-    <IconCross @click="showModal(item)"
-               class="np-productsHover__cross"/>
-
+    <IconCross @click="showModal(item)" class="np-productsHover__cross" />
   </div>
 </template>
 
 <script lang="ts">
-import {CartItem} from "@/store/interfaces";
-import {defineComponent, PropType} from "vue";
-import {useStore} from "@/store";
+import { CartItem } from "@/store/interfaces";
+import { defineComponent, PropType } from "vue";
+import { useStore } from "@/store";
 import IconCross from "@/assets/icons/icon-cross.vue";
 
 export default defineComponent({
   name: "ProductsHover",
 
   components: {
-    IconCross,
+    IconCross
   },
 
   props: {
     item: {
-      type: Object as PropType<CartItem>,
+      type: Object as PropType<CartItem>
     }
   },
 
@@ -46,10 +45,12 @@ export default defineComponent({
     const store = useStore();
 
     return {
-      showModal: (item: CartItem) => store.commit('modal/popModal', item),
-      increment: (item: CartItem) => store.commit('cart/incrementQuantity', item),
-      decrement: (item: CartItem) => store.commit('cart/decrementQuantity', item),
-    }
+      showModal: (item: CartItem) => store.commit("modal/popModal", item),
+      increment: (item: CartItem) =>
+        store.commit("cart/incrementQuantity", item),
+      decrement: (item: CartItem) =>
+        store.commit("cart/decrementQuantity", item)
+    };
   }
 });
 </script>

@@ -25,7 +25,7 @@
         <VField name="postCode" placeholder="Post code" />
         <ErrorMessage name="postCode" />
       </div>
-      <Buttons :isFormValid="meta.valid"/>
+      <Buttons :isFormValid="meta.valid" />
     </VForm>
   </div>
 </template>
@@ -48,12 +48,14 @@ export default {
   setup() {
     const schema = yup.object({
       name: yup.string().required(),
-      email: yup.string()
-          .required()
-          .email(),
-      phone: yup.string()
-          .phone("PL")
-          .required(),
+      email: yup
+        .string()
+        .required()
+        .email(),
+      phone: yup
+        .string()
+        .phone("PL")
+        .required(),
       city: yup.string().required(),
       street: yup.string().required(),
       postCode: yup.string().required()

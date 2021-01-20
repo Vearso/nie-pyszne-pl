@@ -6,7 +6,12 @@ export interface FoodListItem {
   rating: number;
   imgUrl: string;
 }
-export type ListOrder ="none" | "price_asc" | "price_desc" | "alph_asc" | "alph_desc";
+export type ListOrder =
+  | "none"
+  | "price_asc"
+  | "price_desc"
+  | "alph_asc"
+  | "alph_desc";
 
 export interface OrderOption {
   category: string;
