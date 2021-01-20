@@ -1,22 +1,15 @@
 <template>
-  <div
-    class="product-list"
-    v-if="items.length"
-    :style="[
-      displayList
-        ? 'grid-template-columns: 1fr'
-        : 'grid-template-columns: 1fr 1fr 1fr'
-    ]"
-  >
-    <products-list-item
-      v-for="item in items"
-      :key="item.id"
-      :name="item.name"
-      :price="item.price"
-      :imgUrl="item.imgUrl"
-      :rating="item.rating"
-      @click="addToCart(item)"
-    >
+  <div class="product-list grid-cols-1"
+       v-if="items.length"
+       :class="[displayList ? 'md:grid-cols-1' : 'md:grid-cols-3']">
+
+    <products-list-item v-for="item in items"
+                        :key="item.id"
+                        :name="item.name"
+                        :price="item.price"
+                        :imgUrl="item.imgUrl"
+                        :rating="item.rating"
+                        @click="addToCart(item)">
     </products-list-item>
   </div>
 
@@ -29,7 +22,7 @@
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
 import { mapMutations } from "vuex";
 import { useStore } from "@/store";
-import { computed, ref, Ref } from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ProductsList",
@@ -41,7 +34,7 @@ export default {
 
     return {
       items: computed(() => store.state.nav.filteredFoodList),
-      displayList: computed(() => store.state.nav.isFoodListAList)
+      displayList: computed(() => store.state.nav.displayAsList)
     };
   },
   methods: {

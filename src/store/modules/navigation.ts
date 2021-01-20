@@ -7,7 +7,7 @@ import {
 import { getFoodList, getFoodCategories } from "@/utilities/apiCalls";
 
 const state: NavState = {
-  isFoodListAList: false,
+  displayAsList: false,
   fullFoodList: [],
   filteredFoodList: [],
   filterFoodParam: "",
@@ -22,7 +22,7 @@ const state: NavState = {
 
 const mutations = {
   toggleFoodListView(state: NavState) {
-    state.isFoodListAList = !state.isFoodListAList;
+    state.displayAsList = !state.displayAsList;
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
     state.fullFoodList = list;

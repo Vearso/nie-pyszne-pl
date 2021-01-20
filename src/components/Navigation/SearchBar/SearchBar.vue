@@ -86,9 +86,7 @@ export default defineComponent({
 
     const changeFoodListView = function(): void {
       let listType = "";
-      store.state.nav.isFoodListAList
-        ? (listType = "grid")
-        : (listType = "list");
+      store.state.nav.displayAsList ? (listType = "grid") : (listType = "list");
       router.replace({
         path: "/",
         query: {

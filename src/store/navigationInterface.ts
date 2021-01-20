@@ -20,7 +20,7 @@ export interface OrderOption {
 }
 
 export interface NavState {
-  isFoodListAList: boolean;
+  displayAsList: boolean;
   fullFoodList: Array<FoodListItem>;
   filteredFoodList: Array<FoodListItem>;
   foodListOrder: OrderOption;

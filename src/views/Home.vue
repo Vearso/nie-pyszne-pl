@@ -2,8 +2,8 @@
   <div class="v-home flex min-h-full">
     <div class="mx-auto w-1/2 sm:w-full ">
       <Header />
-      <Navigation class="sm:hidden" />
-      <ProductsList class="sm:hidden" />
+      <Navigation />
+      <ProductsList />
     </div>
     <Cart />
   </div>
