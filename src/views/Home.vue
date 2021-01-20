@@ -1,5 +1,8 @@
 <template>
   <div class="v-home flex min-h-full">
+    <div v-if="productAddedMessage" class="product-added-modal">
+      <p>Product added to cart</p>
+    </div>
     <div class="np-content ">
       <Header />
       <Navigation />
@@ -14,7 +17,7 @@ import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
 import Navigation from "@/components/Navigation/Navigation.vue";
-import { onMounted, defineComponent } from "vue";
+import { onMounted, defineComponent, provide, ref } from "vue";
 import { useStore } from "@/store";
 import router from "@/router";
 import { UrlParameters } from "@/utilities/urlHandler";
@@ -23,7 +26,6 @@ import { OrderOption } from "@/store/navigationInterface";
 
 export default defineComponent({
   name: "Home",
-
   components: {
     Navigation,
     Header,
@@ -32,6 +34,15 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+
+    const productAddedMessage = ref(false);
+    const updateMessage = () => {
+      productAddedMessage.value = true;
+      setTimeout(() => {
+        productAddedMessage.value = false;
+      }, 2000);
+    };
+    provide("showProductAddedMessage", updateMessage);
 
     onMounted(async () => {
       await store.dispatch("nav/fetchMenuCategories");
@@ -64,6 +75,10 @@ export default defineComponent({
       }
       store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
     });
+
+    return {
+      productAddedMessage
+    };
   }
 });
 </script>
