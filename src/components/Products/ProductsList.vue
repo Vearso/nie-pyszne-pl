@@ -39,7 +39,7 @@ export default {
 
     return {
       items: computed(() => store.state.products.products),
-      displayList: computed(() => store.state.nav.isFoodListAList)
+      displayList: computed(() => store.state.nav.displayAsList)
     };
   },
   methods: {
