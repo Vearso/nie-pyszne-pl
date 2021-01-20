@@ -103,7 +103,6 @@ const mutations = {
     },
 
     setFoodCategories(state: NavState, list: Array<CategoryListItem>) {
-        console.log(list);
         state.categoryList = list;
     }
 };

@@ -17,7 +17,7 @@
   <div v-else class="empty-product-list">
     <strong>{{ $t("emptyProductList") }}</strong>
   </div>
-  <ListPagination/>
+  <ListPagination v-if="items.length"/>
 </template>
 
 <script lang="ts">
@@ -37,7 +37,7 @@ export default {
     const store = useStore();
 
     return {
-      items: computed(() => store.state.nav.filteredFoodList),
+      items: computed(() => store.state.products.products),
       displayList: computed(() => store.state.nav.isFoodListAList),
     };
   },

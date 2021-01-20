@@ -49,7 +49,6 @@ export default defineComponent({
       return 'RestaurantIcon'
     }
     const setActiveCategory = (activeCategory: string): void => {
-      console.log(activeCategory);
       router.replace({
         path: "/",
         query: {

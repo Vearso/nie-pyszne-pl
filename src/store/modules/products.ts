@@ -1,5 +1,6 @@
 import {ProductsState} from "@/store/interfaces";
 import {FoodListItem} from "@/store/navigationInterface";
+import {getFoodList} from "@/utilities/apiCalls";
 
 const state: ProductsState = {
     products: [],
@@ -27,18 +28,28 @@ const mutations = {
             state.pageNumber -= 1
         }
     },
+    setPage(state: ProductsState,page: number) {
+        state.pageNumber = 0;
+        if(page <= state.numberOfPages && page > 0) {
+            state.pageNumber = page;
+        } else state.pageNumber = 1;
+    },
     setResults(state: ProductsState, list: Array<FoodListItem>) {
+        state.products = [];
         for (let i = (state.pageNumber * 9 - 9); i < (state.pageNumber * 9); i++) {
-            state.products.push(list[i]);
+            if(list[i] !== undefined) {
+                state.products.push(list[i]);
+            }
         }
     },
-    getNumberOfPages(state: ProductsState, list: Array<FoodListItem>) {
+    setNumberOfPages(state: ProductsState, list: Array<FoodListItem>) {
         if (list.length % 9 !== 0) {
             state.numberOfPages = Math.ceil(list.length / 9);
         } else
             state.numberOfPages = list.length / 9
     },
 }
+
 
 export default {
     namespaced: true,
