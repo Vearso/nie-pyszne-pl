@@ -4,8 +4,8 @@
            class="np-pagination__wrapper__left-arrow"/>
 
     <label for="pageNumber">
-      <input @change="e => setPageNumber(e.target.value)"
-             :value="currentPage"
+      <input :value="currentPage"
+             @change="e => setPageNumber(e.target.value)"
              type="text"
              id="pageNumber"
              name="pageNumber"
@@ -34,16 +34,16 @@ export default defineComponent({
     let currentPage = computed(() => store.state.products.pageNumber);
 
 
-    const nextPage = () => store.commit('products/nextPage');
-    const prevPage = () => store.commit('products/prevPage');
-    const setPageNumber = (page: number) => {
+    const nextPage = ():void  => store.commit('products/nextPage');
+    const prevPage = ():void => store.commit('products/prevPage');
+    const setPageNumber = (page: number) :void => {
       store.commit('products/setPage', page);
-      currentPage = computed(()=> store.getters['products/getPage']);
+      currentPage = computed(() => store.getters['products/getPage']);
     }
 
     const filteredList: ComputedRef<Array<FoodListItem>> = computed(() => store.state.nav.filteredFoodList);
-    const setResults = (list: Array<FoodListItem>) => store.commit('products/setResults', list);
-    const setNumberOfPages = (list: Array<FoodListItem>) => store.commit('products/setNumberOfPages', list);
+    const setResults = (list: Array<FoodListItem>) :void => store.commit('products/setResults', list);
+    const setNumberOfPages = (list: Array<FoodListItem>) :void => store.commit('products/setNumberOfPages', list);
 
     setNumberOfPages(filteredList.value)
 

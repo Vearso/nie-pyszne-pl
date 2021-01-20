@@ -6,6 +6,7 @@ const state: ProductsState = {
     products: [],
     pageNumber: 1,
     numberOfPages: 0,
+    numberOfProducts: 9,
 }
 
 const getters = {
@@ -28,16 +29,20 @@ const mutations = {
             state.pageNumber -= 1
         }
     },
-    setPage(state: ProductsState,page: number) {
+    setPage(state: ProductsState, page: number) {
         state.pageNumber = 0;
-        if(page <= state.numberOfPages && page > 0) {
+        if (page <= state.numberOfPages && page > 0) {
             state.pageNumber = page;
         } else state.pageNumber = 1;
     },
     setResults(state: ProductsState, list: Array<FoodListItem>) {
         state.products = [];
-        for (let i = (state.pageNumber * 9 - 9); i < (state.pageNumber * 9); i++) {
-            if(list[i] !== undefined) {
+
+        const pageNr = state.pageNumber;
+        const nrOfProd = state.numberOfProducts;
+
+        for (let i = (pageNr * nrOfProd - nrOfProd); i < (pageNr * nrOfProd); i++) {
+            if (list[i] !== undefined) {
                 state.products.push(list[i]);
             }
         }

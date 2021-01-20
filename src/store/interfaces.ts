@@ -14,6 +14,7 @@ export interface ProductsState {
   products: Array<FoodListItem>
   pageNumber: number;
   numberOfPages: number;
+  numberOfProducts: number;
 }
 
 export interface TimeObject {
