@@ -1,33 +1,32 @@
 <template>
   <div class="np-cart__buttons">
-    <button :class="{'np-cart__buttons__button--disabled': !isChecked}"
-            :disabled="!isChecked"
-            @click="nextStep"
-            v-if="stepValue < 3"
-            class="np-cart__buttons__button">
-
+    <button
+      :class="{ 'np-cart__buttons__button--disabled': !isChecked }"
+      :disabled="!isChecked"
+      @click="nextStep"
+      v-if="stepValue < 3"
+      class="np-cart__buttons__button"
+    >
       {{ $t("next") }}
     </button>
 
-    <button @click="resetOrder"
-            v-else
-            class="np-cart__buttons__button">
-
+    <button @click="resetOrder" v-else class="np-cart__buttons__button">
       {{ $t("addOrder") }}
     </button>
 
-    <button @click="prevStep"
-            v-if="stepValue === 2"
-            class="np-cart__buttons__button">
-
+    <button
+      @click="prevStep"
+      v-if="stepValue === 2"
+      class="np-cart__buttons__button"
+    >
       {{ $t("previous") }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import {computed, ComputedRef, Ref, ref} from "vue";
-import {useStore} from "@/store";
+import { computed, ComputedRef, Ref, ref } from "vue";
+import { useStore } from "@/store";
 
 interface ButtonsPropTypes {
   isFormValid: boolean;
@@ -40,11 +39,17 @@ export default {
   setup(props: ButtonsPropTypes) {
     const store = useStore();
     const formValid: ComputedRef<boolean> = computed(() => props.isFormValid);
-    const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
-    const price: ComputedRef<number> = computed(() => store.getters["cart/priceTotal"]);
+    const stepValue: ComputedRef<number> = computed(
+      () => store.getters["sideMenu/stepValue"]
+    );
+    const price: ComputedRef<number> = computed(
+      () => store.getters["cart/priceTotal"]
+    );
 
-    const isChecked: ComputedRef<boolean> = computed(() =>
-        (formValid.value && stepValue.value === 2 || price.value !== 0 && stepValue.value === 1)
+    const isChecked: ComputedRef<boolean> = computed(
+      () =>
+        (formValid.value && stepValue.value === 2) ||
+        (price.value !== 0 && stepValue.value === 1)
     );
 
     return {

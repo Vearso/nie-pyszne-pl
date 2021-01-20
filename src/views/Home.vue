@@ -1,11 +1,11 @@
 <template>
   <div class="v-home flex min-h-full">
-    <div class="mx-auto w-1/2 sm:w-full ">
-      <Header/>
-      <Navigation class="sm:hidden"/>
-      <ProductsList class="sm:hidden"/>
+    <div class="np-content ">
+      <Header />
+      <Navigation />
+      <ProductsList />
     </div>
-    <Cart/>
+    <Cart />
   </div>
 </template>
 
@@ -13,14 +13,13 @@
 import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
-import Navigation from '@/components/Navigation/Navigation.vue';
-import {onMounted, defineComponent} from 'vue';
-import {useStore} from "@/store";
+import Navigation from "@/components/Navigation/Navigation.vue";
+import { onMounted, defineComponent } from "vue";
+import { useStore } from "@/store";
 import router from "@/router";
-import {UrlParameters} from "@/utilities/urlHandler";
+import { UrlParameters } from "@/utilities/urlHandler";
 import orderOptions from "@/components/Navigation/SearchBar/orderOptionsList";
-import {OrderOption} from "@/store/navigationInterface";
-
+import { OrderOption } from "@/store/navigationInterface";
 
 export default defineComponent({
   name: "Home",
@@ -29,7 +28,7 @@ export default defineComponent({
     Navigation,
     Header,
     Cart,
-    ProductsList,
+    ProductsList
   },
   setup() {
     const store = useStore();
@@ -43,27 +42,40 @@ export default defineComponent({
 
       if (params.foodCategory) {
         store.commit("nav/setActiveFoodCategory", params.foodCategory);
-        store.commit("nav/filterFoodByCategory");
+        store.commit("nav/filterFoodList");
       }
       if (params.filterPhrase) {
-        store.commit("nav/filterFoodByCategory");
         store.commit("nav/setFoodListFilter", params.filterPhrase);
-        store.commit("nav/filterFoodList", params.filterPhrase);
+        store.commit("nav/filterFoodList");
       }
       if (params.listOrder) {
-        const option: OrderOption | undefined = orderOptions.find(option => option.type === params.listOrder);
+        const option: OrderOption | undefined = orderOptions.find(
+          option => option.type === params.listOrder
+        );
         if (typeof option != undefined) {
           store.commit("nav/setFoodListOrder", option);
           store.commit("nav/orderFoodList");
         }
       }
       if (params.displayType) {
-        params.displayType === 'list' ? null : store.commit('nav/toggleFoodListView')
+        params.displayType === "list"
+          ? null
+          : store.commit("nav/toggleFoodListView");
       }
       store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
-      store.commit('products/setNumberOfPages',store.state.nav.filteredFoodList);
-      store.commit('products/setResults', store.state.nav.filteredFoodList);
+      store.commit(
+        "products/setNumberOfPages",
+        store.state.nav.filteredFoodList
+      );
+      store.commit("products/setResults", store.state.nav.filteredFoodList);
     });
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.np-content {
+  @apply mx-auto w-1/2 sm:w-full;
+  min-width: 550px;
+}
+</style>
