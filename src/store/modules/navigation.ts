@@ -26,7 +26,7 @@ const mutations = {
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
     state.fullFoodList = [...list];
-    state.filteredFoodList = [...state.fullFoodList];
+    state.filteredFoodList = [...list];
   },
 
   orderFoodList(state: NavState) {
