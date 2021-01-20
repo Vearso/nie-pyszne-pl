@@ -119,6 +119,11 @@ export default defineComponent({
         store.commit("nav/setFoodListOrder", activeOrder);
         store.commit("nav/orderFoodList");
         toggleOrderList();
+        store.commit(
+          "products/setNumberOfPages",
+          store.state.nav.filteredFoodList
+        );
+        store.commit("products/setResults", store.state.nav.filteredFoodList);
       }
     };
 
@@ -134,6 +139,11 @@ export default defineComponent({
         });
         store.commit("nav/setFoodListFilter", filterValue);
         store.commit("nav/filterFoodList");
+        store.commit(
+          "products/setNumberOfPages",
+          store.state.nav.filteredFoodList
+        );
+        store.commit("products/setResults", store.state.nav.filteredFoodList);
       }
     };
 

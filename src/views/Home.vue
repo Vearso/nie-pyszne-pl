@@ -42,11 +42,9 @@ export default defineComponent({
 
       if (params.foodCategory) {
         store.commit("nav/setActiveFoodCategory", params.foodCategory);
-        store.commit("nav/filterFoodList");
       }
       if (params.filterPhrase) {
         store.commit("nav/setFoodListFilter", params.filterPhrase);
-        store.commit("nav/filterFoodList");
       }
       if (params.listOrder) {
         const option: OrderOption | undefined = orderOptions.find(
@@ -59,10 +57,10 @@ export default defineComponent({
       }
       if (params.displayType) {
         params.displayType === "list"
-          ? null
-          : store.commit("nav/toggleFoodListView");
+          ? store.commit("nav/toggleFoodListView")
+          : null;
       }
-      store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
+      store.commit("nav/filterFoodList");
       store.commit(
         "products/setNumberOfPages",
         store.state.nav.filteredFoodList

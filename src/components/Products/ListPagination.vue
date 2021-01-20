@@ -1,26 +1,33 @@
 <template>
   <div class="np-pagination__wrapper">
-    <Arrow @click="prevPage()"
-           class="np-pagination__wrapper__left-arrow"/>
+    <Arrow @click="prevPage()" class="np-pagination__wrapper__left-arrow" />
 
     <label for="pageNumber">
-      <input :value="inputValue"
-             @change="setPage"
-             type="text"
-             id="pageNumber"
-             name="pageNumber"
-             class="np-pagination__wrapper__input"/>
+      <input
+        :value="inputValue"
+        @change="setPage"
+        type="text"
+        id="pageNumber"
+        name="pageNumber"
+        class="np-pagination__wrapper__input"
+      />
     </label>
-    <Arrow @click="nextPage()"
-           class="np-pagination__wrapper__right-arrow"/>
+    <Arrow @click="nextPage()" class="np-pagination__wrapper__right-arrow" />
   </div>
 </template>
 
 <script lang="ts">
-import Arrow from '@/assets/icons/icon-arrow.vue';
-import {defineComponent, computed, Ref, onUpdated, ComputedRef, ref} from "vue";
-import {useStore} from "@/store";
-import {FoodListItem} from "@/store/navigationInterface";
+import Arrow from "@/assets/icons/icon-arrow.vue";
+import {
+  defineComponent,
+  computed,
+  Ref,
+  onUpdated,
+  ComputedRef,
+  ref
+} from "vue";
+import { useStore } from "@/store";
+import { FoodListItem } from "@/store/navigationInterface";
 
 interface ChangeEvent {
   target: {
@@ -31,47 +38,58 @@ interface ChangeEvent {
 export default defineComponent({
   name: "ListPagination",
   components: {
-    Arrow,
+    Arrow
   },
   setup(props: any, context: any) {
     const store = useStore();
 
-    const currentPage: ComputedRef<number> = computed(() => store.state.products.pageNumber);
+    const currentPage: ComputedRef<number> = computed(
+      () => store.state.products.pageNumber
+    );
     const inputValue: Ref<number> = ref(1);
     const nextPage = (): void => {
-      store.commit('products/nextPage');
+      store.commit("products/nextPage");
       inputValue.value = currentPage.value;
-    }
+    };
     const prevPage = (): void => {
-      store.commit('products/prevPage');
+      store.commit("products/prevPage");
       inputValue.value = currentPage.value;
-    }
+    };
 
     const setPage = (event: ChangeEvent): void => {
       inputValue.value = event.target.value;
-      if (!(+inputValue.value > 0 && +inputValue.value <= store.state.products.numberOfPages)) {
+      if (
+        !(
+          +inputValue.value > 0 &&
+          +inputValue.value <= store.state.products.numberOfPages
+        )
+      ) {
         inputValue.value = currentPage.value;
       }
-      store.commit('products/setPage', inputValue.value);
-    }
+      store.commit("products/setPage", inputValue.value);
+    };
 
-    const filteredList: ComputedRef<Array<FoodListItem>> = computed(() => store.state.nav.filteredFoodList);
-    const setResults = (list: Array<FoodListItem>): void => store.commit('products/setResults', list);
-    const setNumberOfPages = (list: Array<FoodListItem>): void => store.commit('products/setNumberOfPages', list);
-
+    const filteredList: ComputedRef<Array<FoodListItem>> = computed(
+      () => store.state.nav.filteredFoodList
+    );
+    const setResults = (list: Array<FoodListItem>): void =>
+      store.commit("products/setResults", list);
+    const setNumberOfPages = (list: Array<FoodListItem>): void =>
+      store.commit("products/setNumberOfPages", list);
 
     onUpdated(() => {
-      setNumberOfPages(filteredList.value)
+      inputValue.value = currentPage.value;
+      setNumberOfPages(filteredList.value);
       setResults(filteredList.value);
-    })
+    });
 
     return {
       currentPage,
       inputValue,
       setPage,
       nextPage,
-      prevPage,
-    }
+      prevPage
+    };
   }
 });
 </script>

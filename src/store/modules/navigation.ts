@@ -58,9 +58,8 @@ const mutations = {
   },
   filterFoodList(state: NavState) {
     const activeCategory: string = state.activeFoodCategory;
-    const parameter: string = state.filterFoodParam;
+    const parameter: string = state.filterFoodParam.toLowerCase();
     const allItems: FoodListItem[] = state.fullFoodList;
-
     const itemsByCategory: FoodListItem[] =
       activeCategory === "all"
         ? allItems
