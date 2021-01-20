@@ -49,7 +49,6 @@ export default defineComponent({
       return 'RestaurantIcon'
     }
     const setActiveCategory = (activeCategory: string): void => {
-      console.log(activeCategory);
       router.replace({
         path: "/",
         query: {
@@ -58,7 +57,7 @@ export default defineComponent({
         }
       });
       store.commit("nav/setActiveFoodCategory", activeCategory);
-      store.commit("nav/filterFoodByCategory");
+      store.commit("nav/filterFoodList");
     };
 
     return {

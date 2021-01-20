@@ -120,7 +120,6 @@ export default defineComponent({
     };
 
     const setActiveFilter = function(event: any): void {
-      console.log(event);
       if(event && event.target){
         const filterValue = event.target.value;
         router.replace({
@@ -130,8 +129,8 @@ export default defineComponent({
             filterPhrase: filterValue
           }
         });
-        store.commit("nav/filterFoodByCategory");
-        store.commit("nav/filterFoodList", filterValue);
+        store.commit("nav/setFoodListFilter", filterValue);
+        store.commit("nav/filterFoodList");
       }
     };
 
