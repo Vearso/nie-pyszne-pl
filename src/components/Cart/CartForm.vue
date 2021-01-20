@@ -25,7 +25,7 @@
         <VField name="postCode" placeholder="Post code" />
         <ErrorMessage name="postCode" />
       </div>
-      <Buttons :isFormValid="meta.valid"/>
+      <Buttons :isFormValid="meta.valid" />
     </VForm>
   </div>
 </template>
@@ -34,10 +34,10 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons";
 import "yup-phone";
-import {useI18n} from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "CartForm",
@@ -47,20 +47,21 @@ export default defineComponent({
     VForm: VeeValidate.Form,
     ErrorMessage
   },
-
   setup() {
-    const {t} = useI18n();
+    const { t } = useI18n();
     const schema = yup.object({
-      name: yup.string().required(t('orderValidation.nameRequired')),
-      email: yup.string()
-          .required(t('orderValidation.emailRequired'))
-          .email(t('orderValidation.emailFormat')),
-      phone: yup.string()
-          .phone("PL", false, t('orderValidation.phoneFormat'))
-          .required(t('orderValidation.phoneRequired')),
-      city: yup.string().required(t('orderValidation.cityRequired')),
-      street: yup.string().required(t('orderValidation.streetRequired')),
-      postCode: yup.string().required(t('orderValidation.postCodeRequired'))
+      name: yup.string().required(t("orderValidation.nameRequired")),
+      email: yup
+        .string()
+        .required(t("orderValidation.emailRequired"))
+        .email(t("orderValidation.emailFormat")),
+      phone: yup
+        .string()
+        .phone("PL", false, t("orderValidation.phoneFormat"))
+        .required(t("orderValidation.phoneRequired")),
+      city: yup.string().required(t("orderValidation.cityRequired")),
+      street: yup.string().required(t("orderValidation.streetRequired")),
+      postCode: yup.string().required(t("orderValidation.postCodeRequired"))
     });
     return {
       schema

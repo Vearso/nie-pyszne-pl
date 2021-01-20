@@ -1,13 +1,12 @@
 <template>
-    <nav>
-        <FoodCategories/>
-        <SearchBar />
-    </nav>
+  <nav>
+    <FoodCategories />
+    <SearchBar />
+  </nav>
 </template>
 
 <script lang="ts">
-
-import FoodCategories from './FoodCategories/FoodCategories.vue';
+import FoodCategories from "./FoodCategories/FoodCategories.vue";
 import SearchBar from "./SearchBar/SearchBar.vue";
 
 export default {
@@ -16,8 +15,7 @@ export default {
     FoodCategories,
     SearchBar
   }
-
-}
+};
 </script>
 
 <style scoped></style>

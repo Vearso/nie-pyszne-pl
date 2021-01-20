@@ -3,27 +3,26 @@
     <button
       @click="changeFoodListView"
       type="button"
-      class="np-search-bar__toggle-list-view">
-
+      class="np-search-bar__toggle-list-view"
+    >
       <ListIcon />
     </button>
 
     <div class="np-search-bar__input">
-      <SearchIcon class="np-search-bar__input-icon"/>
+      <SearchIcon class="np-search-bar__input-icon" />
 
       <input
         :value="filterVal"
-        @keyup="setActiveFilter"
+        @input="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
-        placeholder="Search"/>
+        placeholder="Search"
+      />
     </div>
 
     <section class="np-search-bar__filter">
-      <div @click="toggleOrderList"
-           class="np-search-bar__filter-option">
-
-        <SwitchIcon class="np-search-bar__filter-option-icon"/>
+      <div @click="toggleOrderList" class="np-search-bar__filter-option">
+        <SwitchIcon class="np-search-bar__filter-option-icon" />
 
         <p class="np-search-bar__filter-option-text">
           <span>{{ orderVal.category }}: </span>{{ orderVal.order }}
@@ -31,22 +30,22 @@
 
         <button
           :class="isListActive('np-search-bar__filter-option-btn--active')"
-          class="np-search-bar__filter-option-btn">
-
+          class="np-search-bar__filter-option-btn"
+        >
           <DownArrowIcon />
         </button>
       </div>
       <ul
         :class="isListActive('np-search-bar__filter-list--active')"
         @click="setFoodOrder"
-        class="np-search-bar__filter-list">
-
+        class="np-search-bar__filter-list"
+      >
         <li
           :id="option.type"
           :key="option.type"
           v-for="option in orderOptions"
-          class="np-search-bar__filter-list-item">
-
+          class="np-search-bar__filter-list-item"
+        >
           <span>{{ option.category }} </span> {{ option.order }}
         </li>
       </ul>
@@ -59,9 +58,9 @@ import ListIcon from "@/assets/icons/icon-list.vue";
 import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
-import {computed, defineComponent, ref, ComputedRef} from "vue";
-import {useStore} from "@/store/index";
-import {OrderOption} from "@/store/navigationInterface";
+import { computed, defineComponent, ref, ComputedRef } from "vue";
+import { useStore } from "@/store/index";
+import { OrderOption } from "@/store/navigationInterface";
 import router from "@/router";
 import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
@@ -81,16 +80,18 @@ export default defineComponent({
     const orderVal: ComputedRef<OrderOption> = computed(
       () => store.state.nav.foodListOrder
     );
-    const orderOptions: OrderOption[] = orderOptionsList.filter(option => option.type !== "none");
+    const orderOptions: OrderOption[] = orderOptionsList.filter(
+      option => option.type !== "none"
+    );
 
-    const changeFoodListView = function (): void {
-      let listType = ''
-      store.state.nav.isFoodListAList ? listType = 'grid' : listType = 'list';
+    const changeFoodListView = function(): void {
+      let listType = "";
+      store.state.nav.displayAsList ? (listType = "grid") : (listType = "list");
       router.replace({
         path: "/",
         query: {
           ...router.currentRoute.value.query,
-          displayType: listType,
+          displayType: listType
         }
       });
       store.commit("nav/toggleFoodListView");
@@ -104,7 +105,9 @@ export default defineComponent({
 
     const setFoodOrder = (event: any): void => {
       const type = event.target.closest(".np-search-bar__filter-list-item").id;
-      const activeOrder: OrderOption | undefined = orderOptions.find((option: OrderOption) => option.type === type);
+      const activeOrder: OrderOption | undefined = orderOptions.find(
+        (option: OrderOption) => option.type === type
+      );
       if (activeOrder) {
         router.replace({
           path: "/",
@@ -120,7 +123,7 @@ export default defineComponent({
     };
 
     const setActiveFilter = function(event: any): void {
-      if(event && event.target){
+      if (event && event.target) {
         const filterValue = event.target.value;
         router.replace({
           name: "Home",
@@ -129,8 +132,8 @@ export default defineComponent({
             filterPhrase: filterValue
           }
         });
-        store.commit("nav/filterFoodByCategory");
-        store.commit("nav/filterFoodList", filterValue);
+        store.commit("nav/setFoodListFilter", filterValue);
+        store.commit("nav/filterFoodList");
       }
     };
 
@@ -151,8 +154,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-search-bar {
-  @apply flex flex-row justify-start items-center w-full mb-10;
-  height: 56px;
+  @apply flex sm:flex-col flex-row justify-start items-center w-full mb-10 sm:mb-4 h-16 sm:h-full;
   background-color: #ffffff;
 
   svg {
@@ -162,11 +164,12 @@ export default defineComponent({
   }
 
   &__toggle-list-view {
+    @apply sm:hidden block;
     height: inherit;
     outline: none;
 
     svg {
-      padding: 10px 20px 10px 0;
+      padding: 10px 0 10px 0;
 
       &:hover {
         fill: theme("colors.primary.DEFAULT");
@@ -176,14 +179,14 @@ export default defineComponent({
 
   &__input,
   &__filter {
+    @apply h-16 sm:mb-4 ml-10 sm:ml-0;
     height: inherit;
-    margin-left: 44px;
     border-radius: 2px;
     border: solid 1px theme("colors.secondary.lighter");
   }
 
   &__input {
-    @apply flex flex-row justify-start items-center w-full;
+    @apply flex flex-row justify-start items-center w-full sm:ml-0;
     height: inherit;
     padding: 10px;
 
@@ -205,7 +208,7 @@ export default defineComponent({
   }
 
   &__filter {
-    width: 300px;
+    @apply w-72 sm:w-full;
     height: inherit;
 
     &:hover {
@@ -256,7 +259,7 @@ export default defineComponent({
     &-list {
       width: inherit;
       display: none;
-      background-color: #ffffff;
+      background-color: theme("colors.white");
 
       &--active {
         @apply block absolute z-10;

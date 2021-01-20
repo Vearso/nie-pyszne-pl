@@ -1,19 +1,17 @@
 <template>
   <div class="np-cart__user">
-    <img :src="userAvatar"
-         alt="avatar"
-         class="np-cart__user__avatar"/>
+    <img :src="userAvatar" alt="avatar" class="np-cart__user__avatar" />
 
     <div class="np-cart__user__wrapper">
       <h2 class="np-cart__user__wrapper__name">{{ username }}</h2>
-      <a class="np-cart__user__wrapper__logout">{{ t('signOut') }}</a>
+      <a class="np-cart__user__wrapper__logout">{{ t("signOut") }}</a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import {useI18n} from "vue-i18n";
+import { defineComponent } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   props: {
@@ -24,15 +22,15 @@ export default defineComponent({
     userAvatar: {
       type: String,
       default:
-          "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
+        "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
     }
   },
-  setup(){
-    const {t} = useI18n();
+  setup() {
+    const { t } = useI18n();
     return {
       t
     };
-  },
+  }
 });
 </script>
 

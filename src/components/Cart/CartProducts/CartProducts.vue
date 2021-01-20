@@ -1,48 +1,48 @@
 <template>
-  <div :key="item.id"
-       @mouseover="turnHoverOn(item)"
-       @mouseleave="turnHoverOff(item)"
-       v-for="item in cart"
-       class="np-cartProducts__item">
+  <div
+    :key="item.id"
+    @mouseover="turnHoverOn(item)"
+    @mouseleave="turnHoverOff(item)"
+    v-for="item in cart"
+    class="np-cartProducts__item"
+  >
+    <img
+      :src="item.imgUrl"
+      :alt="item.name"
+      class="np-cartProducts__item__image"
+    />
 
-    <img :src="item.imgUrl"
-         :alt="item.name"
-         class="np-cartProducts__item__image"/>
-
-    <ProductsDetails v-if="!item.isHoveredOn" :item="item"/>
-    <ProductsHover v-else :item="item"/>
+    <ProductsDetails v-if="!item.isHoveredOn" :item="item" />
+    <ProductsHover v-else :item="item" />
   </div>
 
-  <div v-if="cart.length === 0"
-       class="np-cartProducts__empty">
-
+  <div v-if="cart.length === 0" class="np-cartProducts__empty">
     <IconRestaurant class="np-cartProducts__empty__image"></IconRestaurant>
-    <h2 class="np-cartProducts__empty__title">{{ t('emptyCart') }}</h2>
+    <h2 class="np-cartProducts__empty__title">{{ t("emptyCart") }}</h2>
   </div>
 
   <div class="np-cartProducts__item__price">
-    <p>{{ t('totalPrice') }}</p>
+    <p>{{ t("totalPrice") }}</p>
     <p>{{ t("currency") + priceTotal.toFixed(2) }}</p>
   </div>
 
-  <Buttons/>
+  <Buttons />
 
-  <Modal v-if="showModal"/>
+  <Modal v-if="showModal" />
 </template>
 
 <script lang="ts">
-import {useStore} from "@/store";
-import {computed, defineComponent, onMounted, onUpdated} from "vue";
+import { useStore } from "@/store";
+import { computed, defineComponent, onMounted, onUpdated } from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
-import {CartItem, CartState} from "@/store/interfaces";
+import { CartItem, CartState } from "@/store/interfaces";
 import ProductsDetails from "@/components/Cart/CartProducts/ProductsDetails.vue";
 import ProductsHover from "@/components/Cart/CartProducts/ProductsHover.vue";
 import Modal from "@/components/Cart/CartProducts/Modal.vue";
-import IconRestaurant from "@/assets/icons/food/icon-resturant.vue"
-import {useI18n} from "vue-i18n";
+import IconRestaurant from "@/assets/icons/food/icon-resturant.vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
-
   name: "cartProducts",
 
   components: {
@@ -50,30 +50,29 @@ export default defineComponent({
     ProductsHover,
     Modal,
     Buttons,
-    IconRestaurant,
+    IconRestaurant
   },
 
   setup() {
     const store = useStore();
-    const {t} = useI18n();
+    const { t } = useI18n();
 
-    const cart = computed(() => store.getters['cart/cartItems']);
-    const priceTotal = computed(() => store.getters['cart/priceTotal']);
-    const showModal = computed(() => store.getters['modal/showModal']);
-    store.commit('cart/calculatePrice');
+    const cart = computed(() => store.getters["cart/cartItems"]);
+    const priceTotal = computed(() => store.getters["cart/priceTotal"]);
+    const showModal = computed(() => store.getters["modal/showModal"]);
+    store.commit("cart/calculatePrice");
     onUpdated(() => {
-      store.commit('cart/calculatePrice');
-    })
+      store.commit("cart/calculatePrice");
+    });
 
     return {
       t,
       cart,
       priceTotal,
       showModal,
-      turnHoverOn: (item: CartItem) => store.commit('cart/turnHoverOn', item),
-      turnHoverOff: (item: CartItem) => store.commit('cart/turnHoverOff', item),
-
-    }
+      turnHoverOn: (item: CartItem) => store.commit("cart/turnHoverOn", item),
+      turnHoverOff: (item: CartItem) => store.commit("cart/turnHoverOff", item)
+    };
   }
 });
 </script>
@@ -108,5 +107,4 @@ export default defineComponent({
     @apply font-bold py-4;
   }
 }
-
 </style>
