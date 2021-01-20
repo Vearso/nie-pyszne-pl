@@ -25,7 +25,7 @@ const mutations = {
     state.displayAsList = !state.displayAsList;
   },
   setFoodList(state: NavState, list: FoodListItem[]) {
-    state.fullFoodList = list;
+    state.fullFoodList = [...list];
     state.filteredFoodList = [...state.fullFoodList];
   },
 
