@@ -58,11 +58,9 @@ export default defineComponent({
         }
       }
       if (params.displayType) {
-        params.displayType === "list"
-          ? null
-          : store.commit("nav/toggleFoodListView");
+        params.displayType === "list" && store.commit("nav/toggleFoodListView");
       }
-      store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
+      // store.commit("nav/setFoodList", store.state.nav.filteredFoodList);
     });
   }
 });
