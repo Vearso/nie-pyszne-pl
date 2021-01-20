@@ -13,7 +13,7 @@
 
       <input
         :value="filterVal"
-        @keyup="setActiveFilter"
+        @input="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
         placeholder="Search"
@@ -132,8 +132,8 @@ export default defineComponent({
             filterPhrase: filterValue
           }
         });
-        store.commit("nav/filterFoodByCategory");
-        store.commit("nav/filterFoodList", filterValue);
+        store.commit("nav/setFoodListFilter", filterValue);
+        store.commit("nav/filterFoodList");
       }
     };
 
