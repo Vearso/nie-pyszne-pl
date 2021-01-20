@@ -78,18 +78,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-category-list {
-  @apply flex flex-row justify-start w-full;
-
-  height: 60px;
-  margin-bottom: 40px;
+  @apply flex flex-row flex-wrap justify-start w-full h-full mb-10;
 
   &__item {
-    @apply flex flex-row items-center;
+    @apply flex flex-row items-center h-16 mr-5;
 
     color: theme("colors.secondary.DEFAULT");
     font-size: 18px;
-    margin-right: 20px;
     cursor: pointer;
+
+    span{
+      @apply sm:hidden block;
+    }
 
     &:hover {
       color: theme('colors.secondary.darker');
@@ -104,9 +104,9 @@ export default defineComponent({
     }
 
     svg {
+      @apply sm:mr-0 mr-4;
       width: 35px;
       height: 35px;
-      margin-right: 20px;
       fill: theme("colors.secondary.DEFAULT");
     }
 

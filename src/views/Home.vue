@@ -1,8 +1,8 @@
 <template>
   <div class="v-home flex min-h-full">
-    <div class="mx-auto w-1/2 sm:w-full ">
+    <div class="np-content">
       <Header/>
-      <Navigation class="sm:hidden"/>
+      <Navigation/>
       <ProductsList class="sm:hidden"/>
     </div>
     <Cart/>
@@ -65,3 +65,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss">
+.np-content{
+  @apply mx-auto w-1/2 sm:w-full;
+  min-width: 550px;
+}
+</style>
