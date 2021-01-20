@@ -30,11 +30,9 @@ const mutations = {
         }
     },
     setPage(state: ProductsState, page: number) {
-        state.pageNumber = 0;
-        if (page <= state.numberOfPages && page > 0) {
             state.pageNumber = page;
-        } else state.pageNumber = 1;
     },
+
     setResults(state: ProductsState, list: Array<FoodListItem>) {
         state.products = [];
 
@@ -42,7 +40,7 @@ const mutations = {
         const nrOfProd = state.numberOfProducts;
 
         for (let i = (pageNr * nrOfProd - nrOfProd); i < (pageNr * nrOfProd); i++) {
-            if (list[i] !== undefined) {
+            if (list[i]) {
                 state.products.push(list[i]);
             }
         }
