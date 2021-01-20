@@ -16,6 +16,15 @@ export default {
         currency: "$",
         emptyCart: "Seems like your cart is empty, please add some products",
         emptyProductList: "Product list is empty",
-        addedToCart: "Added to cart"
+        addedToCart: "Added to cart",
+        orderValidation: {
+            nameRequired: "Name is required",
+            emailRequired: "Email is required",
+            phoneFormat: "Enter valid phone number for PL region",
+            phoneRequired: "Phone is required",
+            cityRequired: "City is required",
+            streetRequired: "Street is required",
+            postCodeRequired: "Post code is required"
+        }
     }
 }
