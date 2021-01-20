@@ -43,7 +43,6 @@ import IconRestaurant from "@/assets/icons/food/icon-resturant.vue"
 export default defineComponent({
 
   name: "cartProducts",
-
   components: {
     ProductsDetails,
     ProductsHover,
@@ -51,14 +50,15 @@ export default defineComponent({
     Buttons,
     IconRestaurant,
   },
-
   setup() {
     const store = useStore();
 
     const cart = computed(() => store.getters['cart/cartItems']);
     const priceTotal = computed(() => store.getters['cart/priceTotal']);
     const showModal = computed(() => store.getters['modal/showModal']);
+
     store.commit('cart/calculatePrice');
+
     onUpdated(() => {
       store.commit('cart/calculatePrice');
     })

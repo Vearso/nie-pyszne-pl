@@ -1,4 +1,4 @@
-import { NavState } from "@/store/navigationInterface";
+import {FoodListItem, NavState} from "@/store/navigationInterface";
 
 export interface State {
   sideMenu: MenuState;
@@ -7,7 +7,15 @@ export interface State {
   form: CartFormState;
   modal: ModalState;
   time: TimeState;
+  products: ProductsState;
 }
+
+export interface ProductsState {
+  products: Array<FoodListItem>
+  pageNumber: number;
+  numberOfPages: number;
+}
+
 export interface TimeObject {
   hours: number,
   minutes: number,

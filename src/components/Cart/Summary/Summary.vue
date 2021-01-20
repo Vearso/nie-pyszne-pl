@@ -7,6 +7,7 @@
 </template>
 
 <script lang="ts">
+
 import {defineComponent, onMounted, computed, ComputedRef, onUpdated} from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import {useStore} from '@/store';
@@ -29,7 +30,8 @@ export default defineComponent({
         store.commit('sideMenu/resetOrder')
         store.commit('cart/clearCart')
       }
-    })
+    });
+
     onMounted(() => {
       store.commit('time/setTime');
       store.commit('time/calculateTime');

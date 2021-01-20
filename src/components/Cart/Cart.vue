@@ -17,11 +17,14 @@
     <User/>
     <Steps/>
     <CartProducts v-if="stepValue === 1"/>
+
     <div v-if="stepValue === 2"
          class="form-container">
       <cart-form/>
     </div>
+
     <Summary v-if="stepValue === 3"/>
+
     <div class="np-cart__arrow__container" @click="toggleMenu">
       <RightArrow class="np-cart__arrow"/>
     </div>

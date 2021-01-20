@@ -1,25 +1,24 @@
 <template>
   <div class="np-cart__buttons">
-    <button
-        v-if="stepValue < 3"
-        class="np-cart__buttons__button"
-        :class="{'np-cart__buttons__button--disabled': !isChecked}"
-        :disabled="!isChecked"
-        @click="nextStep">
+    <button :class="{'np-cart__buttons__button--disabled': !isChecked}"
+            :disabled="!isChecked"
+            @click="nextStep"
+            v-if="stepValue < 3"
+            class="np-cart__buttons__button">
 
       {{ $t("next") }}
     </button>
 
-    <button v-else
-            class="np-cart__buttons__button"
-            @click="resetOrder">
+    <button @click="resetOrder"
+            v-else
+            class="np-cart__buttons__button">
 
       {{ $t("addOrder") }}
     </button>
 
-    <button v-if="stepValue === 2"
-            class="np-cart__buttons__button"
-            @click="prevStep">
+    <button @click="prevStep"
+            v-if="stepValue === 2"
+            class="np-cart__buttons__button">
 
       {{ $t("previous") }}
     </button>
@@ -44,8 +43,8 @@ export default {
     const stepValue: ComputedRef<number> = computed(() => store.getters["sideMenu/stepValue"]);
     const price: ComputedRef<number> = computed(() => store.getters["cart/priceTotal"]);
 
-    const isChecked: ComputedRef<boolean> =computed(() =>
-      (formValid.value && stepValue.value === 2 || price.value !== 0 && stepValue.value === 1)
+    const isChecked: ComputedRef<boolean> = computed(() =>
+        (formValid.value && stepValue.value === 2 || price.value !== 0 && stepValue.value === 1)
     );
 
     return {
