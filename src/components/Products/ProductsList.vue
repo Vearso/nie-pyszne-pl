@@ -1,15 +1,18 @@
 <template>
-  <div class="product-list grid-cols-1"
-       v-if="items.length"
-       :class="[displayList ? 'md:grid-cols-1' : 'md:grid-cols-3']">
-
-    <products-list-item v-for="item in items"
-                        :key="item.id"
-                        :name="item.name"
-                        :price="item.price"
-                        :imgUrl="item.imgUrl"
-                        :rating="item.rating"
-                        @click="addToCart(item)">
+  <div
+    class="product-list grid-cols-1"
+    v-if="items.length"
+    :class="[displayList ? 'md:grid-cols-1' : 'md:grid-cols-3']"
+  >
+    <products-list-item
+      v-for="item in items"
+      :key="item.id"
+      :name="item.name"
+      :price="item.price"
+      :imgUrl="item.imgUrl"
+      :rating="item.rating"
+      @click="addToCart(item)"
+    >
     </products-list-item>
   </div>
 

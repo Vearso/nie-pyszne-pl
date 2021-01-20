@@ -23,8 +23,8 @@ module.exports = {
       light: "Roboto-light"
     },
     screens: {
-      'sm': { 'max': "760px" },
-      'md':"761px"
+      sm: { max: "760px" },
+      md: "761px"
     },
     extend: {}
   },

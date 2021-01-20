@@ -154,8 +154,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-search-bar {
-  @apply flex flex-row justify-start items-center w-full mb-10;
-  height: 56px;
+  @apply flex sm:flex-col flex-row justify-start items-center w-full mb-10 sm:mb-4 h-16 sm:h-full;
   background-color: #ffffff;
 
   svg {
@@ -165,11 +164,12 @@ export default defineComponent({
   }
 
   &__toggle-list-view {
+    @apply sm:hidden block;
     height: inherit;
     outline: none;
 
     svg {
-      padding: 10px 20px 10px 0;
+      padding: 10px 0 10px 0;
 
       &:hover {
         fill: theme("colors.primary.DEFAULT");
@@ -179,14 +179,14 @@ export default defineComponent({
 
   &__input,
   &__filter {
+    @apply h-16 sm:mb-4 ml-10 sm:ml-0;
     height: inherit;
-    margin-left: 44px;
     border-radius: 2px;
     border: solid 1px theme("colors.secondary.lighter");
   }
 
   &__input {
-    @apply flex flex-row justify-start items-center w-full;
+    @apply flex flex-row justify-start items-center w-full sm:ml-0;
     height: inherit;
     padding: 10px;
 
@@ -208,7 +208,7 @@ export default defineComponent({
   }
 
   &__filter {
-    width: 300px;
+    @apply w-72 sm:w-full;
     height: inherit;
 
     &:hover {
@@ -259,7 +259,7 @@ export default defineComponent({
     &-list {
       width: inherit;
       display: none;
-      background-color: #ffffff;
+      background-color: theme("colors.white");
 
       &--active {
         @apply block absolute z-10;
