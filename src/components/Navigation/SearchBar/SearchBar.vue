@@ -13,7 +13,7 @@
 
       <input
         :value="filterVal"
-        @keyup="setActiveFilter"
+        @input="setActiveFilter"
         class="np-search-bar__input-el"
         type="search"
         placeholder="Search"/>
@@ -120,6 +120,7 @@ export default defineComponent({
     };
 
     const setActiveFilter = function(event: any): void {
+      console.log(event);
       if(event && event.target){
         const filterValue = event.target.value;
         router.replace({
