@@ -2,8 +2,8 @@
   <header class="np-header">
     <Logo class="np-header__image"/>
     <div class="np-header__wrapper">
-      <h1 class="np-header__wrapper__title">{{ $t('headerTitle') }}</h1>
-      <p class="np-header__wrapper__subtitle">{{ $t('headerSubtitle') }}</p>
+      <h1 class="np-header__wrapper__title">{{ t('headerTitle') }}</h1>
+      <p class="np-header__wrapper__subtitle">{{ t('headerSubtitle') }}</p>
     </div>
   </header>
 </template>
@@ -11,9 +11,16 @@
 <script lang="ts">
 import Logo from "@/assets/icons/icon-logo.vue"
 import {defineComponent} from "vue";
+import {useI18n} from "vue-i18n";
 
 export default defineComponent({
   name: 'Header',
+  setup(){
+    const {t} = useI18n();
+    return {
+      t
+    }
+  },
   components: {
     Logo,
   }

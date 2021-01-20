@@ -19,8 +19,9 @@ export default {
         addedToCart: "Added to cart",
         orderValidation: {
             nameRequired: "Name is required",
+            emailFormat: "Invalid email format",
             emailRequired: "Email is required",
-            phoneFormat: "Enter valid phone number for PL region",
+            phoneFormat: "Invalid phone number for PL region",
             phoneRequired: "Phone is required",
             cityRequired: "City is required",
             streetRequired: "Street is required",

@@ -1,6 +1,5 @@
 <template>
   <div class="cart-form">
-<!--    <p>{{$t('orderValidation.nameRequired')}}</p>-->
     <VForm :validation-schema="schema" v-slot="{ meta }">
       <div class="field-container">
         <VField name="name" placeholder="Name" />
@@ -35,11 +34,12 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
+import {defineComponent} from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons";
 import "yup-phone";
-import VueI18n from 'vue-i18n';
+import {useI18n} from 'vue-i18n';
 
-export default {
+export default defineComponent({
   name: "CartForm",
   components: {
     Buttons,
@@ -49,28 +49,24 @@ export default {
   },
 
   setup() {
-    // const nameReq = $t('orderValidation.nameRequired');
-    // console.log("Name required", nameReq);
-    // console.log("i18n",VueI18n);
-    // const $t = this.$t.bind(this);
-    // console.log($t);
+    const {t} = useI18n();
     const schema = yup.object({
-      name: yup.string().required("Name is required"),
+      name: yup.string().required(t('orderValidation.nameRequired')),
       email: yup.string()
-          .required("Email is required")
-          .email(),
+          .required(t('orderValidation.emailRequired'))
+          .email(t('orderValidation.emailFormat')),
       phone: yup.string()
-          .phone("PL", false, "Enter valid phone number for PL region")
-          .required("Phone is required"),
-      city: yup.string().required("City is required"),
-      street: yup.string().required("Street is required"),
-      postCode: yup.string().required("Post code is required")
+          .phone("PL", false, t('orderValidation.phoneFormat'))
+          .required(t('orderValidation.phoneRequired')),
+      city: yup.string().required(t('orderValidation.cityRequired')),
+      street: yup.string().required(t('orderValidation.streetRequired')),
+      postCode: yup.string().required(t('orderValidation.postCodeRequired'))
     });
     return {
       schema
     };
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>

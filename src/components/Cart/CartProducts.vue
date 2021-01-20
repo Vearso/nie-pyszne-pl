@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="np-cartProducts__price">
-    <p>{{ $t('totalPrice') }}</p>
+    <p>{{ t('totalPrice') }}</p>
     <p>${{ price.toFixed(2) }}</p>
   </div>
 
@@ -51,16 +51,16 @@
   <teleport to="#modal">
     <div v-if="showModal" class="shadow">
       <div class="np-modal">
-        <p class="np-modal__text">{{ $t('deleteProduct') }}</p>
+        <p class="np-modal__text">{{ t('deleteProduct') }}</p>
         <div class="np-modal__wrapper">
           <button class="np-modal__button"
                   @click="removeFromCart(product) ; showModal = false">
-            {{ $t('yes') }}
+            {{ t('yes') }}
           </button>
 
           <button class="np-modal__button"
                   @click="showModal = false">
-            {{ $t('no') }}
+            {{ t('no') }}
           </button>
         </div>
 
@@ -71,18 +71,20 @@
 
 <script lang="ts">
 import {useStore} from "@/store";
-import {computed, ref, ComputedRef, Ref} from "vue";
+import {defineComponent, computed, ref, ComputedRef, Ref} from "vue";
 import Buttons from "@/components/Cart/Summary/Buttons.vue";
 import IconCross from "@/assets/icons/icon-cross.vue";
 import {CartItem} from "@/store/interfaces";
+import {useI18n} from "vue-i18n";
 
-export default {
+export default defineComponent({
   components: {
     Buttons,
     IconCross,
   },
   setup() {
     const store = useStore();
+    const {t} = useI18n();
     const cart: ComputedRef<CartItem> = computed(() => store.getters['cart/cartItems']);
     const price: ComputedRef<number> = computed(() => store.getters['cart/priceTotal']);
 
@@ -91,6 +93,7 @@ export default {
 
     const removeFromCart = (item: CartItem): void => store.commit('cart/removeFromCart', item)
     return {
+      t,
       cart,
       showModal,
       product,
@@ -102,7 +105,7 @@ export default {
       removeFromCart,
     }
   }
-}
+});
 </script>
 
 <style scoped lang="scss">

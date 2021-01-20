@@ -16,7 +16,7 @@
   </div>
 
   <div v-else class="empty-product-list">
-    <strong>{{ $t("emptyProductList") }}</strong>
+    <strong>{{ t("emptyProductList") }}</strong>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ import ProductsListItem from "@/components/Products/ProductsListItem.vue";
 import { mapMutations } from "vuex";
 import { useStore } from "@/store";
 import { computed, ref, Ref } from "vue";
+import {useI18n} from "vue-i18n";
 
 export default {
   name: "ProductsList",
@@ -33,10 +34,12 @@ export default {
   },
   setup() {
     const store = useStore();
+    const {t} = useI18n();
 
     return {
       items: computed(() => store.state.nav.filteredFoodList),
       displayList: computed(() => store.state.nav.isFoodListAList),
+      t
     };
   },
   methods: {
