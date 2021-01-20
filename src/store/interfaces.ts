@@ -9,18 +9,18 @@ export interface State {
   time: TimeState;
 }
 export interface TimeObject {
-  hours: number,
-  minutes: number,
-  seconds: number,
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
 export interface TimeState {
-  time: number,
-  calculatedTime: TimeObject,
+  time: number;
+  calculatedTime: TimeObject;
 }
 
 export interface ModalState {
-  showModal: boolean,
-  itemToDelete: null | CartItem,
+  showModal: boolean;
+  itemToDelete: null | CartItem;
 }
 
 export interface MenuState {
@@ -30,7 +30,7 @@ export interface MenuState {
 
 export interface CartState {
   items: Array<CartItem>;
-  priceTotal: number,
+  priceTotal: number;
 }
 
 export interface CartItem {
@@ -39,7 +39,7 @@ export interface CartItem {
   quantity: number;
   price: number;
   imgUrl: string;
-  isHoveredOn: boolean,
+  isHoveredOn: boolean;
 }
 
 export interface CartFormState {

@@ -2,27 +2,30 @@
   <teleport to="#modal">
     <div class="shadow">
       <div class="np-Modal">
-        <p class="np-Modal__text"> {{ $t('deleteProduct') }} </p>
+        <p class="np-Modal__text">{{ $t("deleteProduct") }}</p>
 
         <div class="np-Modal__product">
-          <img :src="itemToDelete.imgUrl"
-               :alt="itemToDelete.name"
-               class="np-Modal__product__image"/>
+          <img
+            :src="itemToDelete.imgUrl"
+            :alt="itemToDelete.name"
+            class="np-Modal__product__image"
+          />
 
-          <p class="np-Modal__product__name"> {{ itemToDelete.name.toUpperCase() }} </p>
+          <p class="np-Modal__product__name">
+            {{ itemToDelete.name.toUpperCase() }}
+          </p>
         </div>
 
         <div class="np-Modal__wrapper">
-          <button @click="deleteItem(itemToDelete)"
-                  class="np-Modal__wrapper__button">
-
-            {{ $t('yes') }}
+          <button
+            @click="deleteItem(itemToDelete)"
+            class="np-Modal__wrapper__button"
+          >
+            {{ $t("yes") }}
           </button>
 
-          <button @click="hideModal()"
-                  class="np-Modal__wrapper__button">
-
-            {{ $t('no') }}
+          <button @click="hideModal()" class="np-Modal__wrapper__button">
+            {{ $t("no") }}
           </button>
         </div>
       </div>
@@ -31,9 +34,9 @@
 </template>
 
 <script lang="ts">
-import {CartItem} from "@/store/interfaces";
-import {defineComponent, computed} from "vue";
-import {useStore} from "@/store";
+import { CartItem } from "@/store/interfaces";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "Modal",
@@ -41,24 +44,24 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const itemToDelete = computed(() => store.getters['modal/productToDelete']);
+    const itemToDelete = computed(() => store.getters["modal/productToDelete"]);
 
-    const removeFromCart = (item: CartItem): void => store.commit('cart/removeFromCart', item)
-    const hideModal = (): void => store.commit('modal/hideModal');
+    const removeFromCart = (item: CartItem): void =>
+      store.commit("cart/removeFromCart", item);
+    const hideModal = (): void => store.commit("modal/hideModal");
     const deleteItem = (item: CartItem): void => {
       removeFromCart(item);
       hideModal();
-    }
+    };
 
     return {
       itemToDelete,
       deleteItem,
       hideModal,
-      removeFromCart,
-    }
+      removeFromCart
+    };
   }
 });
-
 </script>
 
 <style scoped lang="scss">

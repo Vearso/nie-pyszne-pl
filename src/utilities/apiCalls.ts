@@ -8,6 +8,6 @@ export function getFoodList() {
 
 export function getFoodCategories() {
   return fetch(`${api}/foodCategories`)
-      .then(res => res.json())
-      .catch(err => console.warn(err))
+    .then(res => res.json())
+    .catch(err => console.warn(err));
 }
