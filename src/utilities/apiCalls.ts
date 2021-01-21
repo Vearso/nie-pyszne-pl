@@ -6,9 +6,10 @@ type RequestTypes = "GET" | "POST" | "PUT" | "DELETE";
 interface RequestSettings {
   method?: RequestTypes;
   headers: {
-    "Content-Type": "application/json";
+    // "Content-Type": "application/json",
+    // 'Access-Control-Allow-Origin': boolean
   };
-  mode: "cors";
+  // mode: "cors";
 }
 
 const settings = (method: RequestTypes = "GET"): RequestSettings => {
@@ -16,8 +17,9 @@ const settings = (method: RequestTypes = "GET"): RequestSettings => {
     method,
     headers: {
       "Content-Type": "application/json"
-    },
-    mode: "cors"
+      // 'Access-Control-Allow-Origin': true
+    }
+    // mode: "cors"
   };
 };
 
