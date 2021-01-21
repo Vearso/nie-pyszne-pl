@@ -1,4 +1,5 @@
 import { FoodListItem, NavState } from "@/store/navigationInterface";
+import Cart from "@/components/Cart/Cart.vue";
 
 export interface State {
   sideMenu: MenuState;
@@ -38,7 +39,11 @@ export interface MenuState {
 }
 
 export interface CartState {
-  items: Array<CartItem>;
+  items: CartItem[];
+  currentPage: number;
+  pagesCount: number;
+  itemsPerPage: number;
+  paginatedItems: CartItem[][];
   priceTotal: number;
 }
 

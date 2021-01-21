@@ -46,8 +46,8 @@ export default defineComponent({
 
     const itemToDelete = computed(() => store.getters["modal/productToDelete"]);
 
-    const removeFromCart = (item: CartItem): void =>
-      store.commit("cart/removeFromCart", item);
+    const removeFromCart = (item: CartItem) =>
+      store.dispatch("cart/removeFromCart", item);
     const hideModal = (): void => store.commit("modal/hideModal");
     const deleteItem = (item: CartItem): void => {
       removeFromCart(item);

@@ -23,10 +23,10 @@
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
-import { mapMutations } from "vuex";
 import { useStore } from "@/store";
-import { computed, ref, Ref } from "vue";
+import { computed } from "vue";
 import ListPagination from "@/components/Products/ListPagination.vue";
+import { CartItem } from "@/store/interfaces";
 
 export default {
   name: "ProductsList",
@@ -37,13 +37,15 @@ export default {
   setup() {
     const store = useStore();
 
+    const addToCart = (item: CartItem) => {
+      store.dispatch("cart/addToCart", item);
+    };
+
     return {
+      addToCart,
       items: computed(() => store.state.products.products),
       displayList: computed(() => store.state.nav.displayAsList)
     };
-  },
-  methods: {
-    ...mapMutations("cart", ["addToCart"])
   }
 };
 </script>
