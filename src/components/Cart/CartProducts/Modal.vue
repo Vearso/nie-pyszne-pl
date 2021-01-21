@@ -2,7 +2,7 @@
   <teleport to="#modal">
     <div class="shadow">
       <div class="np-Modal">
-        <p class="np-Modal__text">{{ $t("deleteProduct") }}</p>
+        <p class="np-Modal__text">{{ t("deleteProduct") }}</p>
 
         <div class="np-Modal__product">
           <img
@@ -21,11 +21,11 @@
             @click="deleteItem(itemToDelete)"
             class="np-Modal__wrapper__button"
           >
-            {{ $t("yes") }}
+            {{ t("yes") }}
           </button>
 
           <button @click="hideModal()" class="np-Modal__wrapper__button">
-            {{ $t("no") }}
+            {{ t("no") }}
           </button>
         </div>
       </div>
@@ -37,12 +37,14 @@
 import { CartItem } from "@/store/interfaces";
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Modal",
 
   setup() {
     const store = useStore();
+    const { t } = useI18n();
 
     const itemToDelete = computed(() => store.getters["modal/productToDelete"]);
 
@@ -55,6 +57,7 @@ export default defineComponent({
     };
 
     return {
+      t,
       itemToDelete,
       deleteItem,
       hideModal,
