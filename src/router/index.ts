@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
-import SignIn from "../components/Cart/User/SignIn.vue";
-import { UrlParameters } from "@/utilities/urlHandler";
-import SignUp from "@/components/Cart/User/SignUp.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,12 +10,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/signIn",
     name: "SignIn",
-    component: SignIn
+    component: () => import("@/components/Cart/User/SignIn.vue")
   },
   {
     path: "/signUp",
     name: "SignUp",
-    component: SignUp
+    component: () => import("@/components/Cart/User/SignUp.vue")
   }
 ];
 

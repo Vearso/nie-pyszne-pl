@@ -3,7 +3,7 @@
     <div
       :key="index"
       @click="switchStep(index)"
-      v-for="(stepName, index) in $tm('menuSteps', { returnObjects: true })"
+      v-for="(stepName, index) in $tm('menuSteps')"
       class="np-steps__wrapper"
     >
       <div :class="divClassObject(index)" />

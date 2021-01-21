@@ -3,19 +3,23 @@
     <h2 class="np-sign-in__title">{{ $t("signUp") }}</h2>
     <VForm :validation-schema="schema">
       <div class="field-container">
-        <VField name="name" placeholder="Name" />
+        <VField :placeholder="$t('name')" name="name" />
         <ErrorMessage name="name" />
       </div>
       <div class="field-container">
-        <VField name="email" placeholder="E-mail" />
+        <VField :placeholder="$t('email')" name="email" />
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <VField name="password" type="password" placeholder="Password" />
+        <VField :placeholder="$t('password')" name="password" type="password" />
         <ErrorMessage name="password" />
       </div>
       <div class="field-container">
-        <VField name="confirmPassword" type="password" placeholder="Password" />
+        <VField
+          :placeholder="$t('confirmPassword')"
+          name="confirmPassword"
+          type="password"
+        />
         <ErrorMessage name="confirmPassword" />
       </div>
       <div class="np-sign-in__container">
@@ -30,7 +34,9 @@
         <p class="np-sign-in__text">
           {{ $t("signInMessage") }}
           <strong>
-            <router-link to="/signIn">{{ " " + $t("signIn") }}</router-link>
+            <router-link :to="{ name: 'SignIn' }">{{
+              ` ${$t("signIn")}`
+            }}</router-link>
           </strong>
         </p>
       </div>
@@ -44,6 +50,7 @@ import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "SignIn",
@@ -54,6 +61,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const { t } = useI18n();
 
     const goBack = () => {
       router.back();
@@ -68,7 +76,7 @@ export default defineComponent({
       confirmPassword: yup
         .string()
         .required()
-        .oneOf([yup.ref("password"), null], "passwords must match")
+        .oneOf([yup.ref("password"), null], t("passwordError"))
     });
     return {
       schema,

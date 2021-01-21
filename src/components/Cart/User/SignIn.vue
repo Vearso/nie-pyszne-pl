@@ -3,11 +3,15 @@
     <h2 class="np-sign-in__title">{{ $t("signIn") }}</h2>
     <VForm :validation-schema="schema">
       <div class="field-container">
-        <VField name="email" placeholder="E-mail" />
+        <VField name="email" placeholder="{{$t('email')}}" />
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <VField name="password" type="password" placeholder="Password" />
+        <VField
+          name="password"
+          type="password"
+          placeholder="{{$t('password')}}"
+        />
         <ErrorMessage name="password" />
       </div>
       <div class="np-sign-in__container">
@@ -22,7 +26,9 @@
         <p class="np-sign-in__text">
           {{ $t("signUpMessage") }}
           <strong>
-            <router-link to="/signUp">{{ " " + $t("signUp") }}</router-link>
+            <router-link :to="{ name: 'SignUp' }">{{
+              ` ${$t("signUp")} `
+            }}</router-link>
           </strong>
         </p>
       </div>
