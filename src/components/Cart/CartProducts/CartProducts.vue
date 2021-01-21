@@ -62,6 +62,7 @@ export default defineComponent({
     const updatePrice = () => {
       store.commit("cart/calculatePrice");
     };
+
     watch(store.state.cart.items, updatePrice);
 
     return {

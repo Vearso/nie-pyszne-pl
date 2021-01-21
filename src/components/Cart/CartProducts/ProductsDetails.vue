@@ -12,7 +12,7 @@
       {{ cutName }}
     </span>
 
-    <p class="np-productsDetails__price">{{ $t("currency") + price }}</p>
+    <p class="np-productsDetails__price">{{ t("currency") + price }}</p>
   </div>
 </template>
 

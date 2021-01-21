@@ -29,11 +29,6 @@ const mutations = {
           imgUrl: item.imgUrl,
           isHoveredOn: false
         });
-    let priceTotal = 0;
-    for (const item of state.items) {
-      priceTotal += item.price * item.quantity;
-    }
-    state.priceTotal = priceTotal;
   },
   calculatePrice: function(state: CartState): void {
     let priceTotal = 0;
@@ -61,11 +56,6 @@ const mutations = {
     state.items = state.items.filter(product => {
       return product.id !== item.id;
     });
-    let priceTotal = 0;
-    for (const item of state.items) {
-      priceTotal += item.price * item.quantity;
-    }
-    state.priceTotal = priceTotal;
   },
   turnHoverOn: function(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
@@ -81,9 +71,21 @@ const mutations = {
   }
 };
 
+const actions = {
+  addToCart(context: any, item: CartItem) {
+    context.commit("addToCart", item);
+    context.commit("calculatePrice");
+  },
+  removeFromCart(context: any, item: CartItem) {
+    context.commit("removeFromCart", item);
+    context.commit("calculatePrice");
+  }
+};
+
 export default {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 };
