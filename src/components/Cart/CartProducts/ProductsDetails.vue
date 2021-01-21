@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import { defineComponent, PropType, computed, ComputedRef } from "vue";
+import { defineComponent, PropType, computed, ComputedRef, watch } from "vue";
 import { useStore } from "@/store";
 
 interface Props {
