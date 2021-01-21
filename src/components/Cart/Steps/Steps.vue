@@ -3,7 +3,7 @@
     <div
       :key="index"
       @click="switchStep(index)"
-      v-for="(stepName, index) in $tm('menuSteps', { returnObjects: true })"
+      v-for="(stepName, index) in tm('menuSteps')"
       class="np-steps__wrapper"
     >
       <div :class="divClassObject(index)" />
@@ -16,12 +16,14 @@
 import { useStore } from "@/store";
 import { computed, defineComponent } from "vue";
 import { ComputedRef } from "@vue/reactivity";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Steps",
 
   setup() {
     const store = useStore();
+    const { tm } = useI18n();
     const stepValue: ComputedRef<number> = computed(
       () => store.getters["sideMenu/stepValue"]
     );
@@ -39,6 +41,7 @@ export default defineComponent({
 
     return {
       stepValue,
+      tm,
       switchStep,
       completed,
       active,

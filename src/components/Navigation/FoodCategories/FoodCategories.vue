@@ -98,6 +98,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .np-category-list {
   @apply flex flex-row flex-wrap justify-start w-full h-full mb-10;
+  @apply sm:justify-center;
 
   &__item {
     @apply flex flex-row items-center h-16 mr-5;

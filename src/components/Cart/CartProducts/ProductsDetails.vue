@@ -12,13 +12,21 @@
       {{ cutName }}
     </span>
 
-    <p class="np-productsDetails__price">{{ $t("currency") + price }}</p>
+    <p class="np-productsDetails__price">{{ t("currency") + price }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import { defineComponent, PropType, computed, ComputedRef } from "vue";
+import { useI18n } from "vue-i18n";
+import {
+  defineComponent,
+  PropType,
+  computed,
+  ComputedRef,
+  onUpdated
+} from "vue";
+import { useStore } from "@/store";
 
 interface Props {
   item: CartItem;
@@ -44,8 +52,10 @@ export default defineComponent({
         .concat("..")
         .toUpperCase()
     );
+    const { t } = useI18n();
 
     return {
+      t,
       price,
       cutName
     };
@@ -66,6 +76,7 @@ export default defineComponent({
     @apply flex-grow text-left font-bold;
     @apply sm:text-xs;
   }
+
   &__price {
     @apply sm:text-xs;
   }

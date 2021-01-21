@@ -71,9 +71,21 @@ const mutations = {
   }
 };
 
+const actions = {
+  addToCart(context: any, item: CartItem) {
+    context.commit("addToCart", item);
+    context.commit("calculatePrice");
+  },
+  removeFromCart(context: any, item: CartItem) {
+    context.commit("removeFromCart", item);
+    context.commit("calculatePrice");
+  }
+};
+
 export default {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 };
