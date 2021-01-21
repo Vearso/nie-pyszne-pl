@@ -2,9 +2,9 @@
   <div class="v-home flex min-h-full">
     <div
       class="np-product-added-modal"
-      :class="productAddedMessage ? 'np-product-added-modal--in' : ''"
+      :class="{ 'np-product-added-modal--in': isProductAdded }"
     >
-      <p>Product added to cart</p>
+      <p>{{ t("productAddedToCart") }}</p>
     </div>
     <div class="np-content ">
       <Header />
@@ -20,12 +20,13 @@ import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
 import Navigation from "@/components/Navigation/Navigation.vue";
-import { onMounted, defineComponent, provide, ref } from "vue";
+import { onMounted, defineComponent, provide, ref, Ref } from "vue";
 import { useStore } from "@/store";
 import router from "@/router";
 import { UrlParameters } from "@/utilities/urlHandler";
 import orderOptions from "@/components/Navigation/SearchBar/orderOptionsList";
 import { OrderOption } from "@/store/navigationInterface";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Home",
@@ -37,13 +38,13 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { t } = useI18n();
 
-    const productAddedMessage = ref(false);
-    const updateMessage = () => {
-      console.log("injected");
-      productAddedMessage.value = true;
+    const isProductAdded: Ref<boolean> = ref(false);
+    const updateMessage = (): void => {
+      isProductAdded.value = true;
       setTimeout(() => {
-        productAddedMessage.value = false;
+        isProductAdded.value = false;
       }, 2000);
     };
     provide("showProductAddedMessage", updateMessage);
@@ -84,7 +85,8 @@ export default defineComponent({
     });
 
     return {
-      productAddedMessage
+      isProductAdded,
+      t
     };
   }
 });
