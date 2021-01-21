@@ -26,9 +26,9 @@
         <p class="np-sign-in__text">
           {{ $t("signUpMessage") }}
           <strong>
-            <router-link :to="{ name: 'SignUp' }">{{
-              ` ${$t("signUp")} `
-            }}</router-link>
+            <router-link :to="{ name: 'SignUp' }"
+              >{{ ` ${$t("signUp")} ` }}
+            </router-link>
           </strong>
         </p>
       </div>
@@ -42,6 +42,7 @@ import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { auth } from "@/utilities/firebase.ts";
 
 export default defineComponent({
   name: "SignIn",
@@ -52,7 +53,6 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-
     const goBack = (e: Event) => {
       router.back();
     };

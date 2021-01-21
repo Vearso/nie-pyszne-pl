@@ -1,22 +1,22 @@
 <template>
   <div class="np-sign-in">
-    <h2 class="np-sign-in__title">{{ $t("signUp") }}</h2>
-    <VForm :validation-schema="schema">
+    <h2 class="np-sign-in__title">{{ t("signUp") }}</h2>
+    <VForm :validation-schema="schema" @submit="onSubmit">
       <div class="field-container">
-        <VField :placeholder="$t('name')" name="name" />
+        <VField :placeholder="t('name')" name="name" />
         <ErrorMessage name="name" />
       </div>
       <div class="field-container">
-        <VField :placeholder="$t('email')" name="email" />
+        <VField :placeholder="t('email')" name="email" />
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <VField :placeholder="$t('password')" name="password" type="password" />
+        <VField :placeholder="t('password')" name="password" type="password" />
         <ErrorMessage name="password" />
       </div>
       <div class="field-container">
         <VField
-          :placeholder="$t('confirmPassword')"
+          :placeholder="t('confirmPassword')"
           name="confirmPassword"
           type="password"
         />
@@ -24,19 +24,19 @@
       </div>
       <div class="np-sign-in__container">
         <button class="np-sign-in__button" type="submit">
-          {{ $t("signUp") }}
+          {{ t("signUp") }}
         </button>
 
         <button @click.prevent="goBack()" class="np-sign-in__button">
-          {{ $t("return") }}
+          {{ t("return") }}
         </button>
 
         <p class="np-sign-in__text">
-          {{ $t("signInMessage") }}
+          {{ t("signInMessage") }}
           <strong>
-            <router-link :to="{ name: 'SignIn' }">{{
-              ` ${$t("signIn")}`
-            }}</router-link>
+            <router-link :to="{ name: 'SignIn' }"
+              >{{ ` ${t("signIn")}` }}
+            </router-link>
           </strong>
         </p>
       </div>
@@ -51,6 +51,7 @@ import * as yup from "yup";
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { auth } from "@/utilities/firebase";
 
 export default defineComponent({
   name: "SignIn",
@@ -62,7 +63,13 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { t } = useI18n();
-
+    const onSubmit = (values: any) => {
+      auth
+        .createUserWithEmailAndPassword(values.email, values.password)
+        .then(user => {
+          console.log(user.user);
+        });
+    };
     const goBack = () => {
       router.back();
     };
@@ -80,7 +87,9 @@ export default defineComponent({
     });
     return {
       schema,
-      goBack
+      t,
+      goBack,
+      onSubmit
     };
   }
 });
