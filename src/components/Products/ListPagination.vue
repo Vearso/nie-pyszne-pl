@@ -18,14 +18,7 @@
 
 <script lang="ts">
 import Arrow from "@/assets/icons/icon-arrow.vue";
-import {
-  defineComponent,
-  computed,
-  Ref,
-  onUpdated,
-  ComputedRef,
-  ref
-} from "vue";
+import { defineComponent, computed, Ref, ComputedRef, ref, watch } from "vue";
 import { useStore } from "@/store";
 import { FoodListItem } from "@/store/navigationInterface";
 
@@ -46,7 +39,7 @@ export default defineComponent({
     const currentPage: ComputedRef<number> = computed(
       () => store.state.products.pageNumber
     );
-    const inputValue: Ref<number> = ref(currentPage);
+    const inputValue: Ref<number> = ref(1);
     const nextPage = (): void => {
       store.commit("products/nextPage");
       inputValue.value = currentPage.value;
@@ -69,19 +62,14 @@ export default defineComponent({
       store.commit("products/setPage", inputValue.value);
     };
 
-    const filteredList: ComputedRef<Array<FoodListItem>> = computed(
-      () => store.state.nav.filteredFoodList
-    );
-    const setResults = (list: Array<FoodListItem>): void =>
-      store.commit("products/setResults", list);
-    const setNumberOfPages = (list: Array<FoodListItem>): void =>
-      store.commit("products/setNumberOfPages", list);
-
-    onUpdated(() => {
+    const updateList = () => {
       inputValue.value = currentPage.value;
-      setNumberOfPages(filteredList.value);
-      setResults(filteredList.value);
-    });
+      const list = store.state.nav.filteredFoodList;
+      store.commit("products/setNumberOfPages", list);
+      store.commit("products/setResults", list);
+    };
+
+    watch(currentPage, updateList);
 
     return {
       currentPage,

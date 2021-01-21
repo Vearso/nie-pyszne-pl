@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import { computed, defineComponent, onMounted, onUpdated } from "vue";
+import { computed, defineComponent, watch } from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import { CartItem, CartState } from "@/store/interfaces";
 import ProductsDetails from "@/components/Cart/CartProducts/ProductsDetails.vue";
@@ -57,9 +57,11 @@ export default defineComponent({
     const priceTotal = computed(() => store.getters["cart/priceTotal"]);
     const showModal = computed(() => store.getters["modal/showModal"]);
 
-    onUpdated(() => {
+    const updatePrice = () => {
       store.commit("cart/calculatePrice");
-    });
+    };
+
+    watch(store.state.cart.items, updatePrice);
 
     return {
       cart,

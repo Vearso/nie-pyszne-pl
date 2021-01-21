@@ -18,13 +18,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import {
-  defineComponent,
-  PropType,
-  computed,
-  ComputedRef,
-  onUpdated
-} from "vue";
+import { defineComponent, PropType, computed, ComputedRef } from "vue";
 import { useStore } from "@/store";
 
 interface Props {
@@ -42,7 +36,6 @@ export default defineComponent({
   },
 
   setup(props: Props) {
-    const store = useStore();
     const price: ComputedRef<number> = computed(
       () => props.item.price * props.item.quantity
     );
@@ -53,9 +46,6 @@ export default defineComponent({
         .toUpperCase()
     );
 
-    onUpdated(() => {
-      store.commit("cart/calculatePrice");
-    });
     return {
       price,
       cutName

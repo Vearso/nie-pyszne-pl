@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import { defineComponent, onUpdated, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import { useStore } from "@/store";
 import IconCross from "@/assets/icons/icon-cross.vue";
 
@@ -43,10 +43,6 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
-
-    onUpdated(() => {
-      store.commit("cart/calculatePrice");
-    });
 
     return {
       showModal: (item: CartItem) => store.commit("modal/popModal", item),
