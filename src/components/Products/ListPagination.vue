@@ -40,13 +40,13 @@ export default defineComponent({
   components: {
     Arrow
   },
-  setup(props: any, context: any) {
+  setup() {
     const store = useStore();
 
     const currentPage: ComputedRef<number> = computed(
       () => store.state.products.pageNumber
     );
-    const inputValue: Ref<number> = ref(1);
+    const inputValue: Ref<number> = ref(currentPage);
     const nextPage = (): void => {
       store.commit("products/nextPage");
       inputValue.value = currentPage.value;

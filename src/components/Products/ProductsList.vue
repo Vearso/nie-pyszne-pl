@@ -18,7 +18,7 @@
   <div v-else class="empty-product-list">
     <strong>{{ $t("emptyProductList") }}</strong>
   </div>
-  <ListPagination />
+  <ListPagination v-if="items.length" />
 </template>
 
 <script lang="ts">

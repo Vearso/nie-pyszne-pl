@@ -139,6 +139,7 @@ export default defineComponent({
         });
         store.commit("nav/setFoodListFilter", filterValue);
         store.commit("nav/filterFoodList");
+        store.commit("products/setPage", 1);
         store.commit(
           "products/setNumberOfPages",
           store.state.nav.filteredFoodList
