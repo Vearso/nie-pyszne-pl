@@ -21,6 +21,19 @@ export default {
     signInMessage: "Already have an account?",
     return: "Return",
     signUpMessage: "Don't have an account?",
-    signUp: "Sign up"
+    signUp: "Sign up",
+    foodVocabulary: {
+      food: "Food"
+    },
+    orderValidation: {
+      nameRequired: "Name is required",
+      emailFormat: "Invalid email format",
+      emailRequired: "Email is required",
+      phoneFormat: "Invalid phone number for PL region",
+      phoneRequired: "Phone is required",
+      cityRequired: "City is required",
+      streetRequired: "Street is required",
+      postCodeRequired: "Post code is required"
+    }
   }
 };

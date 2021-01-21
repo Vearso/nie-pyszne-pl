@@ -1,4 +1,9 @@
 <template>
+  <div
+    class="np-transparent-modal"
+    :class="{ 'np-transparent-modal--active': isLiActive }"
+    @click="toggleOrderList"
+  ></div>
   <section class="np-search-bar">
     <button
       @click="changeFoodListView"
@@ -163,6 +168,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.np-transparent-modal {
+  @apply h-screen w-screen hidden fixed top-0 left-0;
+  z-index: 2;
+
+  &--active {
+    display: block;
+  }
+}
 .np-search-bar {
   @apply flex sm:flex-col flex-row justify-start items-center w-full mb-10 sm:mb-4 h-16 sm:h-full;
   background-color: #ffffff;

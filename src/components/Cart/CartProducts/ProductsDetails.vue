@@ -18,6 +18,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
+import { useI18n } from "vue-i18n";
 import {
   defineComponent,
   PropType,
@@ -52,11 +53,10 @@ export default defineComponent({
         .concat("..")
         .toUpperCase()
     );
+    const { t } = useI18n();
 
-    onUpdated(() => {
-      store.commit("cart/calculatePrice");
-    });
     return {
+      t,
       price,
       cutName
     };
