@@ -43,7 +43,6 @@ export default defineComponent({
   },
 
   setup(props: Props) {
-    const store = useStore();
     const price: ComputedRef<number> = computed(
       () => props.item.price * props.item.quantity
     );

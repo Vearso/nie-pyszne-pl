@@ -1,9 +1,9 @@
 <template>
   <div class="np-steps">
     <div
-      @click="switchStep(index)"
-      v-for="(stepName, index) in tm('menuSteps', { returnObjects: true })"
       :key="index"
+      @click="switchStep(index)"
+      v-for="(stepName, index) in tm('menuSteps')"
       class="np-steps__wrapper"
     >
       <div :class="divClassObject(index)" />

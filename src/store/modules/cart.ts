@@ -29,6 +29,11 @@ const mutations = {
           imgUrl: item.imgUrl,
           isHoveredOn: false
         });
+    let priceTotal = 0;
+    for (const item of state.items) {
+      priceTotal += item.price * item.quantity;
+    }
+    state.priceTotal = priceTotal;
   },
   calculatePrice: function(state: CartState): void {
     let priceTotal = 0;
@@ -56,6 +61,11 @@ const mutations = {
     state.items = state.items.filter(product => {
       return product.id !== item.id;
     });
+    let priceTotal = 0;
+    for (const item of state.items) {
+      priceTotal += item.price * item.quantity;
+    }
+    state.priceTotal = priceTotal;
   },
   turnHoverOn: function(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(

@@ -9,13 +9,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  computed,
-  ComputedRef,
-  onUpdated
-} from "vue";
+import { defineComponent, onMounted, computed, ComputedRef, watch } from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import { useStore } from "@/store";
 import { TimeObject } from "@/store/interfaces";
@@ -36,8 +30,7 @@ export default defineComponent({
     const displayedTime: ComputedRef<string> = computed(
       () => store.getters["time/displayedTime"]
     );
-
-    onUpdated(() => {
+    const clearCart = () => {
       if (
         time.value.hours === 0 &&
         time.value.minutes === 0 &&
@@ -46,7 +39,9 @@ export default defineComponent({
         store.commit("sideMenu/resetOrder");
         store.commit("cart/clearCart");
       }
-    });
+    };
+    watch(time, clearCart);
+
     onMounted(() => {
       store.commit("time/setTime");
       store.commit("time/calculateTime");
@@ -67,6 +62,7 @@ export default defineComponent({
   &__title {
     @apply font-bold my-6;
   }
+
   &__time {
     @apply text-4xl text-primary mb-10;
   }
