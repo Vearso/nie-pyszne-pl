@@ -41,12 +41,12 @@
 
   <div v-if="!page.length" class="np-cartProducts__empty">
     <IconRestaurant class="np-cartProducts__empty__image"></IconRestaurant>
-    <h2 class="np-cartProducts__empty__title">{{ $t("emptyCart") }}</h2>
+    <h2 class="np-cartProducts__empty__title">{{ t("emptyCart") }}</h2>
   </div>
 
   <div class="np-cartProducts__item__price">
-    <p>{{ $t("totalPrice") }}</p>
-    <p>{{ $t("currency") + priceTotal.toFixed(2) }}</p>
+    <p>{{ t("totalPrice") }}</p>
+    <p>{{ t("currency") + priceTotal.toFixed(2) }}</p>
   </div>
 
   <Buttons />
@@ -56,21 +56,14 @@
 
 <script lang="ts">
 import { useStore } from "@/store";
-import {
-  computed,
-  ComputedRef,
-  defineComponent,
-  onUpdated,
-  ref,
-  Ref,
-  watch
-} from "vue";
+import { computed, defineComponent, watch, ref, Ref, ComputedRef } from "vue";
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import { CartItem } from "@/store/interfaces";
 import ProductsDetails from "@/components/Cart/CartProducts/ProductsDetails.vue";
 import ProductsHover from "@/components/Cart/CartProducts/ProductsHover.vue";
 import Modal from "@/components/Cart/CartProducts/Modal.vue";
 import IconRestaurant from "@/assets/icons/food/icon-resturant.vue";
+import { useI18n } from "vue-i18n";
 import Arrow from "@/assets/icons/icon-arrow.vue";
 
 interface ChangeEvent {
@@ -91,9 +84,16 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { t } = useI18n();
 
     const priceTotal = computed(() => store.getters["cart/priceTotal"]);
     const showModal = computed(() => store.getters["modal/showModal"]);
+
+    const updatePrice = () => {
+      store.commit("cart/calculatePrice");
+    };
+
+    watch(store.state.cart.items, updatePrice);
     const cart = computed(() => store.getters["cart/cartItems"]);
     const page = computed(() => store.getters["cart/getPage"]);
     const pagesCount = computed(() => store.state.cart.pagesCount);
@@ -123,11 +123,12 @@ export default defineComponent({
     store.commit("cart/setPages");
 
     return {
+      t,
+      cart,
       page,
       priceTotal,
       showModal,
       inputValue,
-      cart,
       pagesCount,
       prevPage,
       nextPage,

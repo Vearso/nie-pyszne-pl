@@ -16,6 +16,24 @@ export default {
     currency: "$",
     emptyCart: "Seems like your cart is empty, please add some products",
     emptyProductList: "Product list is empty",
-    addedToCart: "Added to cart"
+    addedToCart: "Added to cart",
+    signIn: "Sign In",
+    signInMessage: "Already have an account?",
+    return: "Return",
+    signUpMessage: "Don't have an account?",
+    signUp: "Sign up",
+    foodVocabulary: {
+      food: "Food"
+    },
+    orderValidation: {
+      nameRequired: "Name is required",
+      emailFormat: "Invalid email format",
+      emailRequired: "Email is required",
+      phoneFormat: "Invalid phone number for PL region",
+      phoneRequired: "Phone is required",
+      cityRequired: "City is required",
+      streetRequired: "Street is required",
+      postCodeRequired: "Post code is required"
+    }
   }
 };
