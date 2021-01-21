@@ -1,6 +1,9 @@
 <template>
   <div class="v-home flex min-h-full">
-    <div v-if="productAddedMessage" class="product-added-modal">
+    <div
+      class="np-product-added-modal"
+      :class="productAddedMessage ? 'np-product-added-modal--in' : ''"
+    >
       <p>Product added to cart</p>
     </div>
     <div class="np-content ">
@@ -37,6 +40,7 @@ export default defineComponent({
 
     const productAddedMessage = ref(false);
     const updateMessage = () => {
+      console.log("injected");
       productAddedMessage.value = true;
       setTimeout(() => {
         productAddedMessage.value = false;
@@ -87,6 +91,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.np-product-added-modal {
+  @apply flex flex-row justify-center items-center fixed bg-primary w-72 h-16 text-white font-bold;
+  font-size: 1.5rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  //left: (50% - 9rem);
+  //margin-left: 50%;
+  transform: translateY(-4rem);
+
+  &--in {
+    animation: 2s ease-out slideModalIn;
+  }
+}
+@keyframes slideModalIn {
+  from {
+    transform: translateY(-4rem);
+  }
+  5% {
+    transform: translateY(0);
+  }
+  95% {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4rem);
+  }
+}
+
 .np-content {
   @apply mx-auto w-1/2 sm:w-full;
   min-width: 550px;
