@@ -43,6 +43,12 @@ import { auth } from "@/utilities/firebase.ts";
 import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 
+interface Values {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export default defineComponent({
   name: "SignIn",
   components: {
@@ -59,7 +65,7 @@ export default defineComponent({
       router.back();
     };
     let fbError: Ref<string> = ref("");
-    const onSubmit = (values: any): void => {
+    const onSubmit = (values: Values): void => {
       auth
         .signInWithEmailAndPassword(values.email, values.password)
         .then(() => {
