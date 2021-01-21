@@ -1,5 +1,5 @@
 <template>
-  <div class="product-list-item">
+  <div class="product-list-item" @click="productAddedToCart">
     <div
       class="product-list-item__picture"
       :style="{ backgroundImage: 'url(' + imgUrl + ')' }"
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import IconStar from "@/assets/icons/icon-stars.vue";
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 export default defineComponent({
   components: {
@@ -35,6 +35,12 @@ export default defineComponent({
     price: Number,
     imgUrl: String,
     rating: Number
+  },
+  setup() {
+    const productAddedToCart = inject("showProductAddedMessage");
+    return {
+      productAddedToCart
+    };
   }
 });
 </script>

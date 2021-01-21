@@ -1,38 +1,35 @@
 <template>
   <div class="np-sign-in">
-    <h2 class="np-sign-in__title">{{ $t("signIn") }}</h2>
-    <VForm :validation-schema="schema">
+    <h2 class="np-sign-in__title">{{ t("signIn") }}</h2>
+    <VForm :validation-schema="schema" @submit="onSubmit">
       <div class="field-container">
-        <VField name="email" placeholder="{{$t('email')}}" />
+        <VField name="email" :placeholder="t('email')" />
         <ErrorMessage name="email" />
       </div>
       <div class="field-container">
-        <VField
-          name="password"
-          type="password"
-          placeholder="{{$t('password')}}"
-        />
+        <VField name="password" type="password" :placeholder="t('password')" />
         <ErrorMessage name="password" />
       </div>
       <div class="np-sign-in__container">
         <button class="np-sign-in__button" type="submit">
-          {{ $t("signIn") }}
+          {{ t("signIn") }}
         </button>
 
         <button @click.prevent="goBack()" class="np-sign-in__button">
-          {{ $t("return") }}
+          {{ t("return") }}
         </button>
 
         <p class="np-sign-in__text">
-          {{ $t("signUpMessage") }}
+          {{ t("signUpMessage") }}
           <strong>
             <router-link :to="{ name: 'SignUp' }"
-              >{{ ` ${$t("signUp")} ` }}
+              >{{ ` ${t("signUp")} ` }}
             </router-link>
           </strong>
         </p>
       </div>
     </VForm>
+    <span>{{ fbError }}</span>
   </div>
 </template>
 
@@ -40,9 +37,17 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import { defineComponent } from "vue";
+import { defineComponent, ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { auth } from "@/utilities/firebase.ts";
+import { useI18n } from "vue-i18n";
+import { useStore } from "@/store";
+
+interface Values {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export default defineComponent({
   name: "SignIn",
@@ -52,19 +57,39 @@ export default defineComponent({
     ErrorMessage
   },
   setup() {
+    const { t } = useI18n();
+    const store = useStore();
     const router = useRouter();
-    const goBack = (e: Event) => {
+
+    const goBack = (): void => {
       router.back();
+    };
+    let fbError: Ref<string> = ref("");
+    const onSubmit = (values: Values): void => {
+      auth
+        .signInWithEmailAndPassword(values.email, values.password)
+        .then(() => {
+          const user = {
+            name: "test",
+            email: values.email
+          };
+          store.commit("user/setUpUser", user);
+        })
+        .then(() => router.push("/"))
+        .catch(err => (fbError = err.message));
     };
     const schema = yup.object({
       email: yup
         .string()
-        .required()
-        .email(),
-      password: yup.string().required()
+        .required(t("orderValidation.emailRequired"))
+        .email(t("orderValidation.emailFormat")),
+      password: yup.string().required(t("orderValidation.passwordRequired"))
     });
     return {
       schema,
+      fbError,
+      t,
+      onSubmit,
       goBack
     };
   }
