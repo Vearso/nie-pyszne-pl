@@ -92,16 +92,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-product-added-modal {
-  @apply flex flex-row justify-center items-center fixed bg-primary w-72 h-16 text-white font-bold;
+  @apply flex flex-row justify-center items-center fixed w-screen h-16;
   font-size: 1.5rem;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  //left: (50% - 9rem);
-  //margin-left: 50%;
   transform: translateY(-4rem);
 
   &--in {
     animation: 2s ease-out slideModalIn;
+  }
+
+  p {
+    @apply flex flex-row justify-center items-center bg-primary w-72 h-16 text-white font-bold;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 }
 @keyframes slideModalIn {
