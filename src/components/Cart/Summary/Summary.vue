@@ -1,8 +1,8 @@
 <template>
   <div class="np-Summary">
-    <h2 class="np-Summary__title">{{ $t("orderSummary") }}</h2>
+    <h2 class="np-Summary__title">{{ t("orderSummary") }}</h2>
     <p class="np-Summary__time">
-      {{ $t("time").toUpperCase() }}: {{ displayedTime }}
+      {{ t("time").toUpperCase() }}: {{ displayedTime }}
     </p>
   </div>
   <Buttons />
@@ -19,6 +19,7 @@ import {
 import Buttons from "@/components/Cart/Steps/Buttons.vue";
 import { useStore } from "@/store";
 import { TimeObject } from "@/store/interfaces";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Summary",
@@ -27,6 +28,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { t } = useI18n();
 
     const time: ComputedRef<TimeObject> = computed(
       () => store.getters["time/calculatedTime"]
@@ -52,6 +54,7 @@ export default defineComponent({
     });
 
     return {
+      t,
       displayedTime,
       time
     };
