@@ -74,6 +74,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .np-content {
   @apply mx-auto w-1/2 sm:w-full;
-  min-width: 550px;
+  @screen md {
+    min-width: 550px;
+  }
 }
 </style>

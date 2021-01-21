@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, watch } from "vue";
 import { useStore } from "@/store";
 import { useI18n } from "vue-i18n";
 
@@ -48,8 +48,8 @@ export default defineComponent({
 
     const itemToDelete = computed(() => store.getters["modal/productToDelete"]);
 
-    const removeFromCart = (item: CartItem): void =>
-      store.commit("cart/removeFromCart", item);
+    const removeFromCart = (item: CartItem) =>
+      store.dispatch("cart/removeFromCart", item);
     const hideModal = (): void => store.commit("modal/hideModal");
     const deleteItem = (item: CartItem): void => {
       removeFromCart(item);

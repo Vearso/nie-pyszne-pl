@@ -18,16 +18,16 @@
   <div v-else class="empty-product-list">
     <strong>{{ t("emptyProductList") }}</strong>
   </div>
-  <ListPagination />
+  <ListPagination v-if="items.length" />
 </template>
 
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
-import { mapMutations } from "vuex";
 import { useStore } from "@/store";
 import { computed, ref, Ref } from "vue";
 import ListPagination from "@/components/Products/ListPagination.vue";
 import { useI18n } from "vue-i18n";
+import { CartItem } from "@/store/interfaces";
 
 export default {
   name: "ProductsList",
@@ -39,14 +39,16 @@ export default {
     const store = useStore();
     const { t } = useI18n();
 
+    const addToCart = (item: CartItem) => {
+      store.dispatch("cart/addToCart", item);
+    };
+
     return {
+      addToCart,
       items: computed(() => store.state.products.products),
       displayList: computed(() => store.state.nav.displayAsList),
       t
     };
-  },
-  methods: {
-    ...mapMutations("cart", ["addToCart"])
   }
 };
 </script>

@@ -17,6 +17,11 @@ export default {
     emptyCart: "Seems like your cart is empty, please add some products",
     emptyProductList: "Product list is empty",
     addedToCart: "Added to cart",
+    signIn: "Sign In",
+    signInMessage: "Already have an account?",
+    return: "Return",
+    signUpMessage: "Don't have an account?",
+    signUp: "Sign up",
     foodVocabulary: {
       food: "Food"
     },
