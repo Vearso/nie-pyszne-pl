@@ -102,6 +102,8 @@ export default defineComponent({
     const currentPage: ComputedRef<number> = computed(
       () => store.state.cart.currentPage
     );
+    watch(currentPage, () => (inputValue.value = currentPage.value));
+
     const prevPage = () => {
       store.commit("cart/prevPage");
       inputValue.value = currentPage.value;

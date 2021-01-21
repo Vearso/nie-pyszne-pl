@@ -33,6 +33,7 @@ const mutations = {
   },
   calculatePagesCount: function(state: CartState) {
     state.pagesCount = Math.ceil(state.items.length / state.itemsPerPage);
+    state.currentPage > state.pagesCount ? (state.currentPage = 1) : null;
   },
   setPages: function(state: CartState) {
     state.paginatedItems = [];
