@@ -39,9 +39,9 @@
   </div>
   <!--End of pagination-->
 
-  <div v-if="!page.length" class="np-cartProducts__empty">
-    <IconRestaurant class="np-cartProducts__empty__image"></IconRestaurant>
-    <h2 class="np-cartProducts__empty__title">{{ t("emptyCart") }}</h2>
+  <div v-if="!page.length" class="np-cartProducts--empty">
+    <IconRestaurant class="np-cartProducts--empty__image"></IconRestaurant>
+    <h2 class="np-cartProducts--empty__title">{{ t("emptyCart") }}</h2>
   </div>
 
   <div class="np-cartProducts__item__price">
@@ -161,7 +161,7 @@ export default defineComponent({
   }
 }
 
-.np-cartProducts__empty {
+.np-cartProducts--empty {
   @apply flex flex-col justify-center items-center px-12 py-2;
 
   &__image {
