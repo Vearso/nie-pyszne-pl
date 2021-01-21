@@ -33,7 +33,14 @@ export default {
       phoneRequired: "Phone is required",
       cityRequired: "City is required",
       streetRequired: "Street is required",
-      postCodeRequired: "Post code is required"
-    }
+      postCodeRequired: "Post code is required",
+      passwordRequired: "Password is required",
+      passwordNotMatch: "Passwords must be the same"
+    },
+    password: "Password",
+    name: "Name",
+    confirmPassword: "Confirm password",
+    email: "E-mail",
+    notSignIn: "You are not signed in"
   }
 };

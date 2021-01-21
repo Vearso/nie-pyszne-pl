@@ -41,6 +41,7 @@
         </p>
       </div>
     </VForm>
+    <span>{{ fbError }}</span>
   </div>
 </template>
 
@@ -48,10 +49,11 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import { defineComponent } from "vue";
+import { defineComponent, ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { auth } from "@/utilities/firebase";
+import { auth, fb } from "@/utilities/firebase";
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "SignIn",
@@ -61,33 +63,45 @@ export default defineComponent({
     ErrorMessage
   },
   setup() {
+    const store = useStore();
     const router = useRouter();
     const { t } = useI18n();
+    const fbError: Ref<string> = ref("");
     const onSubmit = (values: any) => {
       auth
         .createUserWithEmailAndPassword(values.email, values.password)
-        .then(user => {
-          console.log(user.user);
-        });
+        .then(() => {
+          const user = {
+            name: values.name,
+            email: values.email
+          };
+          store.commit("user/setUpUser", user);
+        })
+        .then(() => router.push("/"))
+        .catch(err => (fbError.value = err.message));
     };
     const goBack = () => {
       router.back();
     };
     const schema = yup.object({
-      name: yup.string().required(),
+      name: yup.string().required(t("orderValidation.nameRequired")),
       email: yup
         .string()
-        .required()
-        .email(),
-      password: yup.string().required(),
+        .required(t("orderValidation.emailRequired"))
+        .email(t("orderValidation.emailFormat")),
+      password: yup.string().required(t("orderValidation.passwordRequired")),
       confirmPassword: yup
         .string()
-        .required()
-        .oneOf([yup.ref("password"), null], t("passwordError"))
+        .required(t("orderValidation.passwordRequired"))
+        .oneOf(
+          [yup.ref("password"), null],
+          t("orderValidation.passwordNotMatch")
+        )
     });
     return {
       schema,
       t,
+      fbError,
       goBack,
       onSubmit
     };
@@ -100,7 +114,7 @@ export default defineComponent({
   @apply w-full h-screen bg-secondary-lighter flex flex-col justify-center items-center;
 
   input {
-    @apply p-2 mt-4 h-10 mb-2 w-full;
+    @apply p-2 mt-4 h-10  w-full;
   }
 
   span {
