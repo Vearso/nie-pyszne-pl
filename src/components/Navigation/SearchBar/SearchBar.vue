@@ -169,7 +169,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-transparent-modal {
-  @apply w-screen h-screen hidden absolute top-0 left-0;
+  @apply h-screen w-screen hidden fixed top-0 left-0;
   z-index: 2;
 
   &--active {
