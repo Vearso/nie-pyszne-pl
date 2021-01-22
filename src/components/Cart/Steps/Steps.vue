@@ -67,13 +67,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .np-steps {
-  @apply flex justify-between w-full px-12 mb-4;
+  @apply flex justify-between sm:justify-around w-full px-12 mb-4;
 
   &__wrapper {
     @apply flex flex-col items-center;
 
     &__step--active {
-      @apply bg-secondary border-2 border-primary w-4 h-4 rounded-full;
+      @apply bg-white border-2 border-primary w-4 h-4 rounded-full;
     }
 
     &__step--completed {
@@ -85,7 +85,7 @@ export default defineComponent({
     }
   }
   &__step__text {
-    @apply sm:text-xs;
+    @apply sm:text-xs font-bold;
   }
 }
 </style>
