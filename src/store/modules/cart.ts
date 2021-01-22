@@ -22,20 +22,26 @@ const getters = {
 };
 
 const mutations = {
-  prevPage: function(state: CartState): void {
-    state.currentPage > 1 ? state.currentPage-- : null;
+  prevPage(state: CartState): void {
+    if (state.currentPage > 1) {
+      state.currentPage -= 1;
+    }
   },
-  nextPage: function(state: CartState): void {
-    state.currentPage < state.pagesCount ? state.currentPage++ : null;
+  nextPage(state: CartState): void {
+    if (state.currentPage < state.pagesCount) {
+      state.currentPage += 1;
+    }
   },
-  setPage: function(state: CartState, page: number): void {
+  setPage(state: CartState, page: number): void {
     state.currentPage = page;
   },
-  calculatePagesCount: function(state: CartState) {
+  calculatePagesCount(state: CartState): void {
     state.pagesCount = Math.ceil(state.items.length / state.itemsPerPage);
-    state.currentPage > state.pagesCount ? (state.currentPage = 1) : null;
+    if (state.currentPage > state.pagesCount) {
+      state.currentPage = 1;
+    }
   },
-  setPages: function(state: CartState) {
+  setPages(state: CartState): void {
     state.paginatedItems = [];
     const pageSize: number = state.itemsPerPage;
     const items: CartItem[] = [...state.items];
@@ -44,7 +50,7 @@ const mutations = {
       state.paginatedItems.push(chunk);
     }
   },
-  addToCart: function(state: CartState, item: CartItem): void {
+  addToCart(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
@@ -59,40 +65,40 @@ const mutations = {
           isHoveredOn: false
         });
   },
-  calculatePrice: function(state: CartState): void {
+  calculatePrice(state: CartState): void {
     let priceTotal = 0;
     for (const item of state.items) {
       priceTotal += item.price * item.quantity;
     }
     state.priceTotal = priceTotal;
   },
-  clearCart: function(state: CartState): void {
+  clearCart(state: CartState): void {
     state.items = [];
   },
-  decrementQuantity: function(state: CartState, item: CartItem): void {
+  decrementQuantity(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? (cartItem.quantity > 1 ? cartItem.quantity-- : null) : null;
   },
-  incrementQuantity: function(state: CartState, item: CartItem): void {
+  incrementQuantity(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? cartItem.quantity++ : null;
   },
-  removeFromCart: function(state: CartState, item: CartItem): void {
+  removeFromCart(state: CartState, item: CartItem): void {
     state.items = state.items.filter(product => {
       return product.id !== item.id;
     });
   },
-  turnHoverOn: function(state: CartState, item: CartItem): void {
+  turnHoverOn(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? (cartItem.isHoveredOn = true) : null;
   },
-  turnHoverOff: function(state: CartState, item: CartItem): void {
+  turnHoverOff(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );

@@ -86,34 +86,39 @@ export default defineComponent({
     const store = useStore();
     const { t } = useI18n();
 
-    const priceTotal = computed(() => store.getters["cart/priceTotal"]);
-    const showModal = computed(() => store.getters["modal/showModal"]);
-
-    const updatePrice = () => {
+    const priceTotal: ComputedRef<number> = computed(
+      () => store.getters["cart/priceTotal"]
+    );
+    const showModal: ComputedRef<boolean> = computed(
+      () => store.getters["modal/showModal"]
+    );
+    const updatePrice = (): void => {
       store.commit("cart/calculatePrice");
     };
-
-    watch(store.state.cart.items, updatePrice);
-    const cart = computed(() => store.getters["cart/cartItems"]);
-    const page = computed(() => store.getters["cart/getPage"]);
-    const pagesCount = computed(() => store.state.cart.pagesCount);
-
-    const inputValue: Ref<number> = ref(1);
+    const cart: ComputedRef<CartItem[]> = computed(
+      () => store.getters["cart/cartItems"]
+    );
+    const page: ComputedRef<CartItem[]> = computed(
+      () => store.getters["cart/getPage"]
+    );
+    const pagesCount: ComputedRef<number> = computed(
+      () => store.state.cart.pagesCount
+    );
     const currentPage: ComputedRef<number> = computed(
       () => store.state.cart.currentPage
     );
+    const inputValue: Ref<number> = ref(1);
     watch(currentPage, () => (inputValue.value = currentPage.value));
+    watch(store.state.cart.items, updatePrice);
 
-    const prevPage = () => {
+    const prevPage = (): void => {
       store.commit("cart/prevPage");
-      inputValue.value = currentPage.value;
     };
-    const nextPage = () => {
+    const nextPage = (): void => {
       store.commit("cart/nextPage");
-      inputValue.value = currentPage.value;
     };
-    const setPage = (event: ChangeEvent) => {
-      const newValue = event.target.value;
+    const setPage = (event: ChangeEvent): void => {
+      const newValue: number = event.target.value;
       inputValue.value = newValue;
       newValue <= pagesCount.value && newValue > 0
         ? store.commit("cart/setPage", newValue)
