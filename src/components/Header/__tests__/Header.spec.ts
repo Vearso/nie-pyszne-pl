@@ -10,7 +10,7 @@ const i18n = createI18n({
   messages
 });
 
-function factory({ data } = { data: {} }) {
+function factory() {
   return mount(Header, {
     global: {
       plugins: [i18n]
