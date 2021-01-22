@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script scoped lang="ts">
 import Arrow from "@/assets/icons/icon-arrow.vue";
 import { defineComponent, computed, Ref, ComputedRef, ref, watch } from "vue";
 import { useStore } from "@/store";
