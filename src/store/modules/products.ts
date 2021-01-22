@@ -1,6 +1,5 @@
 import { ProductsState } from "@/store/interfaces";
 import { FoodListItem } from "@/store/navigationInterface";
-import { getFoodList } from "@/utilities/apiCalls";
 
 const state: ProductsState = {
   products: [],
