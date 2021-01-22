@@ -2,6 +2,10 @@ import { CartItem, CartState } from "@/store/interfaces";
 
 const state: CartState = {
   items: [],
+  currentPage: 1,
+  pagesCount: 0,
+  itemsPerPage: 3,
+  paginatedItems: [],
   priceTotal: 0
 };
 
@@ -11,11 +15,42 @@ const getters = {
   },
   priceTotal(state: CartState): number {
     return state.priceTotal;
+  },
+  getPage(state: CartState): CartItem[] {
+    return state.paginatedItems[state.currentPage - 1] || [];
   }
 };
 
 const mutations = {
-  addToCart: function(state: CartState, item: CartItem): void {
+  prevPage(state: CartState): void {
+    if (state.currentPage > 1) {
+      state.currentPage -= 1;
+    }
+  },
+  nextPage(state: CartState): void {
+    if (state.currentPage < state.pagesCount) {
+      state.currentPage += 1;
+    }
+  },
+  setPage(state: CartState, page: number): void {
+    state.currentPage = page;
+  },
+  calculatePagesCount(state: CartState): void {
+    state.pagesCount = Math.ceil(state.items.length / state.itemsPerPage);
+    if (state.currentPage > state.pagesCount) {
+      state.currentPage = 1;
+    }
+  },
+  setPages(state: CartState): void {
+    state.paginatedItems = [];
+    const pageSize: number = state.itemsPerPage;
+    const items: CartItem[] = [...state.items];
+    for (let i = 0; i < items.length; i += pageSize) {
+      const chunk: CartItem[] = items.slice(i, i + pageSize);
+      state.paginatedItems.push(chunk);
+    }
+  },
+  addToCart(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
@@ -30,40 +65,40 @@ const mutations = {
           isHoveredOn: false
         });
   },
-  calculatePrice: function(state: CartState): void {
+  calculatePrice(state: CartState): void {
     let priceTotal = 0;
     for (const item of state.items) {
       priceTotal += item.price * item.quantity;
     }
     state.priceTotal = priceTotal;
   },
-  clearCart: function(state: CartState): void {
+  clearCart(state: CartState): void {
     state.items = [];
   },
-  decrementQuantity: function(state: CartState, item: CartItem): void {
+  decrementQuantity(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? (cartItem.quantity > 1 ? cartItem.quantity-- : null) : null;
   },
-  incrementQuantity: function(state: CartState, item: CartItem): void {
+  incrementQuantity(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? cartItem.quantity++ : null;
   },
-  removeFromCart: function(state: CartState, item: CartItem): void {
+  removeFromCart(state: CartState, item: CartItem): void {
     state.items = state.items.filter(product => {
       return product.id !== item.id;
     });
   },
-  turnHoverOn: function(state: CartState, item: CartItem): void {
+  turnHoverOn(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
     cartItem ? (cartItem.isHoveredOn = true) : null;
   },
-  turnHoverOff: function(state: CartState, item: CartItem): void {
+  turnHoverOff(state: CartState, item: CartItem): void {
     const cartItem: CartItem | undefined = state.items.find(
       product => product.id === item.id
     );
@@ -75,10 +110,14 @@ const actions = {
   addToCart(context: any, item: CartItem) {
     context.commit("addToCart", item);
     context.commit("calculatePrice");
+    context.commit("calculatePagesCount");
+    context.commit("setPages");
   },
   removeFromCart(context: any, item: CartItem) {
     context.commit("removeFromCart", item);
     context.commit("calculatePrice");
+    context.commit("calculatePagesCount");
+    context.commit("setPages");
   }
 };
 

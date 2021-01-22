@@ -4,7 +4,7 @@ import {
   OrderOption,
   CategoryListItem
 } from "../navigationInterface";
-import { getFoodList, getFoodCategories } from "@/utilities/apiCalls";
+import { db } from "@/utilities/firebase";
 
 const state: NavState = {
   displayAsList: false,
@@ -89,15 +89,21 @@ const mutations = {
 
 const actions = {
   async fetchFoodList(context: any) {
-    const list: FoodListItem[] = await getFoodList();
-
-    context.commit("setFoodList", list);
+    const getFoodList = db.ref("/productList");
+    await getFoodList.once("value", snapshot => {
+      const data = snapshot.val();
+      context.commit("setFoodList", data);
+      return data;
+    });
   },
 
   async fetchMenuCategories(context: any) {
-    const categoryList: Array<CategoryListItem> = await getFoodCategories();
-
-    context.commit("setFoodCategories", categoryList);
+    const getMenuList = db.ref("/foodCategories");
+    await getMenuList.once("value", snapshot => {
+      const data = snapshot.val();
+      context.commit("setFoodCategories", data);
+      return data;
+    });
   }
 };
 

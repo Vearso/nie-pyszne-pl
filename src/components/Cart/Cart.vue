@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, watch } from "vue";
+import { computed, ComputedRef, defineComponent } from "vue";
 import { useStore } from "@/store";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";

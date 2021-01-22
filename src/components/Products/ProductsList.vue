@@ -24,7 +24,7 @@
 <script lang="ts">
 import ProductsListItem from "@/components/Products/ProductsListItem.vue";
 import { useStore } from "@/store";
-import { computed, ref, Ref } from "vue";
+import { computed } from "vue";
 import ListPagination from "@/components/Products/ListPagination.vue";
 import { useI18n } from "vue-i18n";
 import { CartItem } from "@/store/interfaces";
