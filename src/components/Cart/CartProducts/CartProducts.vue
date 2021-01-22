@@ -17,7 +17,7 @@
   </div>
 
   <!--  Pagination-->
-  <div class="np-cartProducts__pagination" v-if="page.length">
+  <div class="np-cartProducts__pagination" v-if="pagesCount > 1">
     <Arrow
       @click="prevPage"
       class="pagination__arrow pagination__arrow--left"

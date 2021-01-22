@@ -87,7 +87,7 @@ export default defineComponent({
   @apply flex justify-around w-20 mx-auto my-4 items-center;
 
   &__left-arrow {
-    @apply transform rotate-180 h-10 w-10;
+    @apply transform rotate-180 h-10 w-10 cursor-pointer;
   }
 
   &__input {
@@ -95,7 +95,7 @@ export default defineComponent({
   }
 
   &__right-arrow {
-    @apply h-10 w-10;
+    @apply h-10 w-10 cursor-pointer;
   }
 }
 </style>
