@@ -70,7 +70,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .np-cart--closed {
   @apply bg-secondary-lighter w-20 flex justify-center h-screen fixed right-0;
-  @apply sm:absolute sm:w-screen sm:h-12 sm:items-center sm:justify-between;
+  @apply sm:w-screen sm:h-12 sm:items-center sm:justify-between sm:fixed;
 
   .np-cart__avatar {
     @apply h-12 w-12 rounded-full mt-6;

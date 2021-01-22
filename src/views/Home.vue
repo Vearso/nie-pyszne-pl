@@ -94,7 +94,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-product-added-modal {
-  @apply flex flex-row justify-center items-center fixed w-screen h-16;
+  @apply flex flex-row justify-center items-center fixed w-screen h-16 sm:z-10;
   font-size: 1.5rem;
   transform: translateY(-4rem);
 
