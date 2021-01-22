@@ -26,7 +26,9 @@ module.exports = {
       sm: { max: "760px" },
       md: "761px"
     },
-    extend: {}
+    extend: {
+      animation: {}
+    }
   },
   variants: {
     extend: {}

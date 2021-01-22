@@ -94,7 +94,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .np-product-added-modal {
-  @apply flex flex-row justify-center items-center fixed w-screen h-16;
+  @apply flex flex-row justify-center items-center fixed w-screen h-16 sm:z-10;
   font-size: 1.5rem;
   transform: translateY(-4rem);
 
@@ -108,6 +108,13 @@ export default defineComponent({
     border-bottom-right-radius: 1rem;
   }
 }
+@media (max-width: 760px) {
+  .np-product-added-modal {
+    &--in {
+      animation: 2s ease-out slideModalInMobile;
+    }
+  }
+}
 @keyframes slideModalIn {
   from {
     transform: translateY(-4rem);
@@ -117,6 +124,20 @@ export default defineComponent({
   }
   95% {
     transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4rem);
+  }
+}
+@keyframes slideModalInMobile {
+  from {
+    transform: translateY(-4rem);
+  }
+  5% {
+    transform: translateY(3rem);
+  }
+  95% {
+    transform: translateY(3rem);
   }
   to {
     transform: translateY(-4rem);
