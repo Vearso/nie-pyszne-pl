@@ -13,6 +13,13 @@ export interface State {
 export interface UserState {
   name: string;
   email: string;
+  error: string;
+}
+
+export interface FormValues {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface ProductsState {

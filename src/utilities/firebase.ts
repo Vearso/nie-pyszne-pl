@@ -5,6 +5,8 @@ import "firebase/database";
 export const firebaseConfig = {
   apiKey: "AIzaSyAJYwKkMzsvlZy7Rg9qyQFI3So1VahALAk",
   authDomain: "nie-pyszne-pl-13352.firebaseapp.com",
+  databaseURL:
+    "https://nie-pyszne-pl-13352-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "nie-pyszne-pl-13352",
   storageBucket: "nie-pyszne-pl-13352.appspot.com",
   messagingSenderId: "873197773908",

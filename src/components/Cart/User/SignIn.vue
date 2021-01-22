@@ -15,14 +15,14 @@
           {{ t("signIn") }}
         </button>
 
-        <button @click.prevent="goBack()" class="np-sign-in__button">
+        <button @click.prevent="goBack" class="np-sign-in__button">
           {{ t("return") }}
         </button>
 
         <p class="np-sign-in__text">
           {{ t("signUpMessage") }}
           <strong>
-            <router-link :to="{ name: 'SignUp' }"
+            <router-link :to="{ ...ROUTE_SIGNUP }"
               >{{ ` ${t("signUp")} ` }}
             </router-link>
           </strong>
@@ -37,17 +37,12 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import { defineComponent, ref, Ref } from "vue";
-import { useRouter } from "vue-router";
-import { auth } from "@/utilities/firebase.ts";
+import { defineComponent, computed, ComputedRef } from "vue";
 import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
-
-interface Values {
-  name: string;
-  email: string;
-  password: string;
-}
+import { useRouterHook } from "@/router/routerHooks";
+import { FormValues } from "@/store/interfaces";
+import { ROUTE_SIGNUP } from "@/router";
 
 export default defineComponent({
   name: "SignIn",
@@ -59,24 +54,16 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const store = useStore();
-    const router = useRouter();
+    const { goBack, goHome } = useRouterHook();
 
-    const goBack = (): void => {
-      router.back();
-    };
-    let fbError: Ref<string> = ref("");
-    const onSubmit = (values: Values): void => {
-      auth
-        .signInWithEmailAndPassword(values.email, values.password)
-        .then(() => {
-          const user = {
-            name: "test",
-            email: values.email
-          };
-          store.commit("user/setUpUser", user);
-        })
-        .then(() => router.push("/"))
-        .catch(err => (fbError = err.message));
+    const fbError: ComputedRef<string> = computed(() => store.state.user.error);
+
+    const onSubmit = (values: FormValues): void => {
+      store.dispatch("user/doSignInUser", values).then(() => {
+        if (!store.state.user.error.length) {
+          goHome();
+        }
+      });
     };
     const schema = yup.object({
       email: yup
@@ -89,6 +76,7 @@ export default defineComponent({
       schema,
       fbError,
       t,
+      ROUTE_SIGNUP,
       onSubmit,
       goBack
     };

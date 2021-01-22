@@ -1,5 +1,5 @@
 <template>
-  <div v-if="username !== ''" class="np-cart__user">
+  <div v-if="!!username" class="np-cart__user">
     <img :src="userAvatar" alt="avatar" class="np-cart__user__avatar" />
 
     <div class="np-cart__user__wrapper">
@@ -41,8 +41,7 @@ export default defineComponent({
 
     const username = computed(() => store.state.user.name);
     const signOut = () => {
-      auth.signOut();
-      store.commit("user/clearUser");
+      store.dispatch("user/doSignOut");
     };
     return {
       t,
