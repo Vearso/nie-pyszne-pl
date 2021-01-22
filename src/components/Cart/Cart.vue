@@ -1,6 +1,6 @@
 <template>
   <aside v-if="!isOpened" class="np-cart--closed">
-    <img :src="userAvatar" alt="avatar" class="np-cart__avatar" />
+    <UserAvatar class="np-cart__avatar" />
 
     <div @click="toggleMenu" class="np-cart__arrow__container">
       <RightArrow class="np-cart__arrow" />
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, watch } from "vue";
+import { computed, ComputedRef, defineComponent } from "vue";
 import { useStore } from "@/store";
 import User from "./User/User.vue";
 import Steps from "./Steps/Steps.vue";
@@ -30,6 +30,7 @@ import CartProducts from "./CartProducts/CartProducts.vue";
 import CartForm from "./CartForm.vue";
 import RightArrow from "@/assets/icons/icon-arrow.vue";
 import Summary from "@/components/Cart/Summary/Summary.vue";
+import UserAvatar from "@/assets/icons/icon-avatar.vue";
 
 export default defineComponent({
   name: "Cart",
@@ -39,15 +40,10 @@ export default defineComponent({
     CartProducts,
     CartForm,
     RightArrow,
-    Summary
+    Summary,
+    UserAvatar
   },
-  props: {
-    userAvatar: {
-      type: String,
-      default:
-        "https://www.flaticon.com/svg/vstatic/svg/709/709722.svg?token=exp=1610530566~hmac=696747298203e1fd530d44bf33b36319"
-    }
-  },
+
   setup() {
     const store = useStore();
 
