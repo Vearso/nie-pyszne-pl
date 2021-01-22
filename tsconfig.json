@@ -17,7 +17,9 @@
       "webpack",
       "webpack-env",
       "webpack",
-      "webpack-env"
+      "webpack-env",
+      "jest",
+      "@types/testing-library__jest-dom"
     ],
     "paths": {
       "@/*": [
