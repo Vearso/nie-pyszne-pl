@@ -13,10 +13,10 @@
     <div class="np-cart__user__wrapper">
       <h2 class="np-cart__user__wrapper__name">{{ t("notSignIn") }}</h2>
       <router-link
-        :to="{ name: 'SignIn' }"
+        :to="{ ...ROUTE_SIGNIN }"
         class="np-cart__user__wrapper__logout"
-        >{{ t("signIn") }}</router-link
-      >
+        >{{ t("signIn") }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ import { defineComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { auth } from "@/utilities/firebase";
+import { ROUTE_SIGNIN } from "@/router";
 
 export default defineComponent({
   props: {
@@ -46,6 +47,7 @@ export default defineComponent({
     return {
       t,
       username,
+      ROUTE_SIGNIN,
       signOut
     };
   }
