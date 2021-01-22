@@ -34,7 +34,7 @@
         <p class="np-sign-in__text">
           {{ t("signInMessage") }}
           <strong>
-            <router-link :to="{ name: 'SignIn' }"
+            <router-link :to="{ ...ROUTE_SIGNIN }"
               >{{ ` ${t("signIn")}` }}
             </router-link>
           </strong>
@@ -49,20 +49,15 @@
 import { ErrorMessage } from "vee-validate";
 import * as VeeValidate from "vee-validate";
 import * as yup from "yup";
-import { defineComponent, ref, Ref } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent, computed, ComputedRef } from "vue";
 import { useI18n } from "vue-i18n";
-import { auth, fb } from "@/utilities/firebase";
 import { useStore } from "@/store";
-
-interface Values {
-  name: string;
-  email: string;
-  password: string;
-}
+import { useRouterHook } from "@/router/routerHooks";
+import { FormValues } from "@/store/interfaces";
+import { ROUTE_SIGNIN } from "@/router";
 
 export default defineComponent({
-  name: "SignIn",
+  name: "SignUp",
   components: {
     VField: VeeValidate.Field,
     VForm: VeeValidate.Form,
@@ -70,25 +65,19 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const router = useRouter();
     const { t } = useI18n();
-    const fbError: Ref<string> = ref("");
-    const onSubmit = (values: Values) => {
-      auth
-        .createUserWithEmailAndPassword(values.email, values.password)
-        .then(() => {
-          const user = {
-            name: values.name,
-            email: values.email
-          };
-          store.commit("user/setUpUser", user);
-        })
-        .then(() => router.push("/"))
-        .catch(err => (fbError.value = err.message));
+    const { goBack, goHome } = useRouterHook();
+
+    const fbError: ComputedRef<string> = computed(() => store.state.user.error);
+
+    const onSubmit = (values: FormValues) => {
+      store.dispatch("user/doSignUpUser", values).then(() => {
+        if (!store.state.user.error.length) {
+          goHome();
+        }
+      });
     };
-    const goBack = () => {
-      router.back();
-    };
+
     const schema = yup.object({
       name: yup.string().required(t("orderValidation.nameRequired")),
       email: yup
@@ -108,6 +97,7 @@ export default defineComponent({
       schema,
       t,
       fbError,
+      ROUTE_SIGNIN,
       goBack,
       onSubmit
     };
