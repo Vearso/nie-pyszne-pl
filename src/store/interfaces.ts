@@ -9,6 +9,11 @@ export interface State {
   modal: ModalState;
   time: TimeState;
   products: ProductsState;
+  user: UserState;
+}
+export interface UserState {
+  name: string;
+  email: string;
 }
 
 export interface ProductsState {

@@ -8,6 +8,7 @@ import nav from "@/store/modules/navigation";
 import modal from "@/store/modules/modal";
 import time from "@/store/modules/time";
 import products from "@/store/modules/products";
+import user from "@/store/modules/user";
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
@@ -16,5 +17,5 @@ export function useStore() {
 }
 
 export default createStore({
-  modules: { sideMenu, cart, form, nav, modal, time, products }
+  modules: { sideMenu, cart, form, nav, modal, time, products, user }
 });

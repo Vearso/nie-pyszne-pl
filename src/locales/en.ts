@@ -17,6 +17,7 @@ export default {
     emptyCart: "Seems like your cart is empty, please add some products",
     emptyProductList: "Product list is empty",
     addedToCart: "Added to cart",
+    productAddedToCart: "Product added to cart",
     signIn: "Sign In",
     signInMessage: "Already have an account?",
     return: "Return",
@@ -33,7 +34,14 @@ export default {
       phoneRequired: "Phone is required",
       cityRequired: "City is required",
       streetRequired: "Street is required",
-      postCodeRequired: "Post code is required"
-    }
+      postCodeRequired: "Post code is required",
+      passwordRequired: "Password is required",
+      passwordNotMatch: "Passwords must be the same"
+    },
+    password: "Password",
+    name: "Name",
+    confirmPassword: "Confirm password",
+    email: "E-mail",
+    notSignIn: "You are not signed in"
   }
 };

@@ -1,5 +1,11 @@
 <template>
   <div class="v-home flex min-h-full">
+    <div
+      class="np-product-added-modal"
+      :class="{ 'np-product-added-modal--in': isProductAdded }"
+    >
+      <p>{{ t("productAddedToCart") }}</p>
+    </div>
     <div class="np-content ">
       <Header />
       <Navigation />
@@ -14,16 +20,16 @@ import Header from "@/components/Header/Header.vue";
 import Cart from "@/components/Cart/Cart.vue";
 import ProductsList from "@/components/Products/ProductsList.vue";
 import Navigation from "@/components/Navigation/Navigation.vue";
-import { onMounted, defineComponent } from "vue";
+import { onMounted, defineComponent, provide, ref, Ref } from "vue";
 import { useStore } from "@/store";
 import router from "@/router";
 import { UrlParameters } from "@/utilities/urlHandler";
 import orderOptions from "@/components/Navigation/SearchBar/orderOptionsList";
 import { OrderOption } from "@/store/navigationInterface";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Home",
-
   components: {
     Navigation,
     Header,
@@ -32,6 +38,16 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { t } = useI18n();
+
+    const isProductAdded: Ref<boolean> = ref(false);
+    const updateMessage = (): void => {
+      isProductAdded.value = true;
+      setTimeout(() => {
+        isProductAdded.value = false;
+      }, 2000);
+    };
+    provide("showProductAddedMessage", updateMessage);
 
     onMounted(async () => {
       await store.dispatch("nav/fetchMenuCategories");
@@ -67,11 +83,46 @@ export default defineComponent({
       );
       store.commit("products/setResults", store.state.nav.filteredFoodList);
     });
+
+    return {
+      isProductAdded,
+      t
+    };
   }
 });
 </script>
 
 <style lang="scss" scoped>
+.np-product-added-modal {
+  @apply flex flex-row justify-center items-center fixed w-screen h-16;
+  font-size: 1.5rem;
+  transform: translateY(-4rem);
+
+  &--in {
+    animation: 2s ease-out slideModalIn;
+  }
+
+  p {
+    @apply flex flex-row justify-center items-center bg-primary w-72 h-16 text-white font-bold;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+}
+@keyframes slideModalIn {
+  from {
+    transform: translateY(-4rem);
+  }
+  5% {
+    transform: translateY(0);
+  }
+  95% {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4rem);
+  }
+}
+
 .np-content {
   @apply mx-auto w-1/2 sm:w-full;
   @screen md {
