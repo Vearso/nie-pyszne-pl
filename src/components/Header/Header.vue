@@ -15,14 +15,14 @@ import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "Header",
+  components: {
+    Logo
+  },
   setup() {
     const { t } = useI18n();
     return {
       t
     };
-  },
-  components: {
-    Logo
   }
 });
 </script>
