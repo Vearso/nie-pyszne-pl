@@ -8,6 +8,7 @@
     <button
       @click="changeFoodListView"
       type="button"
+      data-test="searchbar-li-view-btn"
       class="np-search-bar__toggle-list-view"
     >
       <ListIcon />
@@ -90,6 +91,7 @@ export default defineComponent({
     );
 
     const changeFoodListView = function(): void {
+      console.log("1111");
       let listType = "";
       store.state.nav.displayAsList ? (listType = "grid") : (listType = "list");
       router.replace({
