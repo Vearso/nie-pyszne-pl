@@ -80,13 +80,13 @@ export default defineComponent({
   }
 
   &__product {
-    @apply flex justify-center items-center;
+    @apply flex justify-center items-center sm:p-4;
     &__image {
       @apply w-16 h-14;
     }
 
     &__name {
-      @apply font-bold text-secondary-dark px-2 text-lg;
+      @apply font-bold text-secondary-dark px-2 text-lg sm:text-center;
     }
   }
   &__wrapper {

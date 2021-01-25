@@ -64,7 +64,7 @@ export default defineComponent({
     @apply sm:ml-6;
     &__name {
       @apply text-xl;
-      @apply sm:text-lg;
+      @apply sm:text-base;
     }
 
     &__logout {

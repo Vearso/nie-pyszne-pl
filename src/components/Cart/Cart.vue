@@ -81,7 +81,7 @@ export default defineComponent({
 
 .np-cart--opened {
   @apply bg-secondary-lighter w-1/4 flex flex-col items-center min-h-screen relative right-0 ml-1 text-secondary-dark;
-  @apply sm:absolute sm:w-screen sm:items-center;
+  @apply sm:fixed sm:w-screen sm:items-center;
 
   .np-cart__arrow__container {
     @apply sm:relative sm:order-first sm:p-2 sm:h-8 sm:w-8 sm:self-end sm:mt-2;
