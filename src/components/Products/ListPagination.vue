@@ -41,10 +41,12 @@ export default defineComponent({
     );
     const inputValue: Ref<number> = ref(1);
     const nextPage = (): void => {
+      inputValue.value = 0;
       store.commit("products/nextPage");
       inputValue.value = currentPage.value;
     };
     const prevPage = (): void => {
+      inputValue.value = 0;
       store.commit("products/prevPage");
       inputValue.value = currentPage.value;
     };
