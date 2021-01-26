@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { mount, shallowMount } from "@vue/test-utils";
 import { createStore } from "vuex";
 import cart from "@/store/modules/cart";
 import modal from "@/store/modules/modal";
@@ -36,8 +36,11 @@ const i18n = createI18n({
 });
 
 function factory() {
-  return mount(Modal, {
-    shallow: true,
+  document.body.innerHTML = `<div>
+      <div id="modal"></div>
+    </div>`;
+  return mount(Modal as any, {
+    attachTo: document.getElementById("modal") as any,
     global: {
       plugins: [[store, key], [i18n]]
     }
@@ -45,8 +48,8 @@ function factory() {
 }
 
 describe("Modal component", () => {
-  it("shows modal", () => {
-    const wrapper = factory();
-    console.log(wrapper.html());
+  const wrapper = factory();
+  it("Teleport works", () => {
+    expect(wrapper.text()).toContain("teleport");
   });
 });

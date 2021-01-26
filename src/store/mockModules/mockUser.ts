@@ -1,7 +1,3 @@
-import { UserState, FormValues } from "@/store/interfaces";
-import { auth, db } from "@/utilities/firebase";
-import { useRouterHook } from "@/router/routerHooks";
-
 const mutations = {
   setUpUser: jest.fn(),
   clearUser: jest.fn(),

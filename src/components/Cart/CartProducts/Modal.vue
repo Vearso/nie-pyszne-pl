@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { CartItem } from "@/store/interfaces";
-import { defineComponent, computed, watch } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
 import { useI18n } from "vue-i18n";
 

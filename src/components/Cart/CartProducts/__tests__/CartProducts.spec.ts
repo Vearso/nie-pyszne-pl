@@ -59,7 +59,9 @@ const store = createStore({
 
 function factory(): any {
   return shallowMount(CartProducts as any, {
-    props: {},
+    props: {
+      isFormValid: true
+    },
     global: {
       plugins: [[store, key], [i18n]]
     }
@@ -67,6 +69,7 @@ function factory(): any {
 }
 
 describe("Cart Products", () => {
+  const wrapper = factory();
   it("renders empty", () => {
     const emptyStore = createStore({
       modules: {
@@ -87,35 +90,36 @@ describe("Cart Products", () => {
     expect(wrapper.html()).toContain("np-cartProducts--empty");
   });
   it("renders with items", () => {
-    const wrapper = factory();
     expect(wrapper.html()).toContain("np-cartProducts__item");
   });
   it("Hover on commits turnHoverOn", async () => {
-    const wrapper = factory();
     await wrapper.find(".np-cartProducts__item").trigger("mouseover");
     expect(cart.mutations.turnHoverOn).toHaveBeenCalled();
   });
   it("hover off commits turnHoverOff", async () => {
-    const wrapper = factory();
     await wrapper.find(".np-cartProducts__item").trigger("mouseover");
     await wrapper.find(".np-cartProducts__item").trigger("mouseleave");
     expect(cart.mutations.turnHoverOff).toHaveBeenCalled();
   });
   it("renders buttons", () => {
-    const wrapper = factory();
     expect(wrapper.html()).toContain("buttons-stub");
   });
   it("displays right price", () => {
-    const wrapper = factory();
     expect(
       wrapper.find(".np-cartProducts__item__price p:last-child").text()
     ).toBe("$24.00");
   });
-  it("pagination works", async () => {
-    const wrapper = factory();
-    const input = wrapper.find("input");
+  it("Clicking right arrow commits next page", async () => {
     await wrapper.find(".pagination__arrow--right").trigger("click");
+    expect(cart.mutations.nextPage).toHaveBeenCalled();
+  });
+  it("Clicking left arrow commits prev page", async () => {
     await wrapper.find(".pagination__arrow--left").trigger("click");
-    await input.setValue("1");
+    expect(cart.mutations.prevPage).toHaveBeenCalled();
+  });
+  it("Change of input for pagination commits set page", async () => {
+    const input = wrapper.find("input");
+    await input.trigger("change");
+    expect(cart.mutations.setPage).toHaveBeenCalled();
   });
 });
