@@ -9,7 +9,6 @@ const createVuexStore = (): any => createStore({ modules: { sideMenu } });
 function factory() {
   const store = createVuexStore();
   return mount(Cart, {
-    props: {},
     global: {
       plugins: [[store, key]],
       stubs: {
