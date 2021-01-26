@@ -22,22 +22,24 @@ const cart = {
     pagesCount: 2,
     itemsPerPage: 3,
     paginatedItems: [
-      {
-        id: 1,
-        name: "Test item",
-        quantity: 2,
-        price: 12,
-        imgUrl: "",
-        isHoveredOn: false
-      },
-      {
-        id: 1,
-        name: "Test item",
-        quantity: 2,
-        price: 12,
-        imgUrl: "",
-        isHoveredOn: false
-      }
+      [
+        {
+          id: 1,
+          name: "Test item",
+          quantity: 2,
+          price: 12,
+          imgUrl: "",
+          isHoveredOn: false
+        },
+        {
+          id: 1,
+          name: "Test item",
+          quantity: 2,
+          price: 12,
+          imgUrl: "",
+          isHoveredOn: false
+        }
+      ]
     ],
     priceTotal: 24
   },
@@ -50,9 +52,11 @@ const i18n = createI18n({
   fallbackLocale: "en",
   messages
 });
+
 const store = createStore({
   modules: { cart }
 });
+
 function factory(): any {
   return shallowMount(CartProducts as any, {
     props: {},
@@ -64,38 +68,48 @@ function factory(): any {
 
 describe("Cart Products", () => {
   it("renders empty", () => {
-    const wrapper = factory();
-    console.log(wrapper.html());
+    const emptyStore = createStore({
+      modules: {
+        cart: {
+          ...cart,
+          state: {
+            ...cart.state,
+            paginatedItems: []
+          }
+        }
+      }
+    });
+    const wrapper = shallowMount(CartProducts, {
+      global: {
+        plugins: [[emptyStore, key], [i18n]]
+      }
+    });
     expect(wrapper.html()).toContain("np-cartProducts--empty");
   });
   it("renders with items", () => {
     const wrapper = factory();
     expect(wrapper.html()).toContain("np-cartProducts__item");
   });
-  it("hover renders product hover", async () => {
+  it("Hover on commits turnHoverOn", async () => {
     const wrapper = factory();
     await wrapper.find(".np-cartProducts__item").trigger("mouseover");
-    expect(wrapper.find(".np-cartProducts__item").html()).toContain(
-      "products-hover-stub"
-    );
+    expect(cart.mutations.turnHoverOn).toHaveBeenCalled();
   });
-  it("hover off renders product details", async () => {
+  it("hover off commits turnHoverOff", async () => {
     const wrapper = factory();
     await wrapper.find(".np-cartProducts__item").trigger("mouseover");
     await wrapper.find(".np-cartProducts__item").trigger("mouseleave");
-    expect(wrapper.find(".np-cartProducts__item").html()).toContain(
-      "products-details-stub"
-    );
+    expect(cart.mutations.turnHoverOff).toHaveBeenCalled();
   });
   it("renders buttons", () => {
     const wrapper = factory();
     expect(wrapper.html()).toContain("buttons-stub");
   });
-  it("calculates right price", () => {
+  it("displays right price", () => {
     const wrapper = factory();
     expect(
       wrapper.find(".np-cartProducts__item__price p:last-child").text()
-    ).toBe("$0.00");
+    ).toBe("$24.00");
   });
   it("pagination works", async () => {
     const wrapper = factory();

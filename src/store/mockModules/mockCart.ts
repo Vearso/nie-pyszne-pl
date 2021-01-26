@@ -12,53 +12,23 @@ const getters = {
   }
 };
 const mutations = {
-  prevPage(state: CartState) {
-    jest.fn();
-  },
-  nextPage(state: CartState) {
-    jest.fn();
-  },
-  setPage(state: CartState, page: number) {
-    jest.fn();
-  },
-  calculatePagesCount(state: CartState) {
-    jest.fn();
-  },
-  setPages(state: CartState) {
-    jest.fn();
-  },
-  addToCart(state: CartState, item: CartItem) {
-    jest.fn();
-  },
-  calculatePrice(state: CartState) {
-    jest.fn();
-  },
-  clearCart(state: CartState) {
-    jest.fn();
-  },
-  decrementQuantity(state: CartState, item: CartItem) {
-    jest.fn();
-  },
-  incrementQuantity(state: CartState, item: CartItem) {
-    jest.fn();
-  },
-  removeFromCart(state: CartState, item: CartItem) {
-    jest.fn();
-  },
-  turnHoverOn(state: CartState, item: CartItem) {
-    jest.fn();
-  },
-  turnHoverOff(state: CartState, item: CartItem) {
-    jest.fn();
-  }
+  prevPage: jest.fn(),
+  nextPage: jest.fn(),
+  setPage: jest.fn(),
+  calculatePagesCount: jest.fn(),
+  setPages: jest.fn(),
+  addToCart: jest.fn(),
+  calculatePrice: jest.fn(),
+  clearCart: jest.fn(),
+  decrementQuantity: jest.fn(),
+  incrementQuantity: jest.fn(),
+  removeFromCart: jest.fn(),
+  turnHoverOn: jest.fn(),
+  turnHoverOff: jest.fn()
 };
 const actions = {
-  addToCart(context: any, item: CartItem) {
-    jest.fn();
-  },
-  removeFromCart(context: any, item: CartItem) {
-    jest.fn();
-  }
+  addToCart: jest.fn(),
+  removeFromCart: jest.fn()
 };
 
 export default {

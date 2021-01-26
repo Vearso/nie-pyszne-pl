@@ -101,7 +101,6 @@ export default defineComponent({
     const page: ComputedRef<CartItem[]> = computed(
       () => store.getters["cart/getPage"]
     );
-    console.log(page.value);
     const pagesCount: ComputedRef<number> = computed(
       () => store.state.cart.pagesCount
     );
