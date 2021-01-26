@@ -1,7 +1,7 @@
 <template>
   <div
     class="product-list grid-cols-1"
-    v-if="items.length"
+    v-if="items?.length"
     :class="[displayList ? 'md:grid-cols-1' : 'md:grid-cols-3']"
   >
     <products-list-item
