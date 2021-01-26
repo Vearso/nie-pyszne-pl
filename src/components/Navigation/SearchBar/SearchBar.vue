@@ -3,6 +3,7 @@
     class="np-transparent-modal"
     :class="{ 'np-transparent-modal--active': isLiActive }"
     @click="toggleOrderList"
+    data-test="modal-test"
   ></div>
   <section class="np-search-bar">
     <button
@@ -43,12 +44,13 @@
       </div>
       <ul
         :class="isListActive('np-search-bar__filter-list--active')"
-        @click="setFoodOrder"
         class="np-search-bar__filter-list"
+        data-test="order-list-test"
       >
         <li
           :id="option.type"
           :key="option.type"
+          @click="setFoodOrder(option.type)"
           v-for="option in orderOptions"
           class="np-search-bar__filter-list-item"
         >
@@ -65,7 +67,7 @@ import DownArrowIcon from "@/assets/icons/icon-down-arrow.vue";
 import SearchIcon from "@/assets/icons/icon-search.vue";
 import SwitchIcon from "@/assets/icons/icon-switch.vue";
 import { computed, defineComponent, ref, ComputedRef } from "vue";
-import { useStore } from "@/store/index";
+import { useStore } from "@/store";
 import { OrderOption } from "@/store/navigationInterface";
 import router from "@/router";
 import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
@@ -91,7 +93,6 @@ export default defineComponent({
     );
 
     const changeFoodListView = function(): void {
-      console.log("1111");
       let listType = "";
       store.state.nav.displayAsList ? (listType = "grid") : (listType = "list");
       router.replace({
@@ -110,8 +111,7 @@ export default defineComponent({
       return isLiActive.value ? className : "";
     };
 
-    const setFoodOrder = (event: any): void => {
-      const type = event.target.closest(".np-search-bar__filter-list-item").id;
+    const setFoodOrder = (type: string): void => {
       const activeOrder: OrderOption | undefined = orderOptions.find(
         (option: OrderOption) => option.type === type
       );
