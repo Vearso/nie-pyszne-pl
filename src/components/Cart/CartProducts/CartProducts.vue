@@ -128,7 +128,6 @@ export default defineComponent({
     store.commit("cart/calculatePrice");
     store.commit("cart/calculatePagesCount");
     store.commit("cart/setPages");
-
     return {
       t,
       cart,
