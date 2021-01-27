@@ -6,6 +6,7 @@ import { createStore } from "vuex";
 import nav from "@/store/modules/navigation";
 import cart from "@/store/modules/cart";
 import { key } from "@/store";
+import mockCart from "@/store/mockModules/mockCart";
 
 const i18n = createI18n({
   legacy: false,
@@ -58,6 +59,15 @@ describe("Products list", () => {
     expect(wrapper.findComponent({ name: "products-list-item" }).exists()).toBe(
       false
     );
+  });
+  it("dispatches addToCart action on click", async () => {
+    const wrapper = createWrapper(ProductsList, {
+      cart: { ...mockCart, state: {} },
+      nav,
+      products: { state: { products: [1, 2, 3] } }
+    });
+    await wrapper.find(".product-list-item").trigger("click");
+    expect(mockCart.actions.addToCart).toHaveBeenCalled();
   });
   it("does not render pagination when there is less pages than 2", () => {
     const wrapper = createWrapper(ProductsList, {

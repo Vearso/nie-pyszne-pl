@@ -20,7 +20,6 @@
 import Arrow from "@/assets/icons/icon-arrow.vue";
 import { defineComponent, computed, Ref, ComputedRef, ref, watch } from "vue";
 import { useStore } from "@/store";
-import { FoodListItem } from "@/store/navigationInterface";
 
 interface ChangeEvent {
   target: {
@@ -59,7 +58,7 @@ export default defineComponent({
       ) {
         inputValue.value = currentPage.value;
       }
-      store.commit("products/setPage", inputValue.value);
+      store.commit("products/setPage", +inputValue.value);
     };
 
     const updateList = () => {
