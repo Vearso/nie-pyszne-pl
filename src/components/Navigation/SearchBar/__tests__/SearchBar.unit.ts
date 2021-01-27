@@ -1,6 +1,21 @@
 import SearchBar from "@/components/Navigation/SearchBar/SearchBar.vue";
 import { mount } from "@vue/test-utils";
 import router from "@/router";
+import { createStore } from "vuex";
+import { key } from "@/store";
+import navStore from "@/store/modules/navigation.ts";
+import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
+
+const createVuexStore = (): any => createStore({ modules: { navStore } });
+
+const factory = () => {
+  const store = createVuexStore();
+  return mount(SearchBar, {
+    global: {
+      plugins: [[store, key]]
+    }
+  });
+};
 
 // const i18n = createI18n({
 //   legacy: false,
@@ -75,28 +90,19 @@ describe("list view", () => {
         }
       }
     });
-    // console.log(wrapper);
-    // const test = jest.spyOn((wrapper as any).componentVM, 'changeFoodListView');
     await wrapper.find("[data-test='searchbar-li-view-btn']").trigger("click");
     expect(mockFn).toHaveBeenCalled();
   });
 
-  // it("changes color on hover", async ()=>{
-  //   const wrapper = mount(SearchBar);
-  //   console.log(wrapper);
-  //   const svg = wrapper.find(".np-search-bar__toggle-list-view");
-  //   await wrapper.trigger("mouseenter");
-  //   const styles = window.getComputedStyle(svg);
-  //
-  //   expect(styles.fill).toBe('#6c63ff"');
-  //  .toHaveStyles()
-  // })
+  it("changes color on hover", async () => {
+    const wrapper = mount(SearchBar);
+    // console.log(wrapper);
+    await wrapper.trigger("mouseenter");
+    const svg = wrapper.find(".np-search-bar__toggle-list-view").find("svg");
 
-  // it("toggles to list", () => {});
-  //
-  // it("sets query params", () => {});
-  //
-  // it("query sets list view", () => {});
+    console.log(svg.element.style);
+    // expect(svg.element).toHaveStyle('fill: #6c63ff');
+  });
 });
 
 describe("order option", () => {
@@ -130,6 +136,24 @@ describe("order option", () => {
 
     expect(wrapper.findAll(".np-search-bar__filter-list-item").length).toBe(4);
   });
+
+  it("setFoodOrder function fires", async () => {
+    const mockFn = jest.fn();
+    const wrapper = mount(SearchBar, {
+      global: {
+        mocks: {
+          setFoodOrder: mockFn
+        }
+      }
+    });
+    const orderOption = orderOptionsList[2];
+
+    const liId = orderOption.type;
+    console.log(wrapper.find(`#${liId}`));
+    await wrapper.find(`#${liId}`).trigger("click");
+
+    expect(mockFn).toHaveBeenCalled();
+  });
 });
 
 describe("filter input", () => {
@@ -156,17 +180,4 @@ describe("filter input", () => {
   //   console.log(inputVal.element.value);
   //
   // })
-
-  it("test input fires event", async () => {
-    const mockFn = jest.fn();
-    const wrapper = mount(SearchBar, {
-      global: {
-        plugins: {}
-      }
-    });
-
-    await wrapper.find("input").setValue("XD");
-
-    expect(mockFn).toHaveBeenCalled();
-  });
 });

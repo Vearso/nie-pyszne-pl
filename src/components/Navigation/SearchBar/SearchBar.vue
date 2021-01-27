@@ -73,6 +73,7 @@ import router from "@/router";
 import orderOptionsList from "@/components/Navigation/SearchBar/orderOptionsList";
 
 export default defineComponent({
+  name: "SearchBar",
   components: {
     ListIcon,
     DownArrowIcon,
