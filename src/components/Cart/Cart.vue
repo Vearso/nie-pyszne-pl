@@ -43,7 +43,6 @@ export default defineComponent({
     Summary,
     UserAvatar
   },
-
   setup() {
     const store = useStore();
 

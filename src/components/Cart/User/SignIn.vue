@@ -1,7 +1,7 @@
 <template>
   <div class="np-sign-in">
     <h2 class="np-sign-in__title">{{ t("signIn") }}</h2>
-    <VForm :validation-schema="schema" @submit="onSubmit">
+    <VForm :validation-schema="schema" @submit="atSubmit">
       <div class="field-container">
         <VField name="email" :placeholder="t('email')" />
         <ErrorMessage name="email" />
@@ -58,7 +58,7 @@ export default defineComponent({
 
     const fbError: ComputedRef<string> = computed(() => store.state.user.error);
 
-    const onSubmit = (values: FormValues): void => {
+    const atSubmit = (values: FormValues): void => {
       store.dispatch("user/doSignInUser", values).then(() => {
         if (!store.state.user.error.length) {
           goHome();
@@ -77,7 +77,7 @@ export default defineComponent({
       fbError,
       t,
       ROUTE_SIGNUP,
-      onSubmit,
+      atSubmit,
       goBack
     };
   }
